@@ -2025,6 +2025,14 @@ minimist@^1.2.0:
   dependencies:
     minimist "0.0.8"
 
+moment-precise-range-plugin@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/moment-precise-range-plugin/-/moment-precise-range-plugin-1.2.0.tgz#b091c9e953b908104e418e973b3416daebf23e9a"
+
+moment@^2.17.1:
+  version "2.17.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.17.1.tgz#fed9506063f36b10f066c8b59a144d7faebe1d82"
+
 morgan:
   version "1.7.0"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.7.0.tgz#eb10ca8e50d1abe0f8d3dad5c0201d052d981c62"

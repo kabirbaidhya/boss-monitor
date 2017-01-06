@@ -1,6 +1,8 @@
 import config from './../config/config';
 import logger from './../foundation/logger';
 import { STATUS_UP, checkHostStatus, getCheckInterval } from './../services/status';
+import { notify } from './../services/notifer';
+import moment from 'moment';
 
 class Monitor {
     constructor(service) {
@@ -32,23 +34,29 @@ class Monitor {
 
     handleStatusChange(newStatus) {
         let {name, status} = this.service;
-        let currentTime = new Date();
+        let currentTime = moment();
+        let params = {
+            name,
+            status: newStatus,
+            time: currentTime.clone(),
+            lastStatusChanged: this.lastStatusChanged ? moment(this.lastStatusChanged).clone() : null
+        };
 
         if (newStatus === STATUS_UP && this.lastStatusChanged) {
-            let diff = calculateTimeDiff(this.lastStatusChanged, currentTime);
+            let downtime = currentTime.diff(this.lastStatusChanged);
+            params.downtime = moment.duration(downtime, 'milliseconds').humanize();
 
-            logger.info(`${name} is up after ${diff} seconds of downtime.`);
+            logger.info(`${name} is up after ${params.downtime} of downtime.`);
         } else {
             logger.info(`${name} is ${newStatus}`);
         }
 
+        // Send notifications
+        notify(params);
+
         this.service.status = newStatus;
         this.lastStatusChanged = currentTime; // Set the status changed date to current time.
     }
-}
-
-function calculateTimeDiff(date1, date2) {
-    return Math.ceil(date2.getTime() - date1.getTime()) / 1000; // Seconds
 }
 
 export default Monitor;

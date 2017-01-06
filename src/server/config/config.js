@@ -14,6 +14,7 @@ const defaultConfig = {
         method: 'OPTIONS',
         downStatus: '^(5..|4..)$',
     },
+    notifications: [],
     services: []
 };
 let loadedConfig = Yaml.load(CONFIG_FILE_NAME);
