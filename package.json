@@ -1,0 +1,36 @@
+{
+  "name": "nodejs-sample-app",
+  "version": "0.0.1",
+  "description": "Boss Monitor",
+  "author": "Kabir Baidhya <kabirbaidhya@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "run-s start:dev",
+    "start:dev": "nodemon --exec babel-node src/server/index.js",
+    "lint": "eslint .",
+    "clean": "rimraf dist/",
+    "build": "run-s lint clean babel",
+    "babel": "babel src/ -d dist/",
+    "list:routes": "babel-node ./resources/scripts/list-routes.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.6",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "winston": "^2.3.0",
+    "request": "^2.72.0",
+    "request-promise": "^4.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-eslint": "^5.0.0",
+    "babel-plugin-transform-object-assign": "^6.8.0",
+    "babel-preset-es2015": "^6.18.0",
+    "eslint": "2.2.0",
+    "express-list-routes": "^0.1.4",
+    "foreman": "^2.0.0",
+    "nodemon": "^1.11.0",
+    "npm-run-all": "^3.1.1",
+    "rimraf": "^2.5.4"
+  }
+}

@@ -1,0 +1,8 @@
+{
+    "verbose": false,
+    "ignore": [
+        "src/app",
+        "dist",
+        "public"
+    ]
+}
