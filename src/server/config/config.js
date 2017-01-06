@@ -1,8 +1,10 @@
 import Promise from 'bluebird';
+import Yaml from 'yamljs';
 
 global.Promise = Promise;
 
-export default {
+const CONFIG_FILE_NAME = 'boss-monitor.yml';
+const defaultConfig = {
     logging: {
         level: process.env.LOGGING_LEVEL || 'info'
     },
@@ -12,22 +14,10 @@ export default {
         method: 'OPTIONS',
         downStatus: '^(5..|4..)$',
     },
-    services: [
-        {
-            name: 'Ontarget Java Web API',
-            url: 'http://127.0.0.1:8080'
-        },
-        {
-            name: 'Ontarget Model API',
-            url: 'https://127.0.0.1:8000'
-        },
-        {
-            name: 'Ontarget NIOS API',
-            url: 'https://127.0.0.1:9001'
-        },
-        {
-            name: 'Test python server',
-            url: 'http://127.0.0.1:4321'
-        }
-    ]
+    services: []
 };
+let loadedConfig = Yaml.load(CONFIG_FILE_NAME);
+let config = Object.assign({}, defaultConfig, loadedConfig);
+
+console.log('Config loaded', config);
+export default config;
