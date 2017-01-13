@@ -29,7 +29,7 @@ export function notify(params) {
         return Promise.resolve();
     }
 
-    console.log('the params = ', params);
+    logger.debug('Notification Params:', params);
     let payload = getPayload(params);
 
     return sendNotification(payload)
@@ -69,8 +69,7 @@ function sendNotification(payload) {
     const url = HOOK_BASE_URI + config.notifications.slack.endpoint;
 
     logger.info('Sending notification to slack.');
-    console.log('payload = ', payload);
-    return Promise.resolve();
+    logger.debug('Slack Payload:', payload);
 
     return rp({
         url,
