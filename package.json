@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "run-s start:dev",
-    "start:dev": "nodemon --exec babel-node src/server/index.js",
+    "start:dev": "nodemon --exec babel-node src/index.js",
     "lint": "eslint .",
     "clean": "rimraf dist/",
     "build": "run-s lint clean babel",
