@@ -7,16 +7,16 @@ const HOOK_BASE_URI = 'https://hooks.slack.com/services';
 const slackParams = {
     [STATUS_UP]: {
         text: (name, downtime) => {
-            return `${name} is up` + (downtime > 0 ? ` after ${downtime} of downtime.` : '.')
+            return `${name} is up` + (downtime > 0 ? ` after ${downtime} of downtime.` : '.');
         },
         title: 'Service is Up',
-        color: 'good',
+        color: 'good'
     },
 
     [STATUS_DOWN]: {
         text: (name) => `${name} went down.`,
         title: 'Service is Down',
-        color: 'danger',
+        color: 'danger'
     }
 };
 
@@ -35,6 +35,7 @@ export function notify(params) {
     return sendNotification(payload)
         .then(result => {
             logger.info('Sent notification to slack.');
+            logger.debug('Result:', result);
         })
         .catch(err => {
             logger.error('Error sending notification to slack.', err);
@@ -45,13 +46,12 @@ export function notify(params) {
 function getPayload(params) {
     const {status, name} = params;
 
-    let {title, text, color} = slackParams[status];
+    let {text, color} = slackParams[status];
 
     return {
         text: text(name, params.downtime),
         attachments: [
             {
-                // title,
                 color: color,
                 fields: [
                     {

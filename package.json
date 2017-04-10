@@ -10,8 +10,7 @@
     "lint": "eslint .",
     "clean": "rimraf dist/",
     "build": "run-s lint clean babel",
-    "babel": "babel src/ -d dist/",
-    "list:routes": "babel-node ./resources/scripts/list-routes.js"
+    "babel": "babel src/ -d dist/"
   },
   "dependencies": {
     "bluebird": "^3.4.6",

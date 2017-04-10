@@ -1,4 +1,3 @@
-import config from './../config/config';
 import logger from './../foundation/logger';
 import { STATUS_UP, checkHostStatus, getCheckInterval } from './../services/status';
 import { notify } from './../services/notifer';
@@ -21,6 +20,7 @@ class Monitor {
 
         checkHostStatus(url).then(status => {
             let interval = getCheckInterval(status, minInterval, maxInterval);
+
             logger.debug(`Status of ${name} service is ${status}`);
 
             // If the status has changed
@@ -33,7 +33,7 @@ class Monitor {
     }
 
     handleStatusChange(newStatus) {
-        let {name, status} = this.service;
+        let {name} = this.service;
         let currentTime = moment();
         let params = {
             name,
@@ -44,6 +44,7 @@ class Monitor {
 
         if (newStatus === STATUS_UP && this.lastStatusChanged) {
             let downtime = currentTime.diff(this.lastStatusChanged);
+
             params.downtime = moment.duration(downtime, 'milliseconds').humanize();
 
             logger.info(`${name} is up after ${params.downtime} of downtime.`);

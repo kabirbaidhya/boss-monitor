@@ -1,5 +1,4 @@
 import config from './config/config';
-import logger from './foundation/logger';
 import Monitor from './monitoring/Monitor';
 
 config.services.forEach(service => {
