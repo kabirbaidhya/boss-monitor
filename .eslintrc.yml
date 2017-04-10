@@ -1,0 +1,21 @@
+env:
+    es6: true
+    node: true
+
+parserOptions:
+    ecmaVersion: 2017
+    sourceType: module
+
+extends: 'eslint:recommended'
+
+rules:
+  comma-dangle: [2, never]
+  callback-return: 2
+  handle-callback-err: 2
+  max-statements: [2, 30]
+  quotes: [2, 'single', {'allowTemplateLiterals': true}]
+  semi: [2, 'always']
+  spaced-comment: 2
+  space-infix-ops: 2
+  newline-before-return: 2
+  newline-after-var: 2
