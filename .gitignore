@@ -3,4 +3,4 @@ dist
 .env
 *.log
 public/build
-boss-monitor.yml
+chill.yml

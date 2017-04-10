@@ -3,7 +3,7 @@ import Yaml from 'yamljs';
 
 global.Promise = Promise;
 
-const CONFIG_FILE_NAME = 'boss-monitor.yml';
+const CONFIG_FILE_NAME = 'chill.yml';
 const defaultConfig = {
     logging: {
         level: process.env.LOGGING_LEVEL || 'info'

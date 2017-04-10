@@ -1,7 +1,7 @@
 {
-  "name": "nodejs-sample-app",
-  "version": "0.0.1",
-  "description": "Boss Monitor",
+  "name": "node-chill",
+  "version": "0.0.0",
+  "description": "Chill - The monitoring tool.",
   "author": "Kabir Baidhya <kabirbaidhya@gmail.com>",
   "license": "MIT",
   "scripts": {
