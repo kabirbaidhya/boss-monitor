@@ -10,12 +10,13 @@
   "scripts": {
     "start": "run-s start:dev",
     "start:dev": "nodemon --exec babel-node src/index.js",
+    "clean": "rimraf dist/",
     "lint": "eslint src test",
+    "babel": "babel src/ -d dist/",
+    "build": "run-s lint clean babel",
     "lint:fix": "eslint src test --fix",
     "test": "NODE_ENV=test mocha --recursive --require babel-register test",
-    "clean": "rimraf dist/",
-    "build": "run-s lint clean babel",
-    "babel": "babel src/ -d dist/"
+    "test:coverage": "NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- --recursive --require babel-register --colors --reporter spec test"
   },
   "dependencies": {
     "bluebird": "^3.4.6",
@@ -40,6 +41,7 @@
     "eslint": "^3.19.0",
     "express-list-routes": "^0.1.4",
     "foreman": "^2.0.0",
+    "istanbul": "1.1.0-alpha.1",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^3.1.1",
