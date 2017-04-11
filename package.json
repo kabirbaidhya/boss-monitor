@@ -15,6 +15,7 @@
     "babel": "babel src/ -d dist/",
     "build": "run-s lint clean babel",
     "lint:fix": "eslint src test --fix",
+    "codecov": "cat coverage/*/lcov.info | codecov",
     "test": "NODE_ENV=test mocha --recursive --require babel-register test",
     "test:coverage": "NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- --recursive --require babel-register --colors --reporter spec test"
   },
@@ -38,6 +39,7 @@
     "babel-preset-es2017": "^6.24.1",
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
+    "codecov": "^2.1.0",
     "eslint": "^3.19.0",
     "express-list-routes": "^0.1.4",
     "foreman": "^2.0.0",
