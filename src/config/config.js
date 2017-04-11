@@ -17,7 +17,8 @@ const defaultConfig = {
     notifications: [],
     services: []
 };
-let loadedConfig = Yaml.load(CONFIG_FILE_NAME);
-let config = Object.assign({}, defaultConfig, loadedConfig);
+
+const loadedConfig = Yaml.load(CONFIG_FILE_NAME);
+const config = Object.assign({}, defaultConfig, loadedConfig);
 
 export default config;

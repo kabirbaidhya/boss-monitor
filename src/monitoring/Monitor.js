@@ -1,7 +1,7 @@
-import logger from './../foundation/logger';
-import { STATUS_UP, checkHostStatus, getCheckInterval } from './../services/status';
-import { notify } from './../services/notifer';
 import moment from 'moment';
+import logger from './../foundation/logger';
+import { notify } from './../services/notifier';
+import { STATUS_UP, checkHostStatus, getCheckInterval } from './../services/status';
 
 class Monitor {
     constructor(service) {
