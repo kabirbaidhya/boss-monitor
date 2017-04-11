@@ -1,4 +1,4 @@
-# Chill Monitor
+# Chill
 
 [![Build Status](https://travis-ci.org/leapfrogtechnology/chill.svg?branch=master)](https://travis-ci.org/leapfrogtechnology/chill) [![codecov](https://codecov.io/gh/leapfrogtechnology/chill/branch/master/graph/badge.svg)](https://codecov.io/gh/leapfrogtechnology/chill)
 
