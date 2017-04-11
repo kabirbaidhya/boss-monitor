@@ -1,5 +1,5 @@
-import Promise from 'bluebird';
 import Yaml from 'yamljs';
+import Promise from 'bluebird';
 
 global.Promise = Promise;
 

@@ -42,11 +42,10 @@ export function notify(params) {
         });
 }
 
-
 function getPayload(params) {
-  const {status, name} = params;
+  const { status, name } = params;
 
-  let {text, color} = slackParams[status];
+  let { text, color } = slackParams[status];
 
   return {
     text: text(name, params.downtime),

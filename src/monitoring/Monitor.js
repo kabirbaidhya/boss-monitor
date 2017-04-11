@@ -16,14 +16,14 @@ class Monitor {
   }
 
   doMonitor() {
-    let {url, name, minInterval, maxInterval} = this.service;
+    let { url, name, minInterval, maxInterval } = this.service;
 
     checkHostStatus(url).then(status => {
       let interval = getCheckInterval(status, minInterval, maxInterval);
 
       logger.debug(`Status of ${name} service is ${status}`);
 
-            // If the status has changed
+      // If the status has changed
       if (this.service.status !== status) {
         this.handleStatusChange(status);
       }
@@ -33,7 +33,7 @@ class Monitor {
   }
 
   handleStatusChange(newStatus) {
-    let {name} = this.service;
+    let { name } = this.service;
     let currentTime = moment();
     let params = {
       name,
@@ -52,7 +52,7 @@ class Monitor {
       logger.info(`${name} is ${newStatus}`);
     }
 
-        // Send notifications
+    // Send notifications
     notify(params);
 
     this.service.status = newStatus;
