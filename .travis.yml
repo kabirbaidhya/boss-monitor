@@ -1,2 +1,10 @@
+language: node_js
+node_js:
+  - "7"
+  - "6"
+before_script:
+  - cp chill.yml.dist chill.yml
+script:
+  - npm run test:coverage
 notifications:
-    hipchat: edf5ec8197d2496883113ea2d6449a@3743872
+  hipchat: edf5ec8197d2496883113ea2d6449a@3743872
