@@ -1,6 +1,10 @@
-node_modules
+# Folders
 dist
+coverage
+node_modules
+public/build
+
+# Files
 .env
 *.log
-public/build
 chill.yml
