@@ -1,4 +1,4 @@
-# Boss Monitor
+# Chill Monitor
 A simple service monitoring tool.
 
 ## Setup
@@ -21,3 +21,7 @@ If you have `node-foreman` installed globally you can do
 ```
 $ nf start
 ```
+
+## License
+
+[MIT](LICENSE.md)
