@@ -10,6 +10,8 @@ parserOptions:
 extends: 'eslint:recommended'
 
 rules:
+  no-var: 2
+  key-spacing: 2
   spaced-comment: 2
   callback-return: 2
   space-infix-ops: 2
@@ -17,7 +19,11 @@ rules:
   handle-callback-err: 2
   newline-before-return: 2
   semi: [2, 'always']
+  eqeqeq: [2, 'always']
+  eol-last: [2, 'always']
   max-statements: [2, 30]
   comma-dangle: [2, never]
   indent: [2, 2, {'SwitchCase': 1}]
+  object-curly-spacing: [2, 'always']
+  comma-spacing: [2, {'before': false, 'after': true}]
   quotes: [2, 'single', {'allowTemplateLiterals': true}]
