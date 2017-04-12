@@ -3,7 +3,7 @@ import config from '../config/config';
 
 const logger = new (winston.Logger)({
   transports: [
-    new winston.transports.Console({colorize: true})
+    new winston.transports.Console({ colorize: true })
   ]
 });
 
