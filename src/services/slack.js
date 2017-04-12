@@ -1,6 +1,6 @@
 import rp from 'request-promise';
+import logger from './../utils/logger';
 import config from './../config/config';
-import logger from './../foundation/logger';
 import { STATUS_UP, STATUS_DOWN } from './../services/status';
 
 const HOOK_BASE_URI = 'https://hooks.slack.com/services';

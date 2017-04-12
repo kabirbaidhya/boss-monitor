@@ -1,5 +1,5 @@
 import moment from 'moment';
-import logger from './../foundation/logger';
+import logger from './../utils/logger';
 import { notify } from './../services/notifier';
 import { STATUS_UP, checkHostStatus, getCheckInterval } from './../services/status';
 
