@@ -16,7 +16,7 @@
     "build": "run-s lint clean babel",
     "lint:fix": "eslint src test --fix",
     "codecov": "cat coverage/*/lcov.info | codecov",
-    "test": "NODE_ENV=test mocha --recursive --require babel-register test",
+    "test": "NODE_ENV=test mocha",
     "test:coverage": "NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- --recursive --require babel-register --colors --reporter spec test"
   },
   "dependencies": {
