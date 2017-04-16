@@ -27,4 +27,4 @@ $ nf start
 
 ## License
 
-[MIT](LICENSE.md)
+Chill is licensed under the [MIT License](LICENSE.md).
