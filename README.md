@@ -1,6 +1,7 @@
 # Chill
 
-[![Build Status](https://travis-ci.org/leapfrogtechnology/chill.svg?branch=master)](https://travis-ci.org/leapfrogtechnology/chill) [![codecov](https://codecov.io/gh/leapfrogtechnology/chill/branch/master/graph/badge.svg)](https://codecov.io/gh/leapfrogtechnology/chill)
+[![Build Status](https://img.shields.io/travis/leapfrogtechnology/chill.svg?style=flat-square)](https://travis-ci.org/leapfrogtechnology/chill)
+[![Codecov](https://img.shields.io/codecov/c/github/leapfrogtechnology/chill.svg?style=flat-square)](https://codecov.io/github/leapfrogtechnology/chill?branch=master)
 
 A simple service monitoring tool.
 
