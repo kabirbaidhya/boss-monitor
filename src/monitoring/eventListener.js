@@ -1,7 +1,7 @@
 import moment from 'moment';
 import logger from './../utils/logger';
-import { STATUS_UP } from '../services/status';
 import * as events from '../services/events';
+import { STATUS_UP } from '../services/status';
 import * as notifier from '../services/notifier';
 
 /**

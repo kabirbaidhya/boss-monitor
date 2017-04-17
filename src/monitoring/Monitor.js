@@ -22,7 +22,7 @@ class Monitor {
 
     logger.debug(`Status of ${name} service is ${status}`);
 
-    if (this.hasStatusChanged(status)) {
+    if (this.isStatusDifferent(status)) {
       this.handleStatusChange(status);
     }
 
@@ -30,7 +30,7 @@ class Monitor {
     setTimeout(this.startMonitoring.bind(this), interval);
   }
 
-  hasStatusChanged(status) {
+  isStatusDifferent(status) {
     return (this.service.status !== status);
   }
 
