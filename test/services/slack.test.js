@@ -1,4 +1,5 @@
 import sinon from 'sinon';
+import faker from 'faker';
 import { assert } from 'chai';
 import rp from 'request-promise';
 import config from '../../src/config/config';
@@ -19,7 +20,7 @@ describe('slack.isEnabled', () => {
   it('should return true if slack notification is enabled.', () => {
     sandbox.stub(config.notifications, 'slack', {
       enabled: true,
-      endpoint: 'foo'
+      endpoint: faker.random.word()
     });
 
     assert.isTrue(slack.isEnabled());
@@ -34,7 +35,7 @@ describe('slack.isEnabled', () => {
 
 describe('slack.notify', () => {
   let sandbox;
-  let slackEndpoint = '/just-a-test-slack-endpoint'; // TODO: Use faker.
+  let slackEndpoint = faker.random.word();
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
@@ -49,7 +50,7 @@ describe('slack.notify', () => {
   });
 
   it('should send the notification payload to the slack API endpoint.', () => {
-    let rpStub = sandbox.stub(rp, 'post', params => {
+    let rpStub = sandbox.stub(rp, 'post').callsFake(params => {
       assert.match(params.url, new RegExp(`^https://.*${slackEndpoint}$`));
       assert.isObject(params.body);
 
@@ -59,7 +60,7 @@ describe('slack.notify', () => {
     // Trigger the notification.
     slack.notify({
       status: STATUS_UP,
-      name: 'foo service'
+      name: faker.random.word()
     });
 
     assert(rpStub.calledOnce);
