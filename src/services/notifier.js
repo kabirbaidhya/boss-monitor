@@ -2,10 +2,10 @@ import * as slack from './slack';
 import logger from './../utils/logger';
 
 /**
- * List of notifier services.
+ * Available Notifier services.
  */
 const notifiers = {
-  'slack': slack
+  slack
 };
 
 /**

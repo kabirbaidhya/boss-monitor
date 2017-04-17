@@ -20,15 +20,15 @@ describe('Monitor.handleStatusChange', () => {
     let status = STATUS_UP;
     let serviceName = faker.random.word();
     let monitor = new Monitor({ name: serviceName });
-    let spy = sandbox.stub().callsFake(params => {
+    let listener = sandbox.stub().callsFake(params => {
       assert.equal(params.serviceName, serviceName);
       assert.equal(params.status, status);
     });
 
-    events.addListener(events.EVENT_STATUS_CHANGED, spy);
+    events.addListener(events.EVENT_STATUS_CHANGED, listener);
 
     monitor.handleStatusChange(status);
 
-    assert(spy.calledOnce);
+    assert(listener.calledOnce);
   });
 });
