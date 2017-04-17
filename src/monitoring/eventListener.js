@@ -9,7 +9,7 @@ import * as notifier from '../services/notifier';
  */
 export function listen() {
   events.addListener(events.EVENT_STATUS_CHANGED, handleStatusChange);
-  events.addListener(events.EVENT_MONITOING_STARTED, handleMonitoringStarted);
+  events.addListener(events.EVENT_MONITORING_STARTED, handleMonitoringStarted);
 }
 
 /**

@@ -11,7 +11,7 @@ class Monitor {
   }
 
   start() {
-    events.trigger(events.EVENT_MONITOING_STARTED, { serviceName: this.service.name });
+    events.trigger(events.EVENT_MONITORING_STARTED, { serviceName: this.service.name });
     this.startMonitoring();
   }
 

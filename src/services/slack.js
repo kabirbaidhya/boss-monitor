@@ -44,7 +44,7 @@ export async function notify(params) {
   let payload = preparePayload(params);
 
   try {
-    let result = sendNotification(payload);
+    let result = await sendNotification(payload);
 
     logger.info('Sent notification to slack.');
     logger.debug('Result:', result);
