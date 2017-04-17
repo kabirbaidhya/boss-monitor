@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import config from './config/config';
 import Monitor from './monitoring/Monitor';
 

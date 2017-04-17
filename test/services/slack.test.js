@@ -35,7 +35,7 @@ describe('slack.isEnabled', () => {
 
 describe('slack.notify', () => {
   let sandbox;
-  let slackEndpoint = faker.random.word();
+  let slackEndpoint = faker.lorem.slug();
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();

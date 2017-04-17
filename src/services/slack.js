@@ -35,7 +35,7 @@ export function isEnabled() {
  * @param {Object} params 
  * @returns {Promise}
  */
-export function notify(params) {
+export async function notify(params) {
   if (!isEnabled()) {
     return Promise.resolve();
   }
@@ -43,14 +43,14 @@ export function notify(params) {
   logger.debug('Notification Params:', params);
   let payload = preparePayload(params);
 
-  return sendNotification(payload)
-        .then(result => {
-          logger.info('Sent notification to slack.');
-          logger.debug('Result:', result);
-        })
-        .catch(err => {
-          logger.error('Error sending notification to slack.', err);
-        });
+  try {
+    let result = sendNotification(payload);
+
+    logger.info('Sent notification to slack.');
+    logger.debug('Result:', result);
+  } catch (err) {
+    logger.error('Error sending notification to slack.', err);
+  }
 }
 
 /**
