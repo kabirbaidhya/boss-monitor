@@ -7,6 +7,12 @@ monitoring:
   method: OPTIONS
   downStatus: '^(5..|4..)$'
 
+notifications:
+  slack:
+    enabled: false
+    endpoint: SLACK_WEBHOOK_ENDPOINT_HERE
+
+
 services:
   - 
     name: 'Localhost'
