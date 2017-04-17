@@ -4,8 +4,6 @@ node_js:
   - "6"
   - "5"
   - "4"
-before_script:
-  - cp chill.yml.dist chill.yml
 script:
   - yarn test:coverage
 after_script:
