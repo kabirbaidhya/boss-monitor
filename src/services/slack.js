@@ -93,9 +93,8 @@ function sendNotification(payload) {
   logger.info('Sending notification to slack.');
   logger.debug('Slack Payload:', payload);
 
-  return rp({
+  return rp.post({
     url,
-    method: 'POST',
     json: true,
     body: payload
   });
