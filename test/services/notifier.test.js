@@ -6,13 +6,15 @@ import * as notifier from '../../src/services/notifier';
 
 describe('notifier.notify', () => {
   let notify;
+  let sandbox;
 
   beforeEach(() => {
-    notify = sinon.spy(slack, 'notify');
+    sandbox = sinon.sandbox.create();
+    notify = sandbox.stub(slack, 'notify');
   });
 
   afterEach(() => {
-    notify.restore();
+    sandbox.restore();
   });
 
   it('should notify if slack is enabled', () => {
