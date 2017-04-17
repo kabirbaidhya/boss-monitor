@@ -42,7 +42,7 @@ describe('slack.notify', () => {
     sandbox.stub(config.notifications, 'slack', {
       enabled: true,
       endpoint: slackEndpoint
-    })
+    });
   });
 
   afterEach(() => {
