@@ -12,30 +12,32 @@ class Monitor {
 
   start() {
     events.trigger(events.EVENT_MONITOING_STARTED, { serviceName: this.service.name });
-    this.doMonitor();
+    this.startMonitoring();
   }
 
-  doMonitor() {
+  async startMonitoring() {
     let { url, name, minInterval, maxInterval } = this.service;
+    let status = await checkHostStatus(url);
+    let interval = getCheckInterval(status, minInterval, maxInterval);
 
-    checkHostStatus(url).then(status => {
-      let interval = getCheckInterval(status, minInterval, maxInterval);
+    logger.debug(`Status of ${name} service is ${status}`);
 
-      logger.debug(`Status of ${name} service is ${status}`);
+    if (this.hasStatusChanged(status)) {
+      this.handleStatusChange(status);
+    }
 
-      if (this.service.status !== status) {
-        this.handleStatusChange(status);
-      }
-
-      logger.debug(`Check interval for ${name} = ${interval}`);
-      setTimeout(this.doMonitor.bind(this), interval);
-    });
+    logger.debug(`Check interval for ${name} = ${interval}`);
+    setTimeout(this.startMonitoring.bind(this), interval);
   }
 
-  handleStatusChange(newStatus) {
+  hasStatusChanged(status) {
+    return (this.service.status !== status);
+  }
+
+  handleStatusChange(status) {
     let currentTime = moment();
     let params = {
-      status: newStatus,
+      status,
       serviceName: this.service.name,
       oldStatus: this.service.status,
       time: currentTime.clone(),
@@ -46,7 +48,7 @@ class Monitor {
     events.trigger(events.EVENT_STATUS_CHANGED, params);
     logger.debug(`Event triggered ${events.EVENT_STATUS_CHANGED} with params`, params);
 
-    this.service.status = newStatus;
+    this.service.status = status;
     this.lastStatusChanged = currentTime; // Set the status changed date to current time.
   }
 }
