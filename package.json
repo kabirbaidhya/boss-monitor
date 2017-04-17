@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "bluebird": "^3.4.6",
-    "express": "^4.14.0",
     "moment": "^2.17.1",
     "moment-precise-range-plugin": "^1.2.0",
     "morgan": "^1.7.0",
@@ -42,9 +41,7 @@
     "chai": "^3.5.0",
     "codecov": "^2.1.0",
     "eslint": "^3.19.0",
-    "express-list-routes": "^0.1.4",
     "faker": "^4.1.0",
-    "foreman": "^2.0.0",
     "istanbul": "1.1.0-alpha.1",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
