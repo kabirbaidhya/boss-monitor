@@ -5,10 +5,11 @@ import * as events from '../services/events';
 import * as notifier from '../services/notifier';
 
 /**
- * Start listening for events.
+ * Start listening for monitor events.
  */
 export function listen() {
   events.addListener(events.EVENT_STATUS_CHANGED, handleStatusChange);
+  events.addListener(events.EVENT_MONITOING_STARTED, handleMonitoringStarted);
 }
 
 /**
@@ -37,4 +38,13 @@ function handleStatusChange(params) {
 
   // Send notifications
   notifier.notify(notification);
+}
+
+/**
+ * Handle service monitoring started event.
+ * 
+ * @param {Object} params
+ */
+function handleMonitoringStarted(params) {
+  logger.info(`Started monitoring ${params.serviceName}`);
 }

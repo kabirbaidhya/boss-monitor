@@ -2,6 +2,7 @@ import EventEmitter from 'events';
 
 // Public constants
 export const EVENT_STATUS_CHANGED = 'status-changed';
+export const EVENT_MONITOING_STARTED = 'started-monitoring';
 
 let emitter = new EventEmitter();
 

@@ -11,7 +11,7 @@ class Monitor {
   }
 
   start() {
-    logger.info(`Started watching ${this.service.name}`);
+    events.trigger(events.EVENT_MONITOING_STARTED, { serviceName: this.service.name });
     this.doMonitor();
   }
 
