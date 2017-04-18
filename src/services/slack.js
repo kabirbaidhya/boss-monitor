@@ -20,29 +20,46 @@ const slackParams = {
   }
 };
 
+/**
+ * Check if slack notifications are enabled.
+ * 
+ * @returns {Boolean}
+ */
 export function isEnabled() {
   return config.notifications.slack && config.notifications.slack.enabled;
 }
 
-export function notify(params) {
+/**
+ * Send slack notification.
+ * 
+ * @param {Object} params 
+ * @returns {Promise}
+ */
+export async function notify(params) {
   if (!isEnabled()) {
     return Promise.resolve();
   }
 
   logger.debug('Notification Params:', params);
-  let payload = getPayload(params);
+  let payload = preparePayload(params);
 
-  return sendNotification(payload)
-        .then(result => {
-          logger.info('Sent notification to slack.');
-          logger.debug('Result:', result);
-        })
-        .catch(err => {
-          logger.error('Error sending notification to slack.', err);
-        });
+  try {
+    let result = await sendNotification(payload);
+
+    logger.info('Sent notification to slack.');
+    logger.debug('Result:', result);
+  } catch (err) {
+    logger.error('Error sending notification to slack.', err);
+  }
 }
 
-function getPayload(params) {
+/**
+ * Create and return the payload for the slack.
+ * 
+ * @param {Object} params 
+ * @returns {Object}
+ */
+function preparePayload(params) {
   const { status, name } = params;
 
   let { text, color } = slackParams[status];
@@ -64,15 +81,20 @@ function getPayload(params) {
   };
 }
 
+/**
+ * Hit the slack API endpoint to send notifications on slack.
+ * 
+ * @param {Object} payload 
+ * @returns {Promise}
+ */
 function sendNotification(payload) {
   const url = HOOK_BASE_URI + config.notifications.slack.endpoint;
 
   logger.info('Sending notification to slack.');
   logger.debug('Slack Payload:', payload);
 
-  return rp({
+  return rp.post({
     url,
-    method: 'POST',
     json: true,
     body: payload
   });

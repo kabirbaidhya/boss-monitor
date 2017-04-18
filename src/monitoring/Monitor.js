@@ -1,7 +1,7 @@
 import moment from 'moment';
 import logger from './../utils/logger';
-import { notify } from './../services/notifier';
-import { STATUS_UP, checkHostStatus, getCheckInterval } from './../services/status';
+import * as events from '../services/events';
+import { checkHostStatus, getCheckInterval } from './../services/status';
 
 class Monitor {
   constructor(service) {
@@ -11,51 +11,44 @@ class Monitor {
   }
 
   start() {
-    logger.info(`Started watching ${this.service.name}`);
-    this.doMonitor();
+    events.trigger(events.EVENT_MONITORING_STARTED, { serviceName: this.service.name });
+    this.startMonitoring();
   }
 
-  doMonitor() {
+  async startMonitoring() {
     let { url, name, minInterval, maxInterval } = this.service;
+    let status = await checkHostStatus(url);
+    let interval = getCheckInterval(status, minInterval, maxInterval);
 
-    checkHostStatus(url).then(status => {
-      let interval = getCheckInterval(status, minInterval, maxInterval);
+    logger.debug(`Status of ${name} service is ${status}`);
 
-      logger.debug(`Status of ${name} service is ${status}`);
+    if (this.isStatusDifferent(status)) {
+      this.handleStatusChange(status);
+    }
 
-      // If the status has changed
-      if (this.service.status !== status) {
-        this.handleStatusChange(status);
-      }
-      logger.debug(`Check interval for ${name} = ${interval}`);
-      setTimeout(this.doMonitor.bind(this), interval);
-    });
+    logger.debug(`Check interval for ${name} = ${interval}`);
+    setTimeout(this.startMonitoring.bind(this), interval);
   }
 
-  handleStatusChange(newStatus) {
-    let { name } = this.service;
+  isStatusDifferent(status) {
+    return (this.service.status !== status);
+  }
+
+  handleStatusChange(status) {
     let currentTime = moment();
     let params = {
-      name,
-      status: newStatus,
+      status,
+      serviceName: this.service.name,
+      oldStatus: this.service.status,
       time: currentTime.clone(),
       lastStatusChanged: this.lastStatusChanged ? moment(this.lastStatusChanged).clone() : null
     };
 
-    if (newStatus === STATUS_UP && this.lastStatusChanged) {
-      let downtime = currentTime.diff(this.lastStatusChanged);
+    // Trigger the status change event.
+    events.trigger(events.EVENT_STATUS_CHANGED, params);
+    logger.debug(`Event triggered ${events.EVENT_STATUS_CHANGED} with params`, params);
 
-      params.downtime = moment.duration(downtime, 'milliseconds').humanize();
-
-      logger.info(`${name} is up after ${params.downtime} of downtime.`);
-    } else {
-      logger.info(`${name} is ${newStatus}`);
-    }
-
-    // Send notifications
-    notify(params);
-
-    this.service.status = newStatus;
+    this.service.status = status;
     this.lastStatusChanged = currentTime; // Set the status changed date to current time.
   }
 }

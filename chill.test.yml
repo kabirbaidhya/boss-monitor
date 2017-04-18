@@ -1,0 +1,18 @@
+logging:
+  level: error
+
+monitoring:
+  minInterval: 1000
+  maxInterval: 10000
+  method: OPTIONS
+  downStatus: '^(5..|4..)$'
+
+notifications:
+  slack:
+    enabled: false
+    endpoint: SLACK_WEBHOOK_ENDPOINT_HERE
+
+services:
+  - 
+    name: 'Localhost'
+    url: 'http://127.0.0.1'

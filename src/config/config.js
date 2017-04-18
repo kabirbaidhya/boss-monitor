@@ -1,23 +1,11 @@
 import Yaml from 'yamljs';
 import Promise from 'bluebird';
+import defaultConfig from './default.config';
 
 global.Promise = Promise;
 
-const CONFIG_FILE_NAME = 'chill.yml';
-const defaultConfig = {
-  logging: {
-    level: process.env.LOGGING_LEVEL || 'info'
-  },
-  monitoring: {
-    minInterval: 1000,
-    maxInterval: 10000,
-    method: 'OPTIONS',
-    downStatus: '^(5..|4..)$'
-  },
-  notifications: [],
-  services: []
-};
-
+// TODO: Need a way to specify config file from CLI option.
+const CONFIG_FILE_NAME = (process.env.NODE_ENV === 'test') ? 'chill.test.yml' : 'chill.yml';
 const loadedConfig = Yaml.load(CONFIG_FILE_NAME);
 const config = Object.assign({}, defaultConfig, loadedConfig);
 
