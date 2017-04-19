@@ -5,8 +5,8 @@ import { checkHostStatus, getCheckInterval } from './../services/status';
 
 class Monitor {
   constructor(service) {
-    this.service = service;
     this.status = null;
+    this.service = service;
     this.lastStatusChanged = null;
   }
 
@@ -38,9 +38,9 @@ class Monitor {
     let currentTime = moment();
     let params = {
       status,
-      serviceName: this.service.name,
-      oldStatus: this.service.status,
       time: currentTime.clone(),
+      oldStatus: this.service.status,
+      serviceName: this.service.name,
       lastStatusChanged: this.lastStatusChanged ? moment(this.lastStatusChanged).clone() : null
     };
 
