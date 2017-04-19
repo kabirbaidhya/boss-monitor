@@ -14,15 +14,15 @@ export function listen() {
 
 /**
  * Handle status change event.
- * 
- * @param {any} params 
+ *
+ * @param {any} params
  */
 function handleStatusChange(params) {
   let { serviceName, status, time, lastStatusChanged } = params;
   let notification = {
     status,
     name: serviceName,
-    time: params.time.clone(),
+    time: time.clone(),
     lastStatusChanged: lastStatusChanged ? moment(lastStatusChanged).clone() : null
   };
 
@@ -42,7 +42,7 @@ function handleStatusChange(params) {
 
 /**
  * Handle service monitoring started event.
- * 
+ *
  * @param {Object} params
  */
 function handleMonitoringStarted(params) {

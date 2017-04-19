@@ -6,23 +6,23 @@ import { STATUS_UP, STATUS_DOWN } from './../services/status';
 const HOOK_BASE_URI = 'https://hooks.slack.com/services';
 const slackParams = {
   [STATUS_UP]: {
+    color: 'good',
+    title: 'Service is Up',
     text: (name, downtime) => {
       return `${name} is up` + (downtime > 0 ? ` after ${downtime} of downtime.` : '.');
-    },
-    title: 'Service is Up',
-    color: 'good'
+    }
   },
 
   [STATUS_DOWN]: {
-    text: (name) => `${name} went down.`,
+    color: 'danger',
     title: 'Service is Down',
-    color: 'danger'
+    text: (name) => `${name} went down.`
   }
 };
 
 /**
  * Check if slack notifications are enabled.
- * 
+ *
  * @returns {Boolean}
  */
 export function isEnabled() {
@@ -31,8 +31,8 @@ export function isEnabled() {
 
 /**
  * Send slack notification.
- * 
- * @param {Object} params 
+ *
+ * @param {Object} params
  * @returns {Promise}
  */
 export async function notify(params) {
@@ -55,8 +55,8 @@ export async function notify(params) {
 
 /**
  * Create and return the payload for the slack.
- * 
- * @param {Object} params 
+ *
+ * @param {Object} params
  * @returns {Object}
  */
 function preparePayload(params) {
@@ -71,9 +71,9 @@ function preparePayload(params) {
         color: color,
         fields: [
           {
-            title: 'Service',
+            short: true,
             value: name,
-            short: true
+            title: 'Service'
           }
         ]
       }
@@ -83,8 +83,8 @@ function preparePayload(params) {
 
 /**
  * Hit the slack API endpoint to send notifications on slack.
- * 
- * @param {Object} payload 
+ *
+ * @param {Object} payload
  * @returns {Promise}
  */
 function sendNotification(payload) {
