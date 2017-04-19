@@ -1,8 +1,8 @@
 import sinon from 'sinon';
 import faker from 'faker';
 import { assert } from 'chai';
-import { STATUS_UP } from '../../src/services/status';
 import * as slack from '../../src/services/slack';
+import { STATUS_UP } from '../../src/services/status';
 import * as notifier from '../../src/services/notifier';
 
 describe('notifier.notify', () => {
