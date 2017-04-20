@@ -1,6 +1,7 @@
 import faker from 'faker';
 import sinon from 'sinon';
 import { assert } from 'chai';
+import logger from '../../src/utils/logger';
 import config from '../../src/config/config';
 import * as twilio from '../../src/services/twilio';
 import { STATUS_UP } from '../../src/services/status';
@@ -55,7 +56,7 @@ describe('twilio.notify', () => {
   });
 
   it('should send notification from twilio with correct params', () => {
-    let twilioClientStub = sinon.stub(twilioClient, 'sendMessage').callsFake(params => {
+    let twilioClientStub = sandbox.stub(twilioClient, 'sendMessage').callsFake(params => {
       assert.isString(params.body);
       assert.equal(params.to, phoneNumber);
       assert.equal(params.from, phoneNumber);
@@ -70,4 +71,16 @@ describe('twilio.notify', () => {
 
     assert.isTrue(twilioClientStub.calledOnce);
   });
+
+  it('should log error when twilio fails to send the message', () => {
+    let loggerStub = sandbox.stub(logger, 'error');
+    sandbox.stub(twilioClient, 'sendMessage').throws('Error');
+
+    twilio.notify({
+      status: STATUS_UP,
+      name: faker.random.word()
+    });
+
+    assert.isTrue(loggerStub.calledOnce);
+  })
 });
