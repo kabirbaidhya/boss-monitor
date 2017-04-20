@@ -19,6 +19,5 @@ notifications:
     accountSid: ACCOUNT_SID
 
 services:
-  - 
-    name: 'Localhost'
+  - name: 'Localhost'
     url: 'http://127.0.0.1'

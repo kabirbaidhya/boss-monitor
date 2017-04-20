@@ -18,9 +18,11 @@ const notifiers = {
  */
 export function notify(params) {
   for (let [key, service] of Object.entries(notifiers)) {
-    if (service.isEnabled()) {
-      logger.debug(`Triggering ${key} notification.`);
-      service.notify(params);
+    if (!service.isEnabled()) {
+      continue;
     }
+
+    logger.debug(`Triggering ${key} notification.`);
+    service.notify(params);
   }
 }
