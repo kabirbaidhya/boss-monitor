@@ -1,12 +1,7 @@
-import twilio from 'twilio';
 import logger from '../utils/logger';
 import config from '../config/config';
+import twilioClient from '../utils/twilioClient';
 import { STATUS_UP, STATUS_DOWN } from './../services/status';
-
-const ACCOUNT_SID = config.notifications.twilio.accountSid;
-const AUTH_TOKEN = config.notifications.twilio.authToken;
-
-let client = twilio(ACCOUNT_SID, AUTH_TOKEN);
 
 const twilioParams = {
   [STATUS_UP]: {
@@ -72,7 +67,7 @@ function preparePayLoad(params) {
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  return client.sendMessage(payload);
+  return twilioClient.sendMessage(payload);
 }
 
 
