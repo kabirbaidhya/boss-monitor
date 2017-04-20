@@ -40,6 +40,7 @@ export async function notify(params) {
 
   try {
     let response = await sendNotification(payLoad);
+
     logger.info('Sent notification to', response.to);
     logger.debug('Result:', response);
   } catch (err) {
@@ -57,7 +58,7 @@ function preparePayLoad(params) {
     to: receiver,
     from: sender,
     body: message
-  }
+  };
 }
 
 /**

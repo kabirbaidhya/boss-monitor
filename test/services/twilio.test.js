@@ -30,7 +30,7 @@ describe('twilio.isEnabled', () => {
       enabled: false
     });
 
-    assert.isFalse(twilio.isEnabled())
+    assert.isFalse(twilio.isEnabled());
   });
 });
 
