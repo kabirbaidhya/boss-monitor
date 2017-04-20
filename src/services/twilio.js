@@ -1,19 +1,7 @@
+import messages from './../common/messages';
 import logger from '../utils/logger';
 import config from '../config/config';
 import twilioClient from '../utils/twilioClient';
-import { STATUS_UP, STATUS_DOWN } from './../services/status';
-
-const twilioParams = {
-  [STATUS_UP]: {
-    text: (name, downtime) => {
-      return `${name} is up` + (downtime > 0 ? ` after ${downtime} of downtime.` : '.');
-    }
-  },
-
-  [STATUS_DOWN]: {
-    text: (name) => `${name} went down.`
-  }
-};
 
 /**
  * Check if twilio notifications are enabled.
@@ -58,7 +46,7 @@ function preparePayLoad(params) {
   const { status, name, downTime } = params;
   const { receiver, sender } = config.notifications.twilio;
 
-  let message = twilioParams[status].text(name, downTime);
+  let message = messages[status].text(name, downTime);
 
   return {
     to: receiver,
