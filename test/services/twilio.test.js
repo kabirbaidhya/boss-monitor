@@ -4,8 +4,8 @@ import { assert } from 'chai';
 import logger from '../../src/utils/logger';
 import config from '../../src/config/config';
 import * as twilio from '../../src/services/twilio';
-import { STATUS_UP } from '../../src/services/status';
 import twilioClient from '../../src/utils/twilioClient';
+import { STATUS_UP, STATUS_DOWN } from '../../src/services/status';
 
 describe('twilio.isEnabled', () => {
   let sandbox;
