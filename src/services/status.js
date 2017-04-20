@@ -5,8 +5,8 @@ export const STATUS_DOWN = 'down';
 
 export function checkHostStatus(url) {
   return rp({ method: 'OPTIONS', uri: url, rejectUnauthorized: false })
-        .then(() => STATUS_UP)
-        .catch(() => STATUS_DOWN);
+    .then(() => STATUS_UP)
+    .catch(() => STATUS_DOWN);
 }
 
 export function getCheckInterval(status, min, max) {

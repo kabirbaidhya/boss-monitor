@@ -74,6 +74,7 @@ describe('twilio.notify', () => {
 
   it('should log error when twilio fails to send the message', () => {
     let loggerStub = sandbox.stub(logger, 'error');
+
     sandbox.stub(twilioClient, 'sendMessage').throws('Error');
 
     twilio.notify({
@@ -82,5 +83,5 @@ describe('twilio.notify', () => {
     });
 
     assert.isTrue(loggerStub.calledOnce);
-  })
+  });
 });
