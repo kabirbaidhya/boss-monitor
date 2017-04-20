@@ -70,5 +70,3 @@ function preparePayLoad(params) {
 function sendNotification(payload) {
   return twilioClient.sendMessage(payload);
 }
-
-

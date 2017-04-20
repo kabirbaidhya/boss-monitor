@@ -69,5 +69,5 @@ describe('twilio.notify', () => {
     });
 
     assert.isTrue(twilioClientStub.calledOnce);
-  })
+  });
 });
