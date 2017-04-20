@@ -1,6 +1,6 @@
 import * as slack from './slack';
 import * as twilio from './twilio';
-import logger from './../utils/logger';
+import logger from '../utils/logger';
 
 /**
  * Available Notifier services.

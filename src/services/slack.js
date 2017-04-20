@@ -1,7 +1,7 @@
 import rp from 'request-promise';
-import logger from './../utils/logger';
-import config from './../config/config';
-import messages from './../common/messages';
+import logger from '../utils/logger';
+import config from '../config/config';
+import messages from '../common/messages';
 
 const HOOK_BASE_URI = 'https://hooks.slack.com/services';
 

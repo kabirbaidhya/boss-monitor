@@ -1,4 +1,4 @@
-import messages from './../common/messages';
+import messages from '../common/messages';
 import logger from '../utils/logger';
 import config from '../config/config';
 import twilioClient from '../utils/twilioClient';

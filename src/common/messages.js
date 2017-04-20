@@ -1,4 +1,4 @@
-import { STATUS_UP, STATUS_DOWN } from './../services/status';
+import { STATUS_UP, STATUS_DOWN } from '../services/status';
 
 const messages = {
   [STATUS_UP]: {
