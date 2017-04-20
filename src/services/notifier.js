@@ -1,11 +1,13 @@
 import * as slack from './slack';
-import logger from './../utils/logger';
+import * as twilio from './twilio';
+import logger from '../utils/logger';
 
 /**
  * Available Notifier services.
  */
 const notifiers = {
-  slack
+  slack,
+  twilio
 };
 
 /**

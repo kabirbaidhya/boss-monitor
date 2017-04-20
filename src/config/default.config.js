@@ -12,6 +12,13 @@ export default {
     slack: {
       enabled: false,
       endpoint: null
+    },
+    twilio: {
+      enabled: false,
+      sender: null,
+      receiver: null,
+      authToken: null,
+      accountSid: null
     }
   },
   services: []

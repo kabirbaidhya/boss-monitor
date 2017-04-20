@@ -1,24 +1,9 @@
 import rp from 'request-promise';
-import logger from './../utils/logger';
-import config from './../config/config';
-import { STATUS_UP, STATUS_DOWN } from './../services/status';
+import logger from '../utils/logger';
+import config from '../config/config';
+import messages from '../common/messages';
 
 const HOOK_BASE_URI = 'https://hooks.slack.com/services';
-const slackParams = {
-  [STATUS_UP]: {
-    color: 'good',
-    title: 'Service is Up',
-    text: (name, downtime) => {
-      return `${name} is up` + (downtime > 0 ? ` after ${downtime} of downtime.` : '.');
-    }
-  },
-
-  [STATUS_DOWN]: {
-    color: 'danger',
-    title: 'Service is Down',
-    text: (name) => `${name} went down.`
-  }
-};
 
 /**
  * Check if slack notifications are enabled.
@@ -62,7 +47,7 @@ export async function notify(params) {
 function preparePayload(params) {
   const { status, name } = params;
 
-  let { text, color } = slackParams[status];
+  let { text, color } = messages[status];
 
   return {
     text: text(name, params.downtime),

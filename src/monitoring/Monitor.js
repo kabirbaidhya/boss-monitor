@@ -1,7 +1,7 @@
 import moment from 'moment';
-import logger from './../utils/logger';
+import logger from '../utils/logger';
 import * as events from '../services/events';
-import { checkHostStatus, getCheckInterval } from './../services/status';
+import { checkHostStatus, getCheckInterval } from '../services/status';
 
 class Monitor {
   constructor(service) {
