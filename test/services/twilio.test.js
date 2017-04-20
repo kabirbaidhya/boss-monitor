@@ -77,7 +77,7 @@ describe('twilio.notify', () => {
     sandbox.stub(twilioClient, 'sendMessage').throws('Error');
 
     twilio.notify({
-      status: STATUS_UP,
+      status: STATUS_DOWN,
       name: faker.random.word()
     });
 
