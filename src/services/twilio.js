@@ -48,6 +48,12 @@ export async function notify(params) {
   }
 }
 
+/**
+ * Create and return payload required for twilio client.
+ *
+ * @param {Object} params
+ * @returns {Object}
+ */
 function preparePayLoad(params) {
   const { status, name, downTime } = params;
   const { receiver, sender } = config.notifications.twilio;
