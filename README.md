@@ -22,11 +22,6 @@ Then start the app
 $ npm start
 ```
 
-If you have `node-foreman` installed globally you can do
-```
-$ nf start
-```
-
 ## License
 
 Chill is licensed under the [MIT License](LICENSE.md).
