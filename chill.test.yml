@@ -11,6 +11,12 @@ notifications:
   slack:
     enabled: false
     endpoint: SLACK_WEBHOOK_ENDPOINT_HERE
+  twilio:
+    enabled: false
+    sender: SENDING_NUMBER
+    receiver: RECEIVING_NUMBER
+    authToken: AUTH_TOKEN
+    accountSid: ACCOUNT_SID
 
 services:
   - 
