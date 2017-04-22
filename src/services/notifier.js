@@ -1,5 +1,6 @@
 import * as slack from './slack';
 import * as twilio from './twilio';
+import * as hipchat from './hipchat';
 import logger from '../utils/logger';
 
 /**
@@ -7,7 +8,8 @@ import logger from '../utils/logger';
  */
 const notifiers = {
   slack,
-  twilio
+  twilio,
+  hipchat
 };
 
 /**

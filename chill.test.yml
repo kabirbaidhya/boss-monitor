@@ -11,6 +11,10 @@ notifications:
   slack:
     enabled: false
     endpoint: SLACK_WEBHOOK_ENDPOINT_HERE
+  hipchat:
+    enabled: false
+    authToken: HIPCHAT_WEBHOOK_TOKENID_HERE
+    roomId: HIPTCHAT_WEBHOOK_ROOMID
   twilio:
     enabled: false
     sender: SENDING_NUMBER
