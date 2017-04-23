@@ -21,7 +21,7 @@ describe('hipchat.isEnabled', () => {
     sandbox.stub(config.notifications, 'hipchat', {
       enabled: true,
       roomId: faker.random.word(),
-      authToken : faker.random.word()
+      authToken: faker.random.word()
     });
 
     assert.isTrue(hipchat.isEnabled());
