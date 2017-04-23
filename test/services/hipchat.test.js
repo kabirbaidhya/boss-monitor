@@ -24,7 +24,7 @@ describe('hipchat.isEnabled', () => {
       authToken : faker.random.word()
     });
 
-    assert.isTrue(slack.isEnabled());
+    assert.isTrue(hipchat.isEnabled());
   });
 
   it('should return false if hipchat notification is not enabled.', () => {
