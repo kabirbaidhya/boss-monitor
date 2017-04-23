@@ -19,6 +19,20 @@ export default {
       receiver: null,
       authToken: null,
       accountSid: null
+    },
+    email: {
+      enabled: false,
+      transport: {
+        service: null,
+        auth: {
+          user: null,
+          pass: null
+        }
+      },
+      message: {
+        sender: null,
+        receivers: []
+      }
     }
   },
   services: []

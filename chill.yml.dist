@@ -17,8 +17,18 @@ notifications:
     receiver: RECEIVING_NUMBER
     authToken: AUTH_TOKEN
     accountSid: ACCOUNT_SID
+  email:
+    enabled: false
+    transport:
+      service: EMAIL_SERVICE # Check https://nodemailer.com/smtp/well-known/ for all email services
+      auth:
+        user: EMAIL_ACCOUNT_USERNAME
+        pass: EMAIL_ACCOUNT_PASSWORD
+    message:
+      sender: SENDER_NAME_EMAIL
+      receivers:
+        - RECEIVER_EMAIL
 
 services:
-  -
-    name: 'Localhost'
+  - name: 'Localhost'
     url: 'http://127.0.0.1'
