@@ -54,7 +54,7 @@ describe('hipchat.notify', () => {
 
   it('should send the notification payload to the hipchat API endpoint.', () => {
     let rpStub = sandbox.stub(rp, 'post').callsFake(params => {
-      assert.match(params.url, new RegExp(`^https://.*${hipchatAuthToken}$`));
+      assert.match(params.url, new RegExp(`^https://.*${hipchatRoomId}/notification?auth_token=${hipchatAuthToken}`));
       assert.isObject(params.body);
 
       return Promise.resolve();

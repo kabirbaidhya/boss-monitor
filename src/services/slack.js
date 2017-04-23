@@ -39,7 +39,7 @@ export async function notify(params) {
 }
 
 /**
- * Create and return the payload for the slack.
+ * Create and return the payload for slack.
  *
  * @param {Object} params
  * @returns {Object}
@@ -67,7 +67,7 @@ function preparePayload(params) {
 }
 
 /**
- * Hit the slack API endpoint to send notifications on slack.
+ * Hit the slack API endpoint to send notifications.
  *
  * @param {Object} payload
  * @returns {Promise}
