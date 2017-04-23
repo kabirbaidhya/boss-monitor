@@ -3,7 +3,7 @@ import faker from 'faker';
 import { assert } from 'chai';
 import rp from 'request-promise';
 import config from '../../src/config/config';
-import * as hipchat from '../../src/services/slack';
+import * as hipchat from '../../src/services/hipchat';
 import { STATUS_UP } from '../../src/services/status';
 
 describe('hipchat.isEnabled', () => {
