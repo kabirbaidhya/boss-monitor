@@ -6,6 +6,7 @@ import config from '../../src/config/config';
 import * as email from '../../src/services/email';
 import emailClient from '../../src/utils/emailClient';
 import { STATUS_UP, STATUS_DOWN } from '../../src/services/status';
+import * as templateRenderer from '../../src/utils/templateRenderer';
 
 describe('email.isEnabled', () => {
   let sandbox;
@@ -69,7 +70,7 @@ describe('email.notify', () => {
     sandbox.restore();
   });
 
-  it('should send email notification with correct parameters', () => {
+  it('should send email notification with correct parameters.', () => {
     let randomName = faker.random.word();
 
     let emailClientStub = sandbox.stub(emailClient, 'sendMail').callsFake(params => {
@@ -89,13 +90,26 @@ describe('email.notify', () => {
     assert.isTrue(emailClientStub.calledOnce);
   });
 
-  it('should log error when emailClient fails to send email', () => {
+  it('should log error when emailClient fails to send email.', () => {
     let loggerStub = sandbox.stub(logger, 'error');
 
     sandbox.stub(emailClient, 'sendMail').throws('Error');
 
     email.notify({
       status: STATUS_DOWN,
+      name: faker.random.word()
+    });
+
+    assert.isTrue(loggerStub.calledOnce);
+  });
+
+  it('should log error when renderEmailTemplate fails to render template.', () => {
+    let loggerStub = sandbox.stub(logger, 'error');
+
+    sandbox.stub(templateRenderer, 'renderEmailTemplate').throws('Error');
+
+    email.notify({
+      status: STATUS_UP,
       name: faker.random.word()
     });
 

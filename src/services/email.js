@@ -24,10 +24,18 @@ export async function notify(params) {
     return Promise.resolve();
   }
 
-  try {
-    logger.debug('Notification Params:', params);
-    let payload = preparePayLoad(params);
+  let payload = null;
 
+  try{
+    logger.debug('Notification Params:', params);
+    payload = preparePayLoad(params);
+  } catch (err) {
+    logger.error('Error while preparing payload for email.', err);
+
+    return Promise.resolve();
+  }
+
+  try {
     let result = await sendNotification(payload);
 
     logger.info('Sent notification to email.');
