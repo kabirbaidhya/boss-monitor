@@ -1,24 +1,27 @@
 logging:
-  level: debug
+  level: error
 
 monitoring:
-  method: OPTIONS
   minInterval: 1000
   maxInterval: 10000
+  method: OPTIONS
   downStatus: '^(5..|4..)$'
 
 notifications:
   slack:
     enabled: false
-    endpoint: SLACK_WEBHOOK_ENDPOINT_HERE
+    endpoint: SLACK_WEBHOOK_ENDPOINT
+  hipchat:
+    enabled: false
+    authToken: HIPCHAT_WEBHOOK_TOKENID
+    roomId: HIPTCHAT_WEBHOOK_ROOMID
   twilio:
-    enabled: true
+    enabled: false
     sender: SENDING_NUMBER
     receiver: RECEIVING_NUMBER
     authToken: AUTH_TOKEN
     accountSid: ACCOUNT_SID
 
 services:
-  -
-    name: 'Localhost'
+  - name: 'Localhost'
     url: 'http://127.0.0.1'

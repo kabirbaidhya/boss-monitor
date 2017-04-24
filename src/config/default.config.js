@@ -13,6 +13,11 @@ export default {
       enabled: false,
       endpoint: null
     },
+    hipchat: {
+      enabled: false,
+      roomId: null,
+      authToken: null
+    },
     twilio: {
       enabled: false,
       sender: null,
