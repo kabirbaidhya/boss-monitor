@@ -5,8 +5,8 @@ import logger from '../../src/utils/logger';
 import config from '../../src/config/config';
 import * as email from '../../src/services/email';
 import emailClient from '../../src/utils/emailClient';
+import * as emailRenderer from '../../src/utils/emailRenderer';
 import { STATUS_UP, STATUS_DOWN } from '../../src/services/status';
-import * as templateRenderer from '../../src/utils/templateRenderer';
 
 describe('email.isEnabled', () => {
   let sandbox;
@@ -44,7 +44,7 @@ describe('email.notify', () => {
   let sender = faker.internet.email();
   let receivers = [];
 
-  for(let i = 5; i >= 0; i--){
+  for(let i = 5; i >= 0; i--) {
     receivers.push(faker.internet.email());
   }
 

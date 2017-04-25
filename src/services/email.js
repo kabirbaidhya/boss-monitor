@@ -2,7 +2,7 @@ import logger from '../utils/logger';
 import config from '../config/config';
 import messages from '../common/messages';
 import emailClient from '../utils/emailClient';
-import { renderEmailTemplate } from '../utils/templateRenderer';
+import { render } from '../utils/emailRenderer';
 
 /**
  * Check if email notifications are enabled.
@@ -26,7 +26,7 @@ export async function notify(params) {
 
   let payload = null;
 
-  try{
+  try {
     logger.debug('Notification Params:', params);
     payload = preparePayLoad(params);
   } catch (err) {
@@ -60,13 +60,13 @@ function preparePayLoad(params) {
   let message = Object.assign({}, messages[status]);
 
   message.text = message.text(name, downtime);
-  const emailBody = renderEmailTemplate('status', message);
+  const emailBody = render('status', message);
 
   return {
-    to: receivers,
     from: sender,
-    subject: subject,
-    html: emailBody
+    to: receivers,
+    html: emailBody,
+    subject: subject
   };
 }
 
