@@ -26,7 +26,7 @@ export async function notify(params) {
 
   let payload = null;
 
-  try{
+  try {
     logger.debug('Notification Params:', params);
     payload = preparePayLoad(params);
   } catch (err) {

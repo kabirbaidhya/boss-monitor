@@ -44,7 +44,7 @@ describe('email.notify', () => {
   let sender = faker.internet.email();
   let receivers = [];
 
-  for(let i = 5; i >= 0; i--){
+  for (let i = 5; i >= 0; i--) {
     receivers.push(faker.internet.email());
   }
 
