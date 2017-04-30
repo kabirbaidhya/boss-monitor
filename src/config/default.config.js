@@ -34,10 +34,9 @@ export default {
           pass: null
         }
       },
-      message: {
-        sender: null,
-        receivers: []
-      }
+      sender: null,
+      receivers: [],
+      templateDir: null
     }
   },
   services: []

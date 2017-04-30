@@ -21,10 +21,6 @@ export function isEnabled() {
  * @returns {Promise}
  */
 export async function notify(params) {
-  if (!isEnabled()) {
-    return Promise.resolve();
-  }
-
   logger.debug('Notification Params:', params);
   let payload = preparePayload(params);
 

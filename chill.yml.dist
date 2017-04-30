@@ -28,10 +28,10 @@ notifications:
       auth:
         user: EMAIL_ACCOUNT_USERNAME
         pass: EMAIL_ACCOUNT_PASSWORD
-    message:
-      sender: SENDER_NAME_EMAIL
-      receivers:
-        - RECEIVER_EMAIL
+    sender: SENDER_NAME_EMAIL
+    receivers:
+      - RECEIVER_EMAIL
+    templateDir: TEMPLATE_DIRECTORY
 
 services:
   - name: 'Localhost'

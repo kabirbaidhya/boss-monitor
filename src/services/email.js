@@ -20,10 +20,6 @@ export function isEnabled() {
  * @returns {Promise}
  */
 export async function notify(params) {
-  if (!isEnabled()) {
-    return Promise.resolve();
-  }
-
   let payload = null;
 
   try {
@@ -53,7 +49,8 @@ export async function notify(params) {
  */
 function preparePayLoad(params) {
   const { status, name, downtime } = params;
-  const { receivers, sender } = config.notifications.email.message;
+  const sender = config.notifications.email.sender;
+  const receivers = config.notifications.email.receivers;
 
   const subject = `Status for ${name}`;
 
@@ -71,7 +68,7 @@ function preparePayLoad(params) {
 }
 
 /**
- * Send email notification
+ * Use nodemailer to send email notifications.
  *
  * @param {Object} payload
  * @returns {Promise}

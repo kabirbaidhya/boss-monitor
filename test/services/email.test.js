@@ -38,13 +38,15 @@ describe('email.isEnabled', () => {
 
 describe('email.notify', () => {
   let sandbox;
-  let emailService = faker.random.word();
-  let user = faker.internet.email();
-  let pass = faker.random.number();
-  let sender = faker.internet.email();
   let receivers = [];
+  let templateDir = '';
+  let html = '<h1></h1>';
+  let pass = faker.random.number();
+  let user = faker.internet.email();
+  let sender = faker.internet.email();
+  let emailService = faker.random.word();
 
-  for(let i = 5; i >= 0; i--) {
+  for (let i = 5; i >= 0; i--) {
     receivers.push(faker.internet.email());
   }
 
@@ -59,10 +61,9 @@ describe('email.notify', () => {
           pass
         }
       },
-      message: {
-        sender,
-        receivers
-      }
+      sender,
+      receivers,
+      templateDir
     });
   });
 
@@ -81,6 +82,8 @@ describe('email.notify', () => {
 
       return Promise.resolve(params);
     });
+
+    sandbox.stub(emailRenderer, 'render').returns(html);
 
     email.notify({
       status: STATUS_UP,
@@ -106,7 +109,7 @@ describe('email.notify', () => {
   it('should log error when renderEmailTemplate fails to render template.', () => {
     let loggerStub = sandbox.stub(logger, 'error');
 
-    sandbox.stub(templateRenderer, 'renderEmailTemplate').throws('Error');
+    sandbox.stub(emailRenderer, 'render').throws('Error');
 
     email.notify({
       status: STATUS_UP,
