@@ -22,6 +22,10 @@ Then start the app
 $ npm start
 ```
 
+## Contributing
+
+Read our [contributing guide](CONTRIBUTING.md) to learn about our development process, how to propose bugs and improvements.
+
 ## License
 
 Chill is licensed under the [MIT License](LICENSE.md).
