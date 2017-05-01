@@ -1,7 +1,7 @@
 import merge from 'webpack-merge';
-import config from './config/config';
-import Monitor from './monitoring/Monitor';
-import * as eventListener from './monitoring/eventListener';
+import Monitor from './Monitor';
+import config from '../config/config';
+import * as eventListener from './eventListener';
 
 /**
  * Initialize the monitor and start monitoring configured services.
