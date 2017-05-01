@@ -19,10 +19,6 @@ export function isEnabled() {
  * @returns {Promise}
  */
 export async function notify(params) {
-  if (!isEnabled()) {
-    return Promise.resolve();
-  }
-
   logger.debug('Notification Params:', params);
   let payLoad = preparePayLoad(params);
 
@@ -43,10 +39,10 @@ export async function notify(params) {
  * @returns {Object}
  */
 function preparePayLoad(params) {
-  const { status, name, downTime } = params;
+  const { status, name, downtime } = params;
   const { receiver, sender } = config.notifications.twilio;
 
-  let message = messages[status].text(name, downTime);
+  let message = messages[status].text(name, downtime);
 
   return {
     to: receiver,

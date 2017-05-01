@@ -2,6 +2,7 @@ import sinon from 'sinon';
 import faker from 'faker';
 import { assert } from 'chai';
 import rp from 'request-promise';
+import logger from '../../src/utils/logger';
 import config from '../../src/config/config';
 import * as hipchat from '../../src/services/hipchat';
 import { STATUS_UP } from '../../src/services/status';
@@ -67,5 +68,18 @@ describe('hipchat.notify', () => {
     });
 
     assert(rpStub.calledOnce);
+  });
+
+  it('should log error if it fails to send notification to hipchat.', () => {
+    let loggerStub = sandbox.stub(logger, 'error');
+
+    sandbox.stub(rp, 'post').throws('Error');
+
+    hipchat.notify({
+      status: STATUS_UP,
+      name: faker.random.word()
+    });
+
+    assert.isTrue(loggerStub.calledOnce);
   });
 });

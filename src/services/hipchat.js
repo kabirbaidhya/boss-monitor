@@ -22,10 +22,6 @@ export function isEnabled() {
  * @returns {Promise}
  */
 export async function notify(params) {
-  if (!isEnabled()) {
-    return Promise.resolve();
-  }
-
   logger.debug('Notification Params:', params);
   let payload = preparePayload(params);
 
@@ -65,7 +61,7 @@ function preparePayload(params) {
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  const url  = HOOK_BASE_URI + `${roomId}/notification?auth_token=${authToken}`; 
+  const url = HOOK_BASE_URI + `${roomId}/notification?auth_token=${authToken}`;
 
   logger.info('Sending notification to hipchat.');
   logger.debug('Hipchat Payload:', payload);
