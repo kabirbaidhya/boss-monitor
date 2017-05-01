@@ -1,7 +1,7 @@
 import rp from 'request-promise';
 import logger from '../utils/logger';
-import config from '../config/config';
 import messages from '../common/messages';
+import * as config from '../config/config';
 
 const HOOK_BASE_URI = 'https://hooks.slack.com/services';
 
@@ -11,7 +11,9 @@ const HOOK_BASE_URI = 'https://hooks.slack.com/services';
  * @returns {Boolean}
  */
 export function isEnabled() {
-  return config.notifications.slack && config.notifications.slack.enabled;
+  let slackConfig = config.get().notifications.slack;
+
+  return slackConfig && slackConfig.enabled;
 }
 
 /**
@@ -42,8 +44,7 @@ export async function notify(params) {
  */
 function preparePayload(params) {
   const { status, name } = params;
-
-  let { text, color } = messages[status];
+  const { text, color } = messages[status];
 
   return {
     text: text(name, params.downtime),
@@ -69,7 +70,8 @@ function preparePayload(params) {
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  const url = HOOK_BASE_URI + config.notifications.slack.endpoint;
+  const { endpoint } = config.get().notifications.slack;
+  const url = HOOK_BASE_URI + endpoint;
 
   logger.info('Sending notification to slack.');
   logger.debug('Slack Payload:', payload);

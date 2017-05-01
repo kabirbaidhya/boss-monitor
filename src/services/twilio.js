@@ -21,9 +21,9 @@ export function getClient() {
  * @returns {Boolean}
  */
 export function isEnabled() {
-  let { twilio } = config.get().notifications;
+  let twilioConfig = config.get().notifications.twilio;
 
-  return twilio && twilio.enabled;
+  return twilioConfig && twilioConfig.enabled;
 }
 
 /**
@@ -72,6 +72,6 @@ function preparePayLoad(params) {
  */
 function sendNotification(payload) {
   let client = getClient();
-  
+
   return client.sendMessage(payload);
 }
