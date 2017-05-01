@@ -1,17 +1,13 @@
 import Yaml from 'yamljs';
 import Promise from 'bluebird';
+import cache from 'memory-cache';
 import merge from 'webpack-merge';
 import defaultConfig from './default.config';
 
 global.Promise = Promise;
 
-// TODO: Need a way to specify config file from CLI option.
-// TODO: Currently the config merging stuff is not testable, need to make it testable.
-const CONFIG_FILE_NAME = (process.env.NODE_ENV === 'test') ? 'chill.test.yml' : 'chill.yml';
-
-const DEFAULT_FILENAME = 'chill.yml';
-
-let resolvedConfig = {};
+export const CACHE_KEY = 'config';
+export const DEFAULT_FILENAME = 'chill.yml';
 
 /**
  * Resolve configuration by reading the configuration file.
@@ -20,11 +16,13 @@ let resolvedConfig = {};
  * @returns {Object}
  */
 export function resolve(filename = DEFAULT_FILENAME) {
-  const loadedConfig = Yaml.load(filename);
+  let loadedConfig = Yaml.load(filename);
+  let config = merge(defaultConfig, loadedConfig);
 
-  resolvedConfig = merge(defaultConfig, loadedConfig);
+  // Put the resolved config into the cache.
+  cache.put(CACHE_KEY, config);
 
-  return resolvedConfig;
+  return config;
 }
 
 /**
@@ -33,5 +31,5 @@ export function resolve(filename = DEFAULT_FILENAME) {
  * @returns {Object}
  */
 export function get() {
-  return resolvedConfig;
+  return cache.get(CACHE_KEY);
 }
