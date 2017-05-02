@@ -1,9 +1,7 @@
 import rp from 'request-promise';
 import logger from '../utils/logger';
-import config from '../config/config';
 import messages from '../common/messages';
-
-const { roomId, authToken, email, baseUrl } = config.notifications.hipchat;
+import * as config from '../config/config';
 
 /**
  * Check if hipchat notifications are enabled.
@@ -11,7 +9,9 @@ const { roomId, authToken, email, baseUrl } = config.notifications.hipchat;
  * @returns {Boolean}
  */
 export function isEnabled() {
-  return config.notifications.hipchat && config.notifications.hipchat.enabled;
+  let { hipchat } = config.get().notifications;
+
+  return hipchat && hipchat.enabled;
 }
 
 /**
@@ -41,9 +41,9 @@ export async function notify(params) {
  * @returns {Object}
  */
 function preparePayload(params) {
-  const { status, name } = params;
-
+  let { status, name } = params;
   let { text, color } = messages[status];
+  let { email } = config.get().notifications.hipchat;
 
   return {
     message: text(name, params.downtime),
@@ -54,19 +54,28 @@ function preparePayload(params) {
 }
 
 /**
+ * Get Hipchat REST API url.
+ *
+ * @returns {String}
+ */
+export function getUrl() {
+  const { roomId, authToken, baseUrl } = config.get().notifications.hipchat;
+
+  return baseUrl + `${roomId}/notification?auth_token=${authToken}`;
+}
+
+/**
  * Hit the hipchat API endpoint to send notifications.
  *
  * @param {Object} payload
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  const url = baseUrl + `${roomId}/notification?auth_token=${authToken}`;
-
   logger.info('Sending notification to hipchat.');
   logger.debug('Hipchat Payload:', payload);
 
   return rp.post({
-    url,
+    url: getUrl(),
     json: true,
     body: payload
   });
