@@ -53,7 +53,7 @@ function preparePayload(params) {
   return {
     message: text(name, params.downtime),
     color: color,
-    from: 'Chill@noreply.com',
+    from: 'chill@noreply.com',
     value: name
   };
 }
