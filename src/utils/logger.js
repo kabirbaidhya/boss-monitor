@@ -14,10 +14,12 @@ if (!fs.existsSync(logDir)) {
 }
 
 function customFormatter(options) {
-  // Return string will be passed to logger.
-  return options.timestamp +' \t ' + ' ['+ options.level.toUpperCase() +'] \t'+ (options.message ? options.message : '') +
-    (options.meta && Object.keys(options.meta).length ? '\n'+ JSON.stringify(options.meta.error,null,4) : '');
+    // Return string will be passed to logger.
+  return options.timestamp + ' \t ' + ' [' + winston.config.colorize(options.level, options.level.toUpperCase()) + '] \t' +
+(options.message ? options.message : '') +
+    (options.meta && Object.keys(options.meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : '');
 }
+
 
 /**
  * Create new winston logger instance.
@@ -36,7 +38,7 @@ const logger = new (winston.Logger)({
       datePattern: 'yyyy-MM-dd',
       prepend: true,
       level: logLevel,
-      align:true,
+      align: true,
       formatter: customFormatter,
       json: isJsonFormat
     })
