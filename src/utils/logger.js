@@ -15,9 +15,10 @@ if (!fs.existsSync(logDir)) {
 
 function customFormatter(options) {
     // Return string will be passed to logger.
-  return options.timestamp + ' \t ' + ' [' + winston.config.colorize(options.level, options.level.toUpperCase()) + '] \t' +
-(options.message ? options.message : '') +
-    (options.meta && Object.keys(options.meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : '');
+  return options.timestamp + '\t' + 
+  '[' + winston.config.colorize(options.level, options.level.toUpperCase()) + '] \t' +
+  (options.message ? options.message : '') +
+  (options.meta && Object.keys(options.meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : '');
 }
 
 
