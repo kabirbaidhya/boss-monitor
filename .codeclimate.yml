@@ -13,7 +13,6 @@ ratings:
   - src/**
 exclude_paths:
 - dist/*
-- lib/**/*
-- tests/**/*
+- test/**/*
 - coverage/**/*
 - node_modules/**/*
