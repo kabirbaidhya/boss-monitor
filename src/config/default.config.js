@@ -3,7 +3,7 @@ export default {
     level: 'info',
     logDir: 'logs',
     jsonFormat: false,
-    spaceLength: 8 ,
+    spaceLength: 8,
     dateFormat: 'yyyy-MM-dd',
     tsFormat: new Date()
   },

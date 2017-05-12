@@ -4,7 +4,7 @@ import 'winston-daily-rotate-file';
 import config from '../config/config';
 import { centerAlignString } from '../utils/stringFormatter';
 
-const { logDir, level, jsonFormat, spaceLength ,tsFormat, dateFormat } = config.logging;
+const { logDir, level, jsonFormat, spaceLength, tsFormat, dateFormat } = config.logging;
 // Create log directory if it does not exist
 
 if (!fs.existsSync(logDir)) {
@@ -12,7 +12,7 @@ if (!fs.existsSync(logDir)) {
 }
 
 function customFormatter(options) {
-    // Return string will be passed to logger.
+  // Return string will be passed to logger.
   let level = winston.config.colorize(options.level, options.level.toUpperCase());
   let message = options.message ? options.message : '';
   let meta = options.meta && Object.keys(options.meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : '';
@@ -34,7 +34,7 @@ const logger = new (winston.Logger)({
     new winston.transports.DailyRotateFile({
       filename: `${logDir}/-debug.log`,
       timestamp: tsFormat,
-      datePattern: 'yyyy-MM-dd',
+      datePattern: dateFormat,
       prepend: true,
       level: level,
       align: true,
