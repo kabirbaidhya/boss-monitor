@@ -1,8 +1,8 @@
 import fs from 'fs';
 import winston from 'winston';
 import 'winston-daily-rotate-file';
-import config from '../config/config';
 import * as str from '../utils/string';
+import * as config from '../config/config';
 
 const {
   level,
@@ -11,7 +11,7 @@ const {
   jsonFormat,
   dateFormat,
   levelColumnWidth
-} = config.logging;
+} = config.get().logging;
 
 // Create log directory if it does not exist
 if (!fs.existsSync(logDir)) {

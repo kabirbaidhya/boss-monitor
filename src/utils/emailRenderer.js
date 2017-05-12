@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import handlebars from 'handlebars';
-import config from '../config/config';
+import * as config from '../config/config';
 
 const ENCODING = 'utf-8';
-const EMAIL_TEMPLATE_DIR = config.notifications.email.templateDir ? path.resolve(__dirname, config.notifications.email.templateDir) : path.resolve(__dirname, '../common/emailTemplate/');
+const EMAIL_TEMPLATE_DIR = config.get().notifications.email.templateDir ? path.resolve(__dirname, config.get().notifications.email.templateDir) : path.resolve(__dirname, '../common/emailTemplate/');
 
 /**
  * Render email template.

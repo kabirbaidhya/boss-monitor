@@ -1,0 +1,130 @@
+import faker from 'faker';
+import sinon from 'sinon';
+import { assert } from 'chai';
+import proxyquire from 'proxyquire';
+// import logger from '../../src/utils/logger';
+import * as config from '../../src/config/config';
+// import * as email from '../../src/services/email';
+// import * as emailRenderer from '../../src/utils/emailRenderer';
+import { STATUS_UP } from '../../src/services/status';
+
+describe('email.notify', () => {
+  let sandbox;
+  let templateDir = '';
+  let html = '<h1></h1>';
+  let pass = faker.random.number();
+  let user = faker.internet.email();
+  let sender = faker.internet.email();
+  let emailService = faker.random.word();
+  let receivers = (new Array(5)).fill('').map(() => faker.internet.email());   // Fake receiver emails
+
+  const email = proxyquire('../../src/services/email', {
+    nodemailer: {}
+  });
+  const emailRenderer = require('../../src/utils/emailRenderer');
+
+  beforeEach(() => {
+    sandbox = sinon.sandbox.create();
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        email: {
+          enabled: true,
+          transport: {
+            service: emailService,
+            auth: { user, pass }
+          },
+          sender,
+          receivers,
+          templateDir
+        }
+      }
+    });
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  it('should send email notification with correct parameters.', () => {
+
+    let randomName = faker.random.word();
+    // let { transport } = config.get().notifications.email;
+    // let promise = new Promise(() => null);
+
+    // let sendMailStub = sandbox.stub().callsFake
+    let getClientStub = sandbox.stub(email, 'getClient').callsFake(() => 'test');
+    let emailRendererStub = sandbox.stub(emailRenderer, 'render').callsFake(() => html);
+
+    let result = email.notify({
+      status: STATUS_UP,
+      name: randomName
+    });
+
+    // assert.equal(email.getClient(), 'test');
+
+    // assert.isTrue(getClientStub.calledOnce);
+
+    // let emailServiceMock = sandbox.mock(email);
+
+    // let clientStub = sandbox.stub({ sendMail() { } }, 'sendMail').callsFake(params => {
+    //   assert.equal(params.to, receivers);
+    //   assert.equal(params.from, sender);
+    //   assert.match(params.subject, new RegExp(`^Status for ${randomName}$`));
+    //   assert.isString(params.html);
+
+    //   return promise;
+    // });
+
+    // emailServiceMock.expects('getClient').once().withArgs(transport).returns('test');
+
+    // let createTransportStub = sandbox.stub(nodemailer, 'createTransport').callsFake(transport => {
+    //   assert.deepEqual(transport, config.get().notifications.email.transport);
+
+    //   let client = { sendMail: sendMailStub };
+
+    //   return client;
+    // });
+    // let emailClientStub = sandbox.stub(nodemailer, 'sendMail')
+
+    // sandbox.stub(emailRenderer, 'render').returns(html);
+
+    // let result = email.notify({
+    //   status: STATUS_UP,
+    //   name: randomName
+    // });
+
+
+    // assert(getClientStub.calledOnce);
+    // assert.equal(result, promise);
+    // emailServiceMock.verify();
+
+    // assert.isTrue(sendMailStub.calledOnce);
+    // assert.isTrue(createTransportStub.calledOnce);
+  });
+
+  // it('should log error when emailClient fails to send email.', () => {
+  //   let loggerStub = sandbox.stub(logger, 'error');
+
+  //   sandbox.stub(emailClient, 'sendMail').throws('Error');
+
+  //   email.notify({
+  //     status: STATUS_DOWN,
+  //     name: faker.random.word()
+  //   });
+
+  //   assert.isTrue(loggerStub.calledOnce);
+  // });
+
+  // it('should log error when renderEmailTemplate fails to render template.', () => {
+  //   let loggerStub = sandbox.stub(logger, 'error');
+
+  //   sandbox.stub(emailRenderer, 'render').throws('Error');
+
+  //   email.notify({
+  //     status: STATUS_UP,
+  //     name: faker.random.word()
+  //   });
+
+  //   assert.isTrue(loggerStub.calledOnce);
+  // });
+});
