@@ -21,7 +21,9 @@ export default {
     hipchat: {
       enabled: false,
       roomId: null,
-      authToken: null
+      authToken: null,
+      emailId: 'chill@noreply.com',
+      baseUrl: 'https://api.hipchat.com/v2/room/'
     },
     twilio: {
       enabled: false,

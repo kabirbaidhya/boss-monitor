@@ -3,8 +3,7 @@ import logger from '../utils/logger';
 import config from '../config/config';
 import messages from '../common/messages';
 
-const { roomId, authToken } = config.notifications.hipchat;
-const HOOK_BASE_URI = 'https://api.hipchat.com/v2/room/';
+const { roomId, authToken, email, baseUrl } = config.notifications.hipchat;
 
 /**
  * Check if hipchat notifications are enabled.
@@ -49,7 +48,7 @@ function preparePayload(params) {
   return {
     message: text(name, params.downtime),
     color: color,
-    from: 'chill@noreply.com',
+    from: email,
     value: name
   };
 }
@@ -61,7 +60,7 @@ function preparePayload(params) {
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  const url = HOOK_BASE_URI + `${roomId}/notification?auth_token=${authToken}`;
+  const url = baseUrl + `${roomId}/notification?auth_token=${authToken}`;
 
   logger.info('Sending notification to hipchat.');
   logger.debug('Hipchat Payload:', payload);
