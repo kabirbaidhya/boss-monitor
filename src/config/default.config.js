@@ -1,6 +1,11 @@
 export default {
   logging: {
-    level: process.env.LOGGING_LEVEL || 'info'
+    level: 'info',
+    logDir: 'logs',
+    jsonFormat: false,
+    spaceLength: 8 ,
+    dateFormat: 'yyyy-MM-dd',
+    tsFormat: new Date()
   },
   monitoring: {
     method: 'OPTIONS',

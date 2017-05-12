@@ -2,25 +2,23 @@ import fs from 'fs';
 import winston from 'winston';
 import 'winston-daily-rotate-file';
 import config from '../config/config';
+import { centerAlignString } from '../utils/stringFormatter';
 
-const logDir = process.env.LOGGING_DIR || 'logs';
-const isJsonFormat = process.env.JSON_FORMAT || false;
-const logLevel = config.logging.level || 'info';
-const tsFormat = new Date();
-
+const { logDir, level, jsonFormat, spaceLength ,tsFormat, dateFormat } = config.logging;
 // Create log directory if it does not exist
+
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
 
 function customFormatter(options) {
     // Return string will be passed to logger.
-  return options.timestamp + '\t' + 
-  '[' + winston.config.colorize(options.level, options.level.toUpperCase()) + '] \t' +
-  (options.message ? options.message : '') +
-  (options.meta && Object.keys(options.meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : '');
+  let level = winston.config.colorize(options.level, options.level.toUpperCase());
+  let message = options.message ? options.message : '';
+  let meta = options.meta && Object.keys(options.meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : '';
+  
+  return `${options.timestamp}  [${centerAlignString(level, spaceLength)}]  ${message}  ${meta}`;
 }
-
 
 /**
  * Create new winston logger instance.
@@ -30,7 +28,7 @@ const logger = new (winston.Logger)({
     new winston.transports.Console({
       timestamp: tsFormat,
       colorize: true,
-      level: logLevel,
+      level: 'info',
       formatter: customFormatter
     }),
     new winston.transports.DailyRotateFile({
@@ -38,10 +36,10 @@ const logger = new (winston.Logger)({
       timestamp: tsFormat,
       datePattern: 'yyyy-MM-dd',
       prepend: true,
-      level: logLevel,
+      level: level,
       align: true,
       formatter: customFormatter,
-      json: isJsonFormat
+      json: jsonFormat
     })
   ]
 });
