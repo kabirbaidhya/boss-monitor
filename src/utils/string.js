@@ -1,4 +1,4 @@
-const str = {
+const string = {
   /**
    * Justify the string.
    *
@@ -20,9 +20,8 @@ const str = {
     if (result.length - 10 > spaceLength) {
       result = result.slice(0, -1);
     }
-    
     return result;
   }
-};
+}
 
-export default str;
+export default string;
