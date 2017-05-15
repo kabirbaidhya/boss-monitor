@@ -4,7 +4,7 @@ import Service from '../models/Service';
 /**
  * Fetch a service by its name.
  *
- * @param  {number|string}  id
+ * @param  {string}  id
  * @return {Promise}
  */
 export async function fetchByName(name) {
@@ -44,7 +44,7 @@ export async function create({ name, status }) {
 /**
  * Update a service.
  *
- * @param  {number|string}  id
+ * @param  {string}  id
  * @param  {object}         service
  * @return {Promise}
  */
