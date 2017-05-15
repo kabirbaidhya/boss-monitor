@@ -1,6 +1,10 @@
 logging:
   level: error
 
+db:
+  path: ./
+  name: chill.db
+  
 monitoring:
   minInterval: 1000
   maxInterval: 10000
