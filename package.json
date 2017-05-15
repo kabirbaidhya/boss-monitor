@@ -19,7 +19,7 @@
     "test": "NODE_ENV=test mocha",
     "test:watch": "NODE_ENV=test mocha --watch",
     "test:coverage": "NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- --recursive --require babel-register --colors --reporter spec test",
-    "migrate:latest": "knex migrate:latest --knexfile src/knexfile.js"
+    "migrate:latest": "knex migrate:latest"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",

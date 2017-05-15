@@ -2,6 +2,10 @@ export default {
   logging: {
     level: process.env.LOGGING_LEVEL || 'info'
   },
+  db: {
+    path: './',
+    name: 'chill.db'
+  },
   monitoring: {
     method: 'OPTIONS',
     minInterval: 1000,

@@ -1,6 +1,6 @@
 import knex from 'knex';
 import bookshelf from 'bookshelf';
-import knexConfig from '../knexfile';
+import knexConfig from '../../knexfile';
 
 /**
  * Create a new database client.
