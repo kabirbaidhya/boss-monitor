@@ -1,11 +1,11 @@
 export default {
   logging: {
+    width: 8,
     level: 'info',
     logDir: 'logs',
     jsonFormat: false,
-    spaceLength: 8,
-    dateFormat: 'yyyy-MM-dd',
-    tsFormat: new Date()
+    tsFormat: new Date(),
+    dateFormat: 'yyyy-MM-dd'
   },
   monitoring: {
     method: 'OPTIONS',
