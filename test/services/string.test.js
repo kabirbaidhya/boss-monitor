@@ -5,6 +5,7 @@ import string from '../utils/string';
 describe('string.center', () => {
   const width = 8;
   let text = faker.random.word();
+
   it('should return centerized stringn with proper padding for even width.', () => {
     let result = string.center(text, width);
 

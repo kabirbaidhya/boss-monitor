@@ -10,7 +10,7 @@ const {
   tsFormat,
   jsonFormat,
   dateFormat,
-  levelColumnWidth,
+  levelColumnWidth
 } = config.logging;
 
 // Create log directory if it does not exist
@@ -29,7 +29,7 @@ function customFormatter(options) {
   let message = options.message ? options.message : '';
   let meta = options.meta && Object.keys(options.meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : '';
 
-  return `${options.timestamp}  [${string.center(level, width)}]  ${message}  ${meta}`;
+  return `${options.timestamp}  [${string.center(level, levelColumnWidth)}]  ${message}  ${meta}`;
 }
 
 /**

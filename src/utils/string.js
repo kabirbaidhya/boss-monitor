@@ -3,12 +3,14 @@ const string = {
    * Justify the string.
    *
    * @param {String} text
-   * @param {Integer} spaceLength
+   * @param {Number} spaceLength
    * @returns {String}
    */
   center(text, spaceLength) {
-    const emptySpace = ' ';
-    const textLength = text.length - 10; //  remove color font length
+    let emptySpace = ' ';
+
+    text = text.trim();
+    let textLength = text.length - 10; //  remove color font length
 
     if (textLength >= spaceLength) {
       return text;
