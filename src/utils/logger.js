@@ -5,12 +5,12 @@ import string from '../utils/string';
 import config from '../config/config';
 
 const {
-  width,
   level,
   logDir,
   tsFormat,
   jsonFormat,
-  dateFormat
+  dateFormat,
+  levelColumnWidth,
 } = config.logging;
 
 // Create log directory if it does not exist
@@ -21,7 +21,7 @@ if (!fs.existsSync(logDir)) {
 /**
  * Add custom formatter for logging.
  *
- * @param {object} options
+ * @param {Object} options
  * @returns {String}
  */
 function customFormatter(options) {

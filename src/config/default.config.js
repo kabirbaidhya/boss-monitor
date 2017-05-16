@@ -1,9 +1,9 @@
 export default {
   logging: {
-    width: 8,
     level: 'info',
     logDir: 'logs',
     jsonFormat: false,
+    levelColumnWidth: 8,
     tsFormat: new Date(),
     dateFormat: 'yyyy-MM-dd'
   },

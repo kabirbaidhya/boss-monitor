@@ -9,6 +9,10 @@ const string = {
   center(text, spaceLength) {
     const emptySpace = ' ';
     const textLength = text.length - 10; //  remove color font length
+
+    if (textLength >= spaceLength) {
+      return text;
+    }
     let spaceContainer = '';
     let spaceRequired = (spaceLength - textLength) / 2;
 
