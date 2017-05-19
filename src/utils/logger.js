@@ -1,7 +1,7 @@
 import fs from 'fs';
 import winston from 'winston';
 import 'winston-daily-rotate-file';
-import string from '../utils/string';
+import { center } from '../utils/string';
 import config from '../config/config';
 
 const {
@@ -29,7 +29,7 @@ function customFormatter(options) {
   let message = options.message ? options.message : '';
   let meta = options.meta && Object.keys(options.meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : '';
 
-  return `${options.timestamp}  [${string.center(level, levelColumnWidth)}]  ${message}  ${meta}`;
+  return `${options.timestamp}  [${center(level, levelColumnWidth)}]  ${message}  ${meta}`;
 }
 
 /**
