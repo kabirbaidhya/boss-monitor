@@ -85,7 +85,8 @@ describe('hipchat.notify', () => {
   });
 
   it('should log error if it fails to send notification to hipchat.', () => {
-    let loggerStub = sandbox.stub(logger, 'error');
+    let loggerInstance = logger();
+    let loggerStub = sandbox.stub(loggerInstance, 'error');
 
     sandbox.stub(rp, 'post').throws('Error');
 

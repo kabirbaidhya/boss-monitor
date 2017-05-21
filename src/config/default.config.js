@@ -5,7 +5,7 @@ export default {
     level: 'info',
     logDir: 'logs',
     jsonFormat: false,
-    levelColumnWidth: 8,
+    levelColumnWidth: 7,
     tsFormat: () => new Date().toISOString(),
     dateFormat: 'yyyy-MM-dd'
   },

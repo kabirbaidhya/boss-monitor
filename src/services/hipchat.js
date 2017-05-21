@@ -21,16 +21,16 @@ export function isEnabled() {
  * @returns {Promise}
  */
 export async function notify(params) {
-  logger.debug('Notification Params:', params);
+  logger().debug('Notification Params:', params);
   let payload = preparePayload(params);
 
   try {
     let result = await sendNotification(payload);
 
-    logger.info('Sent notification to hipchat.');
-    logger.debug('Result:', result);
+    logger().info('Sent notification to hipchat.');
+    logger().debug('Result:', result);
   } catch (err) {
-    logger.error('Error sending notification to hipchat.', err);
+    logger().error('Error sending notification to hipchat.', err);
   }
 }
 
@@ -71,8 +71,8 @@ export function getUrl() {
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  logger.info('Sending notification to hipchat.');
-  logger.debug('Hipchat Payload:', payload);
+  logger().info('Sending notification to hipchat.');
+  logger().debug('Hipchat Payload:', payload);
 
   return rp.post({
     url: getUrl(),

@@ -23,16 +23,16 @@ export function isEnabled() {
  * @returns {Promise}
  */
 export async function notify(params) {
-  logger.debug('Notification Params:', params);
+  logger().debug('Notification Params:', params);
   let payload = preparePayload(params);
 
   try {
     let result = await sendNotification(payload);
 
-    logger.info('Sent notification to slack.');
-    logger.debug('Result:', result);
+    logger().info('Sent notification to slack.');
+    logger().debug('Result:', result);
   } catch (err) {
-    logger.error('Error sending notification to slack.', err);
+    logger().error('Error sending notification to slack.', err);
   }
 }
 
@@ -73,8 +73,8 @@ function sendNotification(payload) {
   const { endpoint } = config.get().notifications.slack;
   const url = HOOK_BASE_URI + endpoint;
 
-  logger.info('Sending notification to slack.');
-  logger.debug('Slack Payload:', payload);
+  logger().info('Sending notification to slack.');
+  logger().debug('Slack Payload:', payload);
 
   return rp.post({
     url,

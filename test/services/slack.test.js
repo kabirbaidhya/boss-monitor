@@ -82,7 +82,7 @@ describe('slack.notify', () => {
   });
 
   it('should log error if it fails to send notification to slack.', () => {
-    let loggerStub = sandbox.stub(logger, 'error');
+    let loggerStub = sandbox.stub(logger(), 'error');
 
     sandbox.stub(rp, 'post').throws('Error');
 

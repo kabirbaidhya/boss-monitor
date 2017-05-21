@@ -5,7 +5,7 @@ import * as config from '../config/config';
 
 /**
  * Initialize and return the twilio client.
- * 
+ *
  * @returns {Object}
  */
 export function getClient() {
@@ -33,16 +33,16 @@ export function isEnabled() {
  * @returns {Promise}
  */
 export async function notify(params) {
-  logger.debug('Notification Params:', params);
+  logger().debug('Notification Params:', params);
   let payLoad = preparePayLoad(params);
 
   try {
     let response = await sendNotification(payLoad);
 
-    logger.info('Sent notification to', response.to);
-    logger.debug('Result:', response);
+    logger().info('Sent notification to', response.to);
+    logger().debug('Result:', response);
   } catch (err) {
-    logger.error('Error sending notification from twilio.', err);
+    logger().error('Error sending notification from twilio.', err);
   }
 }
 

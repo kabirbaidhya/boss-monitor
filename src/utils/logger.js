@@ -17,25 +17,30 @@ function createDirectory(logDir) {
  * Add custom formatter for logging.
  *
  * @param {Object} options
+ * @param {Object} config
  * @returns {String}
  */
-function customFormatter(options) {
-  let level = formatLevel(options.level);
-  let message = options.message ? options.message : '';
-  let meta = options.meta && Object.keys(options.meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : '';
+function customFormatter(options, config) {
+  const { levelColumnWidth } = config;
+  const { level, message, meta, timestamp } = options;
+  const log = {
+    level: formatLevel(level, levelColumnWidth),
+    message: message || '',
+    meta: meta && Object.keys(meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : ''
+  };
 
-  return `${options.timestamp()}  [${level}]  ${message}  ${meta}`;
+  return `${timestamp()}  [${log.level}]  ${log.message}  ${log.meta}`;
 }
 
 /**
  * Formats the logging level with and colors & justification.
  *
  * @param {String} level
+ * @param {Number} width
  * @returns {String}
  */
-function formatLevel(level) {
-  let { levelColumnWidth } = config.get().logging;
-  let centeredLevel = str.center(level.toUpperCase(), levelColumnWidth);
+function formatLevel(level, width) {
+  let centeredLevel = str.center(level.toUpperCase(), width);
 
   return `${winston.config.colorize(level, centeredLevel.toUpperCase())}`;
 }
@@ -64,7 +69,7 @@ function createLogger(config) {
         level: level,
         colorize: true,
         timestamp: tsFormat,
-        formatter: customFormatter
+        formatter: opts => customFormatter(opts, config)
       }),
       new winston.transports.DailyRotateFile({
         align: true,
@@ -73,8 +78,8 @@ function createLogger(config) {
         json: jsonFormat,
         timestamp: tsFormat,
         datePattern: dateFormat,
-        formatter: customFormatter,
-        filename: `${logDir}/-log.log`
+        filename: `${logDir}/-log.log`,
+        formatter: opts => customFormatter(opts, config)
       })
     ]
   });
@@ -86,11 +91,9 @@ function createLogger(config) {
  * @returns {winston.Logger}
  */
 export default function logger() {
-  if (instance) {
-    return instance;
-  }
+  if (instance) return instance;
 
   instance = createLogger(config.get().logging);
 
-  return logger;
+  return instance;
 }
