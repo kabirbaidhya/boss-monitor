@@ -36,10 +36,10 @@ export async function notify(params) {
   let payload = null;
 
   try {
-    logger.debug('Notification Params:', params);
+    logger().debug('Notification Params:', params);
     payload = preparePayLoad(params);
   } catch (err) {
-    logger.error('Error while preparing payload for email.', err);
+    logger().error('Error while preparing payload for email.', err);
 
     return Promise.resolve();
   }
@@ -47,12 +47,12 @@ export async function notify(params) {
   try {
     let result = await sendNotification(payload);
 
-    logger.info('Sent notification to email.');
-    logger.debug('Result:', result);
+    logger().info('Sent notification to email.');
+    logger().debug('Result:', result);
 
     return result;
   } catch (err) {
-    logger.error('Error sending notification to email.', err);
+    logger().error('Error sending notification to email.', err);
   }
 }
 

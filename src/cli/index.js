@@ -1,7 +1,10 @@
-let yargs = require('yargs');
-let chill = require('../../package');
+import 'babel-polyfill';
+import yargs from 'yargs';
+import chill from '../../package';
+import init from '../monitoring/init';
+import * as config from '../config/config';
+
 let name = 'chill';
-let description = 'Chill - A simple service monitoring tool.';
 
 yargs
   .usage(`Usage: ${name} [options]`, { 'a': {} })
@@ -19,3 +22,6 @@ yargs.options({
 });
 
 let argv = yargs.argv;
+
+// Initialize the application with the provided config.
+init(config.resolve(argv.config));

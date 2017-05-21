@@ -4,18 +4,13 @@ import 'winston-daily-rotate-file';
 import * as str from '../utils/string';
 import * as config from '../config/config';
 
-const {
-  level,
-  logDir,
-  tsFormat,
-  jsonFormat,
-  dateFormat,
-  levelColumnWidth
-} = config.get().logging;
-
-// Create log directory if it does not exist
-if (!fs.existsSync(logDir)) {
-  fs.mkdirSync(logDir);
+/**
+ * Create log directory if it does not exist.
+ */
+function createDirectory(logDir) {
+  if (!fs.existsSync(logDir)) {
+    fs.mkdirSync(logDir);
+  }
 }
 
 /**
@@ -39,33 +34,63 @@ function customFormatter(options) {
  * @returns {String}
  */
 function formatLevel(level) {
+  let { levelColumnWidth } = config.get().logging;
   let centeredLevel = str.center(level.toUpperCase(), levelColumnWidth);
 
   return `${winston.config.colorize(level, centeredLevel.toUpperCase())}`;
 }
 
-/**
- * Create new winston logger instance.
- */
-const logger = new (winston.Logger)({
-  transports: [
-    new winston.transports.Console({
-      level: level,
-      colorize: true,
-      timestamp: tsFormat,
-      formatter: customFormatter
-    }),
-    new winston.transports.DailyRotateFile({
-      align: true,
-      level: level,
-      prepend: true,
-      json: jsonFormat,
-      timestamp: tsFormat,
-      datePattern: dateFormat,
-      formatter: customFormatter,
-      filename: `${logDir}/-log.log`
-    })
-  ]
-});
+let instance;
 
-export default logger;
+/**
+ * Create and return a new instance of Logger.
+ *
+ * @returns {winston.Logger}
+ */
+function createLogger(config) {
+  const {
+    level,
+    logDir,
+    tsFormat,
+    jsonFormat,
+    dateFormat
+  } = config;
+
+  createDirectory(logDir);
+
+  return new (winston.Logger)({
+    transports: [
+      new winston.transports.Console({
+        level: level,
+        colorize: true,
+        timestamp: tsFormat,
+        formatter: customFormatter
+      }),
+      new winston.transports.DailyRotateFile({
+        align: true,
+        level: level,
+        prepend: true,
+        json: jsonFormat,
+        timestamp: tsFormat,
+        datePattern: dateFormat,
+        formatter: customFormatter,
+        filename: `${logDir}/-log.log`
+      })
+    ]
+  });
+}
+
+/**
+ * Return an instance of logger.
+ *
+ * @returns {winston.Logger}
+ */
+export default function logger() {
+  if (instance) {
+    return instance;
+  }
+
+  instance = createLogger(config.get().logging);
+
+  return logger;
+}

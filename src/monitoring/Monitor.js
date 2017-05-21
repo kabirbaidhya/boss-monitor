@@ -20,13 +20,13 @@ class Monitor {
     let status = await checkHostStatus(url);
     let interval = getCheckInterval(status, minInterval, maxInterval);
 
-    logger.debug(`Status of ${name} service is ${status}`);
+    logger().debug(`Status of ${name} service is ${status}`);
 
     if (this.isStatusDifferent(status)) {
       this.handleStatusChange(status);
     }
 
-    logger.debug(`Check interval for ${name} = ${interval}`);
+    logger().debug(`Check interval for ${name} = ${interval}`);
     setTimeout(this.startMonitoring.bind(this), interval);
   }
 
@@ -46,7 +46,7 @@ class Monitor {
 
     // Trigger the status change event.
     events.trigger(events.EVENT_STATUS_CHANGED, params);
-    logger.debug(`Event triggered ${events.EVENT_STATUS_CHANGED} with params`, params);
+    logger().debug(`Event triggered ${events.EVENT_STATUS_CHANGED} with params`, params);
 
     this.service.status = status;
     this.lastStatusChanged = currentTime; // Set the status changed date to current time.

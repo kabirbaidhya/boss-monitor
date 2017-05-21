@@ -2,7 +2,6 @@ import faker from 'faker';
 import sinon from 'sinon';
 import { assert } from 'chai';
 import nodemailer from 'nodemailer';
-import proxyquire from 'proxyquire';
 import * as config from '../../src/config/config';
 import * as email from '../../src/services/email';
 import { STATUS_UP } from '../../src/services/status';
@@ -78,9 +77,6 @@ describe('email.notify', () => {
     let sendMailStub = sandbox.stub().callsFake(payload => {
       assert.equal(payload.html, emailHtml);
     });
-    let emailClient = { sendMail: sendMailStub };
-    let nodemailerStub = sandbox.stub(nodemailer, 'createTransport').returns(emailClient);
-
     let name = faker.random.word();
     let status = STATUS_UP;
 

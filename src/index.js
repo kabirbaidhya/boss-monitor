@@ -1,4 +1,6 @@
 import 'babel-polyfill';
 import init from './monitoring/init';
+import * as config from './config/config';
 
-init();
+// Initialize the application with the local configuration.
+init(config.resolve());

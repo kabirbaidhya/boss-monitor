@@ -1,3 +1,5 @@
+import path from 'path';
+
 export default {
   logging: {
     level: 'info',
@@ -43,7 +45,8 @@ export default {
       },
       sender: null,
       receivers: [],
-      templateDir: null
+      encoding: 'utf-8',
+      templateDir: path.resolve(__dirname, '../common/templates/')
     }
   },
   services: []
