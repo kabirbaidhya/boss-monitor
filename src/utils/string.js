@@ -1,32 +1,31 @@
+
 /**
- * Justify the string.
+ * Justify (center) the text in the provided `width` by adding
+ * padding on the left and right of the text using the `fillchar`.
+ * This implementation is similar to python's str.center()
+ * http://python-reference.readthedocs.io/en/latest/docs/str/center.html
  *
  * @param {String} text
- * @param {Number} spaceLength
+ * @param {Number} width
+ * @param {String} [fillchar=' ']
  * @returns {String}
  */
-export function center(text, spaceLength) {
-  let emptySpace = ' ';
-
+export function center(text, width, fillchar = ' ') {
   text = text.trim();
-  let textLength = text.length - 10;  // remove color font length
 
-  if (textLength >= spaceLength) {
+  // If the text length is more than the max width given
+  // return it as it is, as no justification can be done.
+  if (text.length >= width) {
     return text;
   }
 
-  let spaceContainer = '';
-  let spaceRequired = (spaceLength - textLength) / 2;
+  // Calculate padding left and right.
+  let remainingSpace = width - text.length;
+  let paddingLeft = Math.floor(remainingSpace / 2);
+  let paddingRight = remainingSpace - paddingLeft;
 
-  for (let i = 0; i < spaceRequired; i++) {
-    spaceContainer = spaceContainer + emptySpace;
-  }
-
-  let result = spaceContainer + text + spaceContainer;
-
-  if (result.length - 10 > spaceLength) {
-    result = result.slice(0, -1);
-  }
+  // Add padding left & right using the fillchar character.
+  let result = fillchar.repeat(paddingLeft) + text + fillchar.repeat(paddingRight);
 
   return result;
 }
