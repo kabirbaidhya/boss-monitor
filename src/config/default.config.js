@@ -1,6 +1,11 @@
 export default {
   logging: {
-    level: process.env.LOGGING_LEVEL || 'info'
+    level: 'info',
+    logDir: 'logs',
+    jsonFormat: false,
+    levelColumnWidth: 8,
+    tsFormat: () => new Date().toISOString(),
+    dateFormat: 'yyyy-MM-dd'
   },
   monitoring: {
     method: 'OPTIONS',
@@ -16,7 +21,9 @@ export default {
     hipchat: {
       enabled: false,
       roomId: null,
-      authToken: null
+      authToken: null,
+      emailId: 'chill@noreply.com',
+      baseUrl: 'https://api.hipchat.com/v2/room/'
     },
     twilio: {
       enabled: false,
