@@ -1,8 +1,8 @@
 import fs from 'fs';
 import winston from 'winston';
 import 'winston-daily-rotate-file';
-import { center } from '../utils/string';
 import config from '../config/config';
+import * as str from '../utils/string';
 
 const {
   level,
@@ -25,11 +25,23 @@ if (!fs.existsSync(logDir)) {
  * @returns {String}
  */
 function customFormatter(options) {
-  let level = winston.config.colorize(options.level, options.level.toUpperCase());
+  let level = formatLevel(options.level);
   let message = options.message ? options.message : '';
   let meta = options.meta && Object.keys(options.meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : '';
 
-  return `${options.timestamp}  [${center(level, levelColumnWidth)}]  ${message}  ${meta}`;
+  return `${options.timestamp()}  [${level}]  ${message}  ${meta}`;
+}
+
+/**
+ * Formats the logging level with and colors & justification.
+ *
+ * @param {String} level
+ * @returns {String}
+ */
+function formatLevel(level) {
+  let centeredLevel = str.center(level.toUpperCase(), levelColumnWidth);
+
+  return `${winston.config.colorize(level, centeredLevel.toUpperCase())}`;
 }
 
 /**

@@ -4,7 +4,7 @@ export default {
     logDir: 'logs',
     jsonFormat: false,
     levelColumnWidth: 8,
-    tsFormat: new Date(),
+    tsFormat: () => new Date().toISOString(),
     dateFormat: 'yyyy-MM-dd'
   },
   monitoring: {

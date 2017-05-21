@@ -11,8 +11,6 @@
  * @returns {String}
  */
 export function center(text, width, fillchar = ' ') {
-  text = text.trim();
-
   // If the text length is more than the max width given
   // return it as it is, as no justification can be done.
   if (text.length >= width) {
@@ -20,12 +18,13 @@ export function center(text, width, fillchar = ' ') {
   }
 
   // Calculate padding left and right.
-  let remainingSpace = width - text.length;
+  let orignalText = text.trim();
+  let remainingSpace = width - orignalText.length;
   let paddingLeft = Math.floor(remainingSpace / 2);
   let paddingRight = remainingSpace - paddingLeft;
 
   // Add padding left & right using the fillchar character.
-  let result = fillchar.repeat(paddingLeft) + text + fillchar.repeat(paddingRight);
+  let result = fillchar.repeat(paddingLeft) + orignalText + fillchar.repeat(paddingRight);
 
   return result;
 }
