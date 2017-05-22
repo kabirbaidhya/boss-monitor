@@ -9,7 +9,7 @@ import * as config from '../config/config';
  * @returns {Object}
  */
 export function getClient() {
-  let { authToken, accountSid } = config.get().notifications;
+  let { authToken, accountSid } = config.get().notifications.twilio;
   let client = twilio(accountSid, authToken);
 
   return client;

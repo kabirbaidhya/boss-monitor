@@ -4,7 +4,7 @@ import chill from '../../package';
 import init from '../monitoring/init';
 import * as config from '../config/config';
 
-let name = 'chill';
+const name = 'chill';
 
 yargs
   .usage(`Usage: ${name} [options]`, { 'a': {} })

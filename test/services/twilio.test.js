@@ -1,6 +1,7 @@
 import faker from 'faker';
 import sinon from 'sinon';
 import { assert } from 'chai';
+import proxyquire from 'proxyquire';
 import logger from '../../src/utils/logger';
 import * as config from '../../src/config/config';
 import * as twilio from '../../src/services/twilio';
@@ -63,33 +64,30 @@ describe('twilio.notify', () => {
   });
 
   it('should send notification from twilio with correct params', () => {
-    sandbox.stub(twilio, 'getClient').returns({
-      sendMessage(params) {
-        assert.isString(params.body);
-        assert.equal(params.to, phoneNumber);
-        assert.equal(params.from, phoneNumber);
-
-        return Promise.resolve(params);
+    let sendMessageStub = sandbox.stub();
+    let twilioSerivce = proxyquire('../../src/services/twilio', {
+      twilio() {
+        return { sendMessage: sendMessageStub };
       }
     });
 
-    twilio.notify({ status: STATUS_UP, name: faker.random.word() });
+    twilioSerivce.notify({ status: STATUS_UP, name: faker.random.word() });
+    assert.isTrue(sendMessageStub.calledOnce);
   });
 
   it('should log error when twilio fails to send the message', () => {
-    let loggerStub = sandbox.stub(logger(), 'error');
-
-    sandbox.stub(twilio, 'getClient').returns({
-      sendMessage() {
-        throw new Error();
+    let sendMessageStub = sandbox.stub().throws(new Error());
+    let twilioSerivce = proxyquire('../../src/services/twilio', {
+      twilio() {
+        return {
+          sendMessage: sendMessageStub
+        };
       }
     });
+    let loggerInstance = logger();
+    let loggerStub = sandbox.stub(loggerInstance, 'error');
 
-    twilio.notify({
-      status: STATUS_DOWN,
-      name: faker.random.word()
-    });
-
+    twilioSerivce.notify({ status: STATUS_DOWN, name: faker.random.word() });
     assert.isTrue(loggerStub.calledOnce);
   });
 });
