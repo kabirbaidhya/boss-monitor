@@ -18,7 +18,8 @@ export default {
   notifications: {
     slack: {
       enabled: false,
-      endpoint: null
+      endpoint: null,
+      baseUrl: 'https://hooks.slack.com/services'
     },
     hipchat: {
       enabled: false,

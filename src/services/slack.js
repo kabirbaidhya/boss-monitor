@@ -3,8 +3,6 @@ import logger from '../utils/logger';
 import messages from '../common/messages';
 import * as config from '../config/config';
 
-const HOOK_BASE_URI = 'https://hooks.slack.com/services';
-
 /**
  * Check if slack notifications are enabled.
  *
@@ -70,15 +68,14 @@ function preparePayload(params) {
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  const { endpoint } = config.get().notifications.slack;
-  const url = HOOK_BASE_URI + endpoint;
+  const { baseUrl, endpoint } = config.get().notifications.slack;
 
   logger().info('Sending notification to slack.');
   logger().debug('Slack Payload:', payload);
 
   return rp.post({
-    url,
-    json: true,
-    body: payload
+    url: `${baseUrl}${endpoint}`,
+    body: payload,
+    json: true
   });
 }
