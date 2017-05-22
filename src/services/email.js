@@ -7,7 +7,7 @@ import * as emailRenderer from '../utils/emailRenderer';
 /**
  * Get the nodemailer email client using the configured transport.
  *
- * @returns {Object} The nodemailer Transporter object.
+ * @returns {Object}
  */
 export function getClient(transport) {
   let client = nodemailer.createTransport(transport);
@@ -72,10 +72,10 @@ function preparePayLoad(params) {
   let html = emailRenderer.render('status', message);
 
   return {
-    from: sender,
-    to: receivers,
     html,
-    subject
+    subject,
+    from: sender,
+    to: receivers
   };
 }
 
