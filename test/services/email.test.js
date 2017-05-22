@@ -62,7 +62,6 @@ describe('email.getClient', () => {
 
 describe('email.notify', () => {
   let sandbox;
-  // let email
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
@@ -74,12 +73,11 @@ describe('email.notify', () => {
 
   it('should send email notification with correct parameters.', () => {
     let emailHtml = '<h1>Test</h1>';
-    let sendMailStub = sandbox.stub().callsFake(payload => {
-      assert.equal(payload.html, emailHtml);
-    });
     let name = faker.random.word();
     let status = STATUS_UP;
+    let clientStub = { sendMail: sandbox.stub() };
 
+    sandbox.stub(nodemailer, 'createTransport').returns(clientStub);
     sandbox.stub(emailRenderer, 'render').callsFake(() => emailHtml);
 
     // Trigger notify
@@ -89,6 +87,6 @@ describe('email.notify', () => {
       downtime: 5
     });
 
-    assert(sendMailStub.calledOnce);
+    assert.isTrue(clientStub.sendMail.called);
   });
 });
