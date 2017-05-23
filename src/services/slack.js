@@ -1,9 +1,7 @@
 import rp from 'request-promise';
 import logger from '../utils/logger';
-import config from '../config/config';
 import messages from '../common/messages';
-
-const HOOK_BASE_URI = 'https://hooks.slack.com/services';
+import * as config from '../config/config';
 
 /**
  * Check if slack notifications are enabled.
@@ -11,7 +9,9 @@ const HOOK_BASE_URI = 'https://hooks.slack.com/services';
  * @returns {Boolean}
  */
 export function isEnabled() {
-  return config.notifications.slack && config.notifications.slack.enabled;
+  let slackConfig = config.get().notifications.slack;
+
+  return slackConfig && slackConfig.enabled;
 }
 
 /**
@@ -21,16 +21,16 @@ export function isEnabled() {
  * @returns {Promise}
  */
 export async function notify(params) {
-  logger.debug('Notification Params:', params);
+  logger().debug('Notification Params:', params);
   let payload = preparePayload(params);
 
   try {
     let result = await sendNotification(payload);
 
-    logger.info('Sent notification to slack.');
-    logger.debug('Result:', result);
+    logger().info('Sent notification to slack.');
+    logger().debug('Result:', result);
   } catch (err) {
-    logger.error('Error sending notification to slack.', err);
+    logger().error('Error sending notification to slack.', err);
   }
 }
 
@@ -42,8 +42,7 @@ export async function notify(params) {
  */
 function preparePayload(params) {
   const { status, name } = params;
-
-  let { text, color } = messages[status];
+  const { text, color } = messages[status];
 
   return {
     text: text(name, params.downtime),
@@ -69,14 +68,14 @@ function preparePayload(params) {
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  const url = HOOK_BASE_URI + config.notifications.slack.endpoint;
+  const { baseUrl, endpoint } = config.get().notifications.slack;
 
-  logger.info('Sending notification to slack.');
-  logger.debug('Slack Payload:', payload);
+  logger().info('Sending notification to slack.');
+  logger().debug('Slack Payload:', payload);
 
   return rp.post({
-    url,
-    json: true,
-    body: payload
+    url: `${baseUrl}${endpoint}`,
+    body: payload,
+    json: true
   });
 }

@@ -3,7 +3,7 @@ import faker from 'faker';
 import { assert } from 'chai';
 import rp from 'request-promise';
 import logger from '../../src/utils/logger';
-import config from '../../src/config/config';
+import * as config from '../../src/config/config';
 import * as slack from '../../src/services/slack';
 import { STATUS_UP } from '../../src/services/status';
 
@@ -19,16 +19,26 @@ describe('slack.isEnabled', () => {
   });
 
   it('should return true if slack notification is enabled.', () => {
-    sandbox.stub(config.notifications, 'slack', {
-      enabled: true,
-      endpoint: faker.random.word()
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        slack: {
+          enabled: true,
+          endpoint: faker.random.word()
+        }
+      }
     });
 
     assert.isTrue(slack.isEnabled());
   });
 
   it('should return false if slack notification is not enabled.', () => {
-    sandbox.stub(config.notifications, 'slack', { enabled: false });
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        slack: {
+          enabled: false
+        }
+      }
+    });
 
     assert.isFalse(slack.isEnabled());
   });
@@ -40,9 +50,13 @@ describe('slack.notify', () => {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    sandbox.stub(config.notifications, 'slack', {
-      enabled: true,
-      endpoint: slackEndpoint
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        slack: {
+          enabled: true,
+          endpoint: slackEndpoint
+        }
+      }
     });
   });
 
@@ -68,7 +82,7 @@ describe('slack.notify', () => {
   });
 
   it('should log error if it fails to send notification to slack.', () => {
-    let loggerStub = sandbox.stub(logger, 'error');
+    let loggerStub = sandbox.stub(logger(), 'error');
 
     sandbox.stub(rp, 'post').throws('Error');
 

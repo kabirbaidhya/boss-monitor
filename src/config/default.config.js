@@ -1,9 +1,11 @@
+import path from 'path';
+
 export default {
   logging: {
     level: 'info',
     logDir: 'logs',
     jsonFormat: false,
-    levelColumnWidth: 8,
+    levelColumnWidth: 7,
     tsFormat: () => new Date().toISOString(),
     dateFormat: 'yyyy-MM-dd'
   },
@@ -16,7 +18,8 @@ export default {
   notifications: {
     slack: {
       enabled: false,
-      endpoint: null
+      endpoint: null,
+      baseUrl: 'https://hooks.slack.com/services'
     },
     hipchat: {
       enabled: false,
@@ -43,7 +46,8 @@ export default {
       },
       sender: null,
       receivers: [],
-      templateDir: null
+      encoding: 'utf-8',
+      templateDir: path.resolve(__dirname, '../common/templates/')
     }
   },
   services: []

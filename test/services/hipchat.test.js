@@ -3,7 +3,7 @@ import faker from 'faker';
 import { assert } from 'chai';
 import rp from 'request-promise';
 import logger from '../../src/utils/logger';
-import config from '../../src/config/config';
+import * as config from '../../src/config/config';
 import * as hipchat from '../../src/services/hipchat';
 import { STATUS_UP } from '../../src/services/status';
 
@@ -19,17 +19,27 @@ describe('hipchat.isEnabled', () => {
   });
 
   it('should return true if hipchat notification is enabled.', () => {
-    sandbox.stub(config.notifications, 'hipchat', {
-      enabled: true,
-      roomId: faker.random.word(),
-      authToken: faker.random.word()
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        hipchat: {
+          enabled: true,
+          roomId: faker.random.word(),
+          authToken: faker.random.word()
+        }
+      }
     });
 
     assert.isTrue(hipchat.isEnabled());
   });
 
   it('should return false if hipchat notification is not enabled.', () => {
-    sandbox.stub(config.notifications, 'hipchat', { enabled: false });
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        hipchat: {
+          enabled: false
+        }
+      }
+    });
 
     assert.isFalse(hipchat.isEnabled());
   });
@@ -37,15 +47,19 @@ describe('hipchat.isEnabled', () => {
 
 describe('hipchat.notify', () => {
   let sandbox;
-  let hipchatRoomId = faker.lorem.slug();
-  let hipchatAuthToken = faker.lorem.slug();
+  let roomId = faker.lorem.slug();
+  let authToken = faker.lorem.slug();
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    sandbox.stub(config.notifications, 'hipchat', {
-      enabled: true,
-      roomId: hipchatRoomId,
-      authToken: hipchatAuthToken
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        hipchat: {
+          enabled: true,
+          roomId,
+          authToken
+        }
+      }
     });
   });
 
@@ -55,7 +69,7 @@ describe('hipchat.notify', () => {
 
   it('should send the notification payload to the hipchat API endpoint.', () => {
     let rpStub = sandbox.stub(rp, 'post').callsFake(params => {
-      assert.match(params.url, new RegExp(`^https://.*${hipchatRoomId}/notification?auth_token=${hipchatAuthToken}`));
+      assert.equal(params.url, hipchat.getUrl(roomId, authToken));
       assert.isObject(params.body);
 
       return Promise.resolve();
@@ -71,7 +85,8 @@ describe('hipchat.notify', () => {
   });
 
   it('should log error if it fails to send notification to hipchat.', () => {
-    let loggerStub = sandbox.stub(logger, 'error');
+    let loggerInstance = logger();
+    let loggerStub = sandbox.stub(loggerInstance, 'error');
 
     sandbox.stub(rp, 'post').throws('Error');
 

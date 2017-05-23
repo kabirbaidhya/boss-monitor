@@ -1,10 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import handlebars from 'handlebars';
-import config from '../config/config';
-
-const ENCODING = 'utf-8';
-const EMAIL_TEMPLATE_DIR = config.notifications.email.templateDir ? path.resolve(__dirname, config.notifications.email.templateDir) : path.resolve(__dirname, '../common/emailTemplate/');
+import * as config from '../config/config';
 
 /**
  * Render email template.
@@ -14,9 +11,9 @@ const EMAIL_TEMPLATE_DIR = config.notifications.email.templateDir ? path.resolve
  * @returns {String}
  */
 export function render(filename, params) {
-  const templateFile = path.join(EMAIL_TEMPLATE_DIR, `${filename}.html`);
-
-  const html = fs.readFileSync(templateFile, ENCODING);
+  let { encoding, templateDir } = config.get().notifications.email;
+  let templateFile = path.join(templateDir, `${filename}.html`);
+  let html = fs.readFileSync(templateFile, encoding);
   let template = handlebars.compile(html);
 
   return template(params);
