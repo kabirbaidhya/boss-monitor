@@ -13,7 +13,6 @@ export function listen() {
   events.addListener(events.EVENT_MONITORING_STARTED, handleMonitoringStarted);
 }
 
-
 /**
  * Handle status change event.
  *

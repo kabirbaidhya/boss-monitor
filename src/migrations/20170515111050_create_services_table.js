@@ -1,4 +1,9 @@
-
+/**
+ * Create services table.
+ *
+ * @param  {object} knex
+ * @return {Promise}
+ */
 export function up(knex) {
   return knex.schema.createTable('services', table => {
     table.increments().primary();
@@ -9,6 +14,12 @@ export function up(knex) {
   });
 }
 
+/**
+ * Drop services table.
+ *
+ * @param  {object} knex
+ * @return {Promise}
+ */
 export function down(knex) {
   return knex.schema.dropTable('services');
 }

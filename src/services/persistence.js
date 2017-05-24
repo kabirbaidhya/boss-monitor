@@ -1,5 +1,5 @@
 import logger from '../utils/logger';
-import * as serviceDao from '../daos/serviceDao';
+import Service from '../models/Service';
 
 /**
  * Persist status change of a service to the database.
@@ -8,22 +8,26 @@ import * as serviceDao from '../daos/serviceDao';
  * @returns {Promise}
  */
 export async function persist({ status, serviceName }) {
-  let data;
-  let service = await serviceDao.fetchByName(serviceName);
+  try {
+    let data;
+    let service = await Service.fetchByName({ name: serviceName });
 
-  if (!service) {
-    data = await serviceDao.create({ status, name: serviceName });
+    if (!service) {
+      data = await Service.create({ status, name: serviceName });
 
-    logger.info(`Persisted service "${serviceName}" with status as "${status}".`);
+      logger.info(`Persisted service "${serviceName}" with status as "${status}".`);
+      logger.debug('Data', data);
+
+      return data;
+    }
+
+    data = await Service.update(service.id, { status });
+
+    logger.info(`Updated service "${serviceName}" with status as "${status}".`);
     logger.debug('Data', data);
 
     return data;
+  } catch (err) {
+    logger.error('Error while persisting status change to database', err);
   }
-
-  data = await serviceDao.update(service.id, { status, name: serviceName });
-
-  logger.info(`Updated service "${serviceName}" with status as "${status}".`);
-  logger.debug('Data', data);
-
-  return data;
 }
