@@ -1,7 +1,19 @@
+import twilio from 'twilio';
 import logger from '../utils/logger';
-import config from '../config/config';
 import messages from '../common/messages';
-import twilioClient from '../utils/twilioClient';
+import * as config from '../config/config';
+
+/**
+ * Initialize and return the twilio client.
+ *
+ * @returns {Object}
+ */
+export function getClient() {
+  let { authToken, accountSid } = config.get().notifications.twilio;
+  let client = twilio(accountSid, authToken);
+
+  return client;
+}
 
 /**
  * Check if twilio notifications are enabled.
@@ -9,7 +21,9 @@ import twilioClient from '../utils/twilioClient';
  * @returns {Boolean}
  */
 export function isEnabled() {
-  return config.notifications.twilio && config.notifications.twilio.enabled;
+  let twilioConfig = config.get().notifications.twilio;
+
+  return twilioConfig && twilioConfig.enabled;
 }
 
 /**
@@ -19,16 +33,16 @@ export function isEnabled() {
  * @returns {Promise}
  */
 export async function notify(params) {
-  logger.debug('Notification Params:', params);
+  logger().debug('Notification Params:', params);
   let payLoad = preparePayLoad(params);
 
   try {
     let response = await sendNotification(payLoad);
 
-    logger.info('Sent notification to', response.to);
-    logger.debug('Result:', response);
+    logger().info('Sent notification to', response.to);
+    logger().debug('Result:', response);
   } catch (err) {
-    logger.error('Error sending notification from twilio.', err);
+    logger().error('Error sending notification from twilio.', err);
   }
 }
 
@@ -40,9 +54,8 @@ export async function notify(params) {
  */
 function preparePayLoad(params) {
   const { status, name, downtime } = params;
-  const { receiver, sender } = config.notifications.twilio;
-
-  let message = messages[status].text(name, downtime);
+  const { receiver, sender } = config.get().notifications.twilio;
+  const message = messages[status].text(name, downtime);
 
   return {
     to: receiver,
@@ -58,5 +71,7 @@ function preparePayLoad(params) {
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  return twilioClient.sendMessage(payload);
+  let client = getClient();
+
+  return client.sendMessage(payload);
 }

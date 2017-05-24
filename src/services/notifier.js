@@ -26,7 +26,7 @@ export function notify(params) {
       continue;
     }
 
-    logger.debug(`Triggering ${key} notification.`);
+    logger().debug(`Triggering ${key} notification.`);
     service.notify(params);
   }
 }

@@ -1,10 +1,10 @@
 import faker from 'faker';
 import sinon from 'sinon';
 import { assert } from 'chai';
+import proxyquire from 'proxyquire';
 import logger from '../../src/utils/logger';
-import config from '../../src/config/config';
+import * as config from '../../src/config/config';
 import * as twilio from '../../src/services/twilio';
-import twilioClient from '../../src/utils/twilioClient';
 import { STATUS_UP, STATUS_DOWN } from '../../src/services/status';
 
 describe('twilio.isEnabled', () => {
@@ -19,16 +19,20 @@ describe('twilio.isEnabled', () => {
   });
 
   it('should return true if twilio notification is enabled.', () => {
-    sandbox.stub(config.notifications, 'twilio', {
-      enabled: true
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        twilio: { enabled: true }
+      }
     });
 
     assert.isTrue(twilio.isEnabled());
   });
 
   it('should return false if twilio notification is not enabled', () => {
-    sandbox.stub(config.notifications, 'twilio', {
-      enabled: false
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        twilio: { enabled: false }
+      }
     });
 
     assert.isFalse(twilio.isEnabled());
@@ -42,12 +46,16 @@ describe('twilio.notify', () => {
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    sandbox.stub(config.notifications, 'twilio', {
-      enabled: true,
-      sender: phoneNumber,
-      receiver: phoneNumber,
-      authToken: randomId,
-      accountSid: randomId
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        twilio: {
+          enabled: true,
+          sender: phoneNumber,
+          receiver: phoneNumber,
+          authToken: randomId,
+          accountSid: randomId
+        }
+      }
     });
   });
 
@@ -56,32 +64,30 @@ describe('twilio.notify', () => {
   });
 
   it('should send notification from twilio with correct params', () => {
-    let twilioClientStub = sandbox.stub(twilioClient, 'sendMessage').callsFake(params => {
-      assert.isString(params.body);
-      assert.equal(params.to, phoneNumber);
-      assert.equal(params.from, phoneNumber);
-
-      return Promise.resolve(params);
+    let sendMessageStub = sandbox.stub();
+    let twilioSerivce = proxyquire('../../src/services/twilio', {
+      twilio() {
+        return { sendMessage: sendMessageStub };
+      }
     });
 
-    twilio.notify({
-      status: STATUS_UP,
-      name: faker.random.word()
-    });
-
-    assert.isTrue(twilioClientStub.calledOnce);
+    twilioSerivce.notify({ status: STATUS_UP, name: faker.random.word() });
+    assert.isTrue(sendMessageStub.calledOnce);
   });
 
   it('should log error when twilio fails to send the message', () => {
-    let loggerStub = sandbox.stub(logger, 'error');
-
-    sandbox.stub(twilioClient, 'sendMessage').throws('Error');
-
-    twilio.notify({
-      status: STATUS_DOWN,
-      name: faker.random.word()
+    let sendMessageStub = sandbox.stub().throws(new Error());
+    let twilioSerivce = proxyquire('../../src/services/twilio', {
+      twilio() {
+        return {
+          sendMessage: sendMessageStub
+        };
+      }
     });
+    let loggerInstance = logger();
+    let loggerStub = sandbox.stub(loggerInstance, 'error');
 
+    twilioSerivce.notify({ status: STATUS_DOWN, name: faker.random.word() });
     assert.isTrue(loggerStub.calledOnce);
   });
 });

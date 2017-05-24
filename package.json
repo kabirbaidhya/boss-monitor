@@ -1,6 +1,6 @@
 {
-  "name": "node-chill",
-  "version": "0.0.0",
+  "name": "chill-cli",
+  "version": "1.0.0-alpha",
   "description": "Chill - The monitoring tool.",
   "authors": [
     "Saugat Acharya <mesaugat@gmail.com>",
@@ -28,6 +28,7 @@
     "bookshelf-camelcase": "^1.1.4",
     "handlebars": "^4.0.6",
     "knex": "^0.13.0",
+    "memory-cache": "^0.1.6",
     "moment": "^2.17.1",
     "moment-precise-range-plugin": "^1.2.0",
     "morgan": "^1.7.0",
@@ -38,7 +39,9 @@
     "twilio": "^2.11.1",
     "webpack-merge": "^4.1.0",
     "winston": "^2.3.0",
-    "yamljs": "^0.2.8"
+    "winston-daily-rotate-file": "^1.4.6",
+    "yamljs": "^0.2.8",
+    "yargs": "^7.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",
@@ -47,6 +50,7 @@
     "babel-preset-es2017": "^6.24.1",
     "babel-register": "^6.24.1",
     "chai": "^3.5.0",
+    "chai-subset": "^1.5.0",
     "codecov": "^2.1.0",
     "eslint": "^3.19.0",
     "faker": "^4.1.0",
@@ -54,9 +58,20 @@
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^3.1.1",
+    "proxyquire": "^1.7.11",
     "rimraf": "^2.5.4",
+    "shelljs": "^0.7.7",
     "sinon": "^2.1.0"
   },
+  "preferGlobal": true,
+  "bin": {
+    "chill": "bin/chill"
+  },
+  "files": [
+    "bin/",
+    "dist/",
+    "chill.yml.dist"
+  ],
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.10.8"

@@ -1,6 +1,13 @@
+import path from 'path';
+
 export default {
   logging: {
-    level: process.env.LOGGING_LEVEL || 'info'
+    level: 'info',
+    logDir: 'logs',
+    jsonFormat: false,
+    levelColumnWidth: 7,
+    tsFormat: () => new Date().toISOString(),
+    dateFormat: 'yyyy-MM-dd'
   },
   db: {
     path: './',
@@ -15,12 +22,15 @@ export default {
   notifications: {
     slack: {
       enabled: false,
-      endpoint: null
+      endpoint: null,
+      baseUrl: 'https://hooks.slack.com/services'
     },
     hipchat: {
       enabled: false,
       roomId: null,
-      authToken: null
+      authToken: null,
+      emailId: 'chill@noreply.com',
+      baseUrl: 'https://api.hipchat.com/v2/room/'
     },
     twilio: {
       enabled: false,
@@ -40,7 +50,8 @@ export default {
       },
       sender: null,
       receivers: [],
-      templateDir: null
+      encoding: 'utf-8',
+      templateDir: path.resolve(__dirname, '../common/templates/')
     }
   },
   services: []

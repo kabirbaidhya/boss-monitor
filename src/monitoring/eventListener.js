@@ -32,9 +32,9 @@ function handleStatusChange(params) {
 
     notification.downtime = moment.duration(downtime, 'milliseconds').humanize();
 
-    logger.info(`${serviceName} is up after ${notification.downtime} of downtime.`);
+    logger().info(`${serviceName} is up after ${notification.downtime} of downtime.`);
   } else {
-    logger.info(`${serviceName} is ${status}`);
+    logger().info(`${serviceName} is ${status}`);
   }
 
   // Send notifications
@@ -50,5 +50,5 @@ function handleStatusChange(params) {
  * @param {Object} params
  */
 function handleMonitoringStarted(params) {
-  logger.info(`Started monitoring ${params.serviceName}`);
+  logger().info(`Started monitoring ${params.serviceName}`);
 }
