@@ -2,8 +2,7 @@ logging:
   level: error
 
 db: 
-  path: ./
-  name: chill.db
+  path: ./chill.db
 
 monitoring:
   minInterval: 1000
