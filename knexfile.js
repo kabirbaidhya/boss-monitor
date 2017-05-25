@@ -1,8 +1,7 @@
 require('babel-register');
 
 const config = require('./src/config/config');
-const dbConfig = config.resolve().db;
-const { client, connection } = dbConfig;
+const { client, connection } = config.resolve().db;
 
 module.exports = {
   client,
