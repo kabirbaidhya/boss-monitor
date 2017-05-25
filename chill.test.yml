@@ -2,7 +2,9 @@ logging:
   level: test
 
 db:
-  path: ./chill.db
+  client: 'sqlite3',
+  connection: 
+    filename: './chill.db'
   
 monitoring:
   minInterval: 1000

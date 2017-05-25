@@ -10,8 +10,10 @@ export default {
     dateFormat: 'yyyy-MM-dd'
   },
   db: {
-    path: './',
-    name: 'chill.db'
+    client: 'sqlite3',
+    connection: {
+      filename: './chill.db'
+    }
   },
   monitoring: {
     method: 'OPTIONS',
