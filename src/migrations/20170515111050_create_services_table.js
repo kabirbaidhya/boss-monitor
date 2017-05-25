@@ -1,13 +1,13 @@
 /**
  * Create services table.
  *
- * @param  {object} knex
+ * @param  {Object} knex
  * @return {Promise}
  */
 export function up(knex) {
-  return knex.schema.createTable('services', table => {
+  return knex.schema.createTable('status_changes', table => {
     table.increments().primary();
-    table.string('name').unique().notNullable();
+    table.string('name').notNullable();
     table.string('status').notNullable();
     table.timestamp('created_at');
     table.timestamp('updated_at');
@@ -17,9 +17,9 @@ export function up(knex) {
 /**
  * Drop services table.
  *
- * @param  {object} knex
+ * @param  {Object} knex
  * @return {Promise}
  */
 export function down(knex) {
-  return knex.schema.dropTable('services');
+  return knex.schema.dropTable('status_changes');
 }
