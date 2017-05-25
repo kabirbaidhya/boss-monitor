@@ -12,7 +12,7 @@ export async function persist({ status, serviceName }) {
     let data = await StatusChange.create({ status, name: serviceName });
 
     logger().info(`Persisted service "${serviceName}" with status as "${status}"`);
-    logger().debug('Data', data);
+    logger().debug('Data', data.attributes);
 
     return data;
   } catch (err) {

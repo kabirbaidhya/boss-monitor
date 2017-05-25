@@ -20,7 +20,7 @@ class StatusChange extends db.Model {
     * @return {Promise}
     */
   static async create({ name, status }) {
-    let statusChange = await new StatusChange({ name, status }).save().then(statusChange => statusChange.refresh());
+    let statusChange = await new StatusChange({ name, status }).save();
 
     return statusChange;
   }
