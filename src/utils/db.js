@@ -1,6 +1,8 @@
 import knex from 'knex';
 import bookshelf from 'bookshelf';
-import knexConfig from '../../knexfile';
+import * as config from '../config/config';
+
+const dbConfig = config.resolve().db;
 
 /**
  * Create a new database client.
@@ -12,7 +14,7 @@ export function getClient() {
   let db;
 
   if (!db) {
-    db = bookshelf(knex(knexConfig));
+    db = bookshelf(knex(dbConfig));
     db.plugin(['bookshelf-camelcase']);
 
     return db;

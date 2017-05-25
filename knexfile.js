@@ -1,11 +1,12 @@
 require('babel-register');
-const config = require('./src/config/config').default;
+
+const config = require('./src/config/config');
+const dbConfig = config.resolve().db;
+const { client, connection } = dbConfig;
 
 module.exports = {
-  client: 'sqlite3',
-  connection: {
-    filename: `${config.db.path}`
-  },
+  client,
+  connection,
   migrations: {
     directory: './src/migrations'
   }
