@@ -26,7 +26,7 @@ function customFormatter(options, config) {
   const log = {
     level: formatLevel(level, levelColumnWidth),
     message: message || '',
-    meta: meta && Object.keys(meta).length ? '\n' + JSON.stringify(options.meta.error, null, 4) : ''
+    meta: meta && Object.keys(meta).length ? '\n' + JSON.stringify(options.meta, null, 4) : ''
   };
 
   return `${timestamp()}  [${log.level}]  ${log.message}  ${log.meta}`;
@@ -67,7 +67,7 @@ function createLogger(config) {
     transports: [
       new winston.transports.Console({
         level: level,
-        colorize: true,
+        colorize: true, 
         timestamp: tsFormat,
         formatter: opts => customFormatter(opts, config)
       }),

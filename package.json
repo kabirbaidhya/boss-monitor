@@ -23,6 +23,7 @@
     "rollback": "knex migrate:rollback"
   },
   "dependencies": {
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-polyfill": "^6.23.0",
     "bluebird": "^3.4.6",
     "bookshelf": "^0.10.3",
