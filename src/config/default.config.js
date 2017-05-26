@@ -28,6 +28,7 @@ export default {
       baseUrl: 'https://hooks.slack.com/services'
     },
     hipchat: {
+      notify: true,
       enabled: false,
       roomId: null,
       authToken: null,

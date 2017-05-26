@@ -43,13 +43,14 @@ export async function notify(params) {
 function preparePayload(params) {
   let { status, name } = params;
   let { text, color } = messages[status];
-  let { email } = config.get().notifications.hipchat;
+  let { email, notify } = config.get().notifications.hipchat;
 
   return {
     message: text(name, params.downtime),
     color: color,
     from: email,
-    value: name
+    value: name,
+    notify: notify
   };
 }
 
