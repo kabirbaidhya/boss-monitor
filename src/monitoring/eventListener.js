@@ -3,6 +3,7 @@ import logger from '../utils/logger';
 import * as events from '../services/events';
 import { STATUS_UP } from '../services/status';
 import * as notifier from '../services/notifier';
+import { persist } from '../services/persistence';
 
 /**
  * Start listening for monitor events.
@@ -38,6 +39,9 @@ function handleStatusChange(params) {
 
   // Send notifications
   notifier.notify(notification);
+
+  // Persist to database
+  persist({ status, serviceName });
 }
 
 /**

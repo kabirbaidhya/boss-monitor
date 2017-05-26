@@ -37,5 +37,9 @@ export function resolve(filename = DEFAULT_FILENAME) {
  * @returns {Object}
  */
 export function get() {
+  if (!cache.get(CACHE_KEY)) {
+    return resolve();
+  }
+
   return cache.get(CACHE_KEY);
 }

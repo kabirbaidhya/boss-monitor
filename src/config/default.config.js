@@ -9,6 +9,12 @@ export default {
     tsFormat: () => new Date().toISOString(),
     dateFormat: 'yyyy-MM-dd'
   },
+  db: {
+    client: 'sqlite3',
+    connection: {
+      filename: './chill.db'
+    }
+  },
   monitoring: {
     method: 'OPTIONS',
     minInterval: 1000,

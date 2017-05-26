@@ -1,6 +1,11 @@
 logging:
   level: test
 
+db:
+  client: 'sqlite3'
+  connection: 
+    filename: './chill.db'
+  
 monitoring:
   minInterval: 1000
   maxInterval: 10000
