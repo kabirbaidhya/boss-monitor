@@ -14,6 +14,22 @@ class StatusChange extends db.Model {
   }
 
   /**
+   * Fetch a statusChange by its name.
+   *
+   * @param  {String} id
+   * @return {Promise}
+   */
+  static async fetchByName(name) {
+    let statusChange = await new StatusChange({ name }).orderBy('created_at', 'DESC').fetch();
+
+    if (!statusChange) {
+      return null;
+    }
+
+    return statusChange.attributes;
+  }
+
+  /**
     * Create a new statusChange.
     *
     * @param  {Object} statusChange
@@ -27,3 +43,4 @@ class StatusChange extends db.Model {
 }
 
 export default StatusChange;
+

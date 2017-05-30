@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 import logger from '../utils/logger';
 import StatusChange from '../models/StatusChange';
 
@@ -17,5 +19,32 @@ export async function persist({ status, serviceName }) {
     return data;
   } catch (err) {
     logger().error('Error while persisting status change to database', err);
+  }
+}
+
+/**
+ * Fetch last status change.
+ * 
+ * @param {String} serviceName 
+ * @returns {Promise}
+ */
+export async function getLastStatus(serviceName) {
+  try {
+    let data = await StatusChange.fetchByName(serviceName);
+
+    if(!data) {
+      return null;
+    }
+    
+    Object.assign(data, {
+      createdAt: moment.unix(data.createdAt)
+    });
+
+    logger().info(`Fetched last status of "${serviceName}"`);
+    logger().debug('Data', data.attributes);
+
+    return data;
+  } catch (err) {
+    logger().error('Error while fetch status change', err);
   }
 }

@@ -1,5 +1,5 @@
 /**
- * Create services table.
+ * Create status_changes table.
  *
  * @param  {Object} knex
  * @return {Promise}
@@ -15,7 +15,7 @@ export function up(knex) {
 }
 
 /**
- * Drop services table.
+ * Drop status_changes table.
  *
  * @param  {Object} knex
  * @return {Promise}
