@@ -20,10 +20,10 @@ class Monitor {
     let lastStatus = await persistence.getLastStatus(name);
     let status = await checkHostStatus(url);
     let interval = getCheckInterval(status, minInterval, maxInterval);
-
+ 
     if (lastStatus) {
-      this.service.status = lastStatus.status;
-      this.lastStatusChanged = lastStatus.createdAt;
+      this.service.status = lastStatus.get('status');
+      this.lastStatusChanged = lastStatus.get('createdAt');
     }
 
     logger().debug(`Previous status of "${name}" service was "${this.service.status}"`);
