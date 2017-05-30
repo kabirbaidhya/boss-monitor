@@ -32,10 +32,10 @@ export async function getLastStatus(serviceName) {
   try {
     let data = await StatusChange.fetchByName(serviceName);
 
-    if(!data) {
+    if (!data) {
       return null;
     }
-    
+
     Object.assign(data, {
       createdAt: moment.unix(data.createdAt)
     });
@@ -45,6 +45,6 @@ export async function getLastStatus(serviceName) {
 
     return data;
   } catch (err) {
-    logger().error('Error while fetch status change', err);
+    logger().error('Error while fetching status change', err);
   }
 }
