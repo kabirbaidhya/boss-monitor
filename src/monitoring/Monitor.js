@@ -1,11 +1,11 @@
 import moment from 'moment';
 import logger from '../utils/logger';
 import * as events from '../services/events';
+import * as persistence from '../services/persistence';
 import { checkHostStatus, getCheckInterval } from '../services/status';
 
 class Monitor {
   constructor(service) {
-    this.status = null;
     this.service = service;
     this.lastStatusChanged = null;
   }
@@ -17,10 +17,17 @@ class Monitor {
 
   async startMonitoring() {
     let { url, name, minInterval, maxInterval } = this.service;
+    let lastStatus = await persistence.getLastStatus(name);
     let status = await checkHostStatus(url);
     let interval = getCheckInterval(status, minInterval, maxInterval);
+ 
+    if (lastStatus) {
+      this.service.status = lastStatus.get('status');
+      this.lastStatusChanged = lastStatus.get('createdAt');
+    }
 
-    logger().debug(`Status of ${name} service is ${status}`);
+    logger().debug(`Previous status of "${name}" service was "${this.service.status}"`);
+    logger().debug(`New Status of "${name}" service is "${status}"`);
 
     if (this.isStatusDifferent(status)) {
       this.handleStatusChange(status);

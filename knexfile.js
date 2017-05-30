@@ -8,5 +8,6 @@ module.exports = {
   connection,
   migrations: {
     directory: './src/migrations'
-  }
+  },
+  useNullAsDefault: true
 };

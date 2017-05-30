@@ -1,11 +1,11 @@
 /**
- * Create services table.
+ * Create status_logs table.
  *
  * @param  {Object} knex
  * @return {Promise}
  */
 export function up(knex) {
-  return knex.schema.createTable('status_changes', table => {
+  return knex.schema.createTable('status_logs', table => {
     table.increments().primary();
     table.string('name').notNullable();
     table.string('status').notNullable();
@@ -15,11 +15,11 @@ export function up(knex) {
 }
 
 /**
- * Drop services table.
+ * Drop status_logs table.
  *
  * @param  {Object} knex
  * @return {Promise}
  */
 export function down(knex) {
-  return knex.schema.dropTable('status_changes');
+  return knex.schema.dropTable('status_logs');
 }
