@@ -12,6 +12,8 @@ class Monitor {
 
   start() {
     events.trigger(events.EVENT_MONITORING_STARTED, { serviceName: this.service.name });
+    // TODO: We need to spawn each monitor into a separate thread,
+    // such that each thead will monitor a service.
     this.startMonitoring();
   }
 

@@ -1,4 +1,5 @@
 import rp from 'request-promise';
+import HttpStatus from 'http-status-codes';
 import logger from '../utils/logger';
 
 export const STATUS_UP = 'up';
@@ -31,7 +32,11 @@ export async function checkHostStatus(service, method = DEFAULT_HTTP_METHOD) {
     // If the original HTTP method was not allowed (405 Method Not Allowed)
     // try sending another request with a fallback method.
     // TODO: Make fallback http method configurable using chill.yml
-    if (err.response && err.response.statusCode === 405 && method !== FALLBACK_HTTP_METHOD) {
+    if (
+      err.response &&
+      err.response.statusCode === HttpStatus.METHOD_NOT_ALLOWED &&
+      method !== FALLBACK_HTTP_METHOD
+    ) {
       logger().debug(
         `Got 405 error for ${method} request on service ${name}. ` +
         `Now trying with the fallback method ${FALLBACK_HTTP_METHOD}`
