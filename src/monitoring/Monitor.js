@@ -18,9 +18,9 @@ class Monitor {
   async startMonitoring() {
     let { url, name, minInterval, maxInterval } = this.service;
     let lastStatus = await persistence.getLastStatus(name);
-    let status = await checkHostStatus(url);
+    let status = await checkHostStatus({ url, name });
     let interval = getCheckInterval(status, minInterval, maxInterval);
- 
+
     if (lastStatus) {
       this.service.status = lastStatus.get('status');
       this.lastStatusChanged = lastStatus.get('createdAt');
