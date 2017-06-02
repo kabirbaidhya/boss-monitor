@@ -5,8 +5,8 @@ import * as config from '../config/config';
 /**
  * Create a new database client.
  * Return the same client if it is already created.
- * 
- * @returns {Object} 
+ *
+ * @returns {Object}
  */
 let db;
 

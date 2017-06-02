@@ -5,40 +5,54 @@ import * as persistence from '../services/persistence';
 import { checkHostStatus, getCheckInterval } from '../services/status';
 
 class Monitor {
-  constructor(service) {
-    this.service = service;
+  constructor(serviceConfig) {
+    this.config = serviceConfig;
+    this.status = null;
     this.lastStatusChanged = null;
   }
 
   start() {
-    events.trigger(events.EVENT_MONITORING_STARTED, { serviceName: this.service.name });
-    this.startMonitoring();
+    // TODO: We need to spawn each monitor into a separate thread,
+    // such that each thread will monitor a service.
+    events.trigger(events.EVENT_MONITORING_STARTED, { serviceName: this.config.name });
+    this.fetchLastStatus().then(() => this.startMonitoring());
+  }
+
+  async fetchLastStatus() {
+    let { name } = this.config;
+    let lastStatus = await persistence.getLastStatus(name);
+
+    if (!lastStatus) {
+      logger().info(`Last status for service "${name}" is unknown.`);
+
+      return;
+    }
+
+    // Get the last persisted status information for this service.
+    this.status = lastStatus.get('status');
+    this.lastStatusChanged = lastStatus.get('createdAt');
+    logger().info(
+      `Service "${name}" was ${this.status} last time on ${moment(this.lastStatusChanged).format()}.`
+    );
   }
 
   async startMonitoring() {
-    let { url, name, minInterval, maxInterval } = this.service;
-    let lastStatus = await persistence.getLastStatus(name);
-    let status = await checkHostStatus(url);
+    let { url, name, minInterval, maxInterval } = this.config;
+    let status = await checkHostStatus({ url, name });
     let interval = getCheckInterval(status, minInterval, maxInterval);
- 
-    if (lastStatus) {
-      this.service.status = lastStatus.get('status');
-      this.lastStatusChanged = lastStatus.get('createdAt');
-    }
 
-    logger().debug(`Previous status of "${name}" service was "${this.service.status}"`);
-    logger().debug(`New Status of "${name}" service is "${status}"`);
+    logger().debug(`Status of service "${name}" now is "${status}"`);
 
     if (this.isStatusDifferent(status)) {
       this.handleStatusChange(status);
     }
 
-    logger().debug(`Check interval for ${name} = ${interval}`);
+    logger().debug(`Check interval for ${name} is ${interval}`);
     setTimeout(this.startMonitoring.bind(this), interval);
   }
 
   isStatusDifferent(status) {
-    return (this.service.status !== status);
+    return (this.status !== status);
   }
 
   handleStatusChange(status) {
@@ -46,8 +60,8 @@ class Monitor {
     let params = {
       status,
       time: currentTime.clone(),
-      oldStatus: this.service.status,
-      serviceName: this.service.name,
+      oldStatus: this.status,
+      serviceName: this.config.name,
       lastStatusChanged: this.lastStatusChanged ? moment(this.lastStatusChanged).clone() : null
     };
 
@@ -55,7 +69,7 @@ class Monitor {
     events.trigger(events.EVENT_STATUS_CHANGED, params);
     logger().debug(`Event triggered ${events.EVENT_STATUS_CHANGED} with params`, params);
 
-    this.service.status = status;
+    this.status = status;
     this.lastStatusChanged = currentTime; // Set the status changed date to current time.
   }
 }

@@ -13,7 +13,8 @@ export default {
     client: 'sqlite3',
     connection: {
       filename: './chill.db'
-    }
+    },
+    useNullAsDefault: true
   },
   monitoring: {
     method: 'OPTIONS',
