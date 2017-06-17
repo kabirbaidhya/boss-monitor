@@ -10,7 +10,8 @@ export default async function init(configFile) {
   try {
     const { resolve } = await import ('../config/config');
 
-    configFile = configFile || path.resolve('chill.yml');
+    // Config file for chill could be added using environment variables too.
+    configFile = configFile || process.env.CHILL_CONFIG || path.resolve('chill.yml');
 
     const config = resolve(configFile);
     const { 'default': Monitor } = await import('./Monitor');
