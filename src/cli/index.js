@@ -26,5 +26,5 @@ let argv = yargs.argv;
   const config = await import('../config/config');
   const init = await import('../monitoring/init');
 
-  init(config.resolve(argv.config);
+  init(config.resolve(argv.config));
 })();
