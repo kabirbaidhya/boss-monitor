@@ -1,8 +1,6 @@
 import 'babel-polyfill';
 import yargs from 'yargs';
 import chill from '../../package';
-import init from '../monitoring/init';
-import * as config from '../config/config';
 
 const name = 'chill';
 
@@ -24,4 +22,9 @@ yargs.options({
 let argv = yargs.argv;
 
 // Initialize the application with the provided config.
-init(config.resolve(argv.config));
+(async () => {
+  const config = await import('../config/config');
+  const init = await import('../monitoring/init');
+
+  init(config.resolve(argv.config);
+})();
