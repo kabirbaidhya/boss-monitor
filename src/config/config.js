@@ -17,6 +17,8 @@ export const DEFAULT_FILENAME = 'chill.yml';
  * @returns {Object}
  */
 export function resolve(filename = DEFAULT_FILENAME) {
+  process.stdout.write(`Loading config file: ${filename}\n`);
+
   let loadedConfig = Yaml.load(filename);
   let config = merge(defaultConfig, loadedConfig);
 

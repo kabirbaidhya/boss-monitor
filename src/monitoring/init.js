@@ -1,11 +1,25 @@
-import Monitor from './Monitor';
-import * as eventListener from './eventListener';
+import path from 'path';
+import chill from '../../package';
 
 /**
  * Initialize the monitor and start monitoring configured services.
  */
-export default function init(config) {
-  eventListener.listen();
+export default async function init(configFile) {
+  process.stdout.write(`Starting chill ${chill.version}\n`);
 
-  config.services.forEach(service => (new Monitor(service)).start());
+  try {
+    const { resolve } = await import ('../config/config');
+
+    // Config file for chill could be added using environment variables too.
+    configFile = configFile || process.env.CHILL_CONFIG || path.resolve('chill.yml');
+
+    const config = resolve(configFile);
+    const { 'default': Monitor } = await import('./Monitor');
+    const eventListener = await import('./eventListener');
+
+    eventListener.listen();
+    config.services.forEach(service => (new Monitor(service)).start());
+  } catch (err) {
+    process.stderr.write('An error occurred: \n' + err);
+  }
 }

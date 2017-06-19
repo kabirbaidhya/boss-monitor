@@ -3,18 +3,21 @@ import { assert } from 'chai';
 import pkg from '../../package.json';
 
 describe('cli', () => {
+  shell.fatal = true;
+
   describe('--version', () => {
     it('should print the chill cli version', () => {
-      let result = shell.exec('bin/chill --version', { silent: true }).stdout.trim();
+      let { stdout } = shell.exec('bin/chill --version', { fatal: true });
       let expected = `chill ${pkg.version}`;
 
-      assert.equal(result, expected);
+      assert.equal(stdout.trim(), expected);
     });
   });
 
   describe('--help', () => {
     it('should print the chill usage help string', () => {
-      let result = shell.exec('bin/chill --help', { silent: true }).stdout.trim();
+      let { stdout } = shell.exec('bin/chill --help', { fatal: true });
+      let result = stdout.trim();
 
       assert.include(result, 'Usage: chill');
       assert.include(result, 'Options:');

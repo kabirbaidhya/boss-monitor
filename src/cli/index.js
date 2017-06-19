@@ -2,13 +2,13 @@ import 'babel-polyfill';
 import yargs from 'yargs';
 import chill from '../../package';
 import init from '../monitoring/init';
-import * as config from '../config/config';
 
-const name = 'chill';
+const APP_NAME = 'chill';
+const APP_NAME_VERSION_STRING = `${APP_NAME} ${chill.version}`;
 
 yargs
-  .usage(`Usage: ${name} [options]`, { 'a': {} })
-  .version('version', `${name} ${chill.version}`)
+  .usage(`Usage: ${APP_NAME} [options]`, { 'a': {} })
+  .version('version', APP_NAME_VERSION_STRING)
   .alias('V', 'version')
   .help('h')
   .alias('h', 'help');
@@ -16,12 +16,11 @@ yargs
 yargs.options({
   'c': {
     alias: 'config',
-    default: 'chill.yml',
     describe: 'Configuration file path.'
   }
 });
 
-let argv = yargs.argv;
+const argv = yargs.argv;
 
-// Initialize the application with the provided config.
-init(config.resolve(argv.config));
+// Initialize the application with the provided configuration.
+init(argv.config);
