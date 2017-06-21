@@ -29,13 +29,9 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
     // If the original HTTP method was not allowed (405 Method Not Allowed)
     // try sending another request with a fallback method.
     // TODO: Make fallback http method configurable using chill.yml
-    if (
-      err.response &&
-      err.response.statusCode === HttpStatus.METHOD_NOT_ALLOWED &&
-      method !== FALLBACK_HTTP_METHOD
-    ) {
+    if (shouldRetry(err, method)) {
       logger().debug(
-        `Got 405 error for ${method} request on service ${name}. ` +
+        `Got ${err.response.statusCode} error for ${method} request on service ${name}. ` +
         `Now trying with the fallback method ${FALLBACK_HTTP_METHOD}`
       );
 
@@ -58,4 +54,19 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
  */
 export function getCheckInterval(status, min, max) {
   return status === STATUS_UP ? max : min;
+}
+
+/**
+ * Check if it should retry sending HTTP request.
+ *
+ * @param  {Object} err
+ * @return {Boolean}
+ */
+function shouldRetry(err, method) {
+  return (
+    err.response &&
+    (err.response.statusCode === HttpStatus.METHOD_NOT_ALLOWED ||
+     err.response.statusCode === HttpStatus.NOT_IMPLEMENTED) &&
+    method !== FALLBACK_HTTP_METHOD
+  );
 }
