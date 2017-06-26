@@ -3,7 +3,7 @@ logging:
 
 db:
   client: 'sqlite3'
-  connection: 
+  connection:
     filename: './chill.db'
 
 monitoring:
@@ -13,6 +13,9 @@ monitoring:
   downStatus: '^(5..|4..)$'
 
 notifications:
+  websocket:
+    enabled: true
+    port: 8080
   slack:
     enabled: false
     endpoint: SLACK_WEBHOOK_ENDPOINT
