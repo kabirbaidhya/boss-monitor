@@ -44,6 +44,7 @@
     "webpack-merge": "^4.1.0",
     "winston": "^2.3.0",
     "winston-daily-rotate-file": "^1.4.6",
+    "ws": "^3.0.0",
     "yamljs": "^0.2.8",
     "yargs": "^7.1.0"
   },
