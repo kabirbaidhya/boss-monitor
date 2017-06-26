@@ -21,6 +21,7 @@ const notifiers = {
 for (let [key, service] of Object.entries(notifiers)) {
   if (key === 'websocket' && service.isEnabled()) {
     service.start();
+    break;
   }
 }
 
