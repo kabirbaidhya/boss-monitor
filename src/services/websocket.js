@@ -47,20 +47,25 @@ export function notify(params) {
 export function start() {
   let port = config.get().notifications.websocket.port;
 
-  if (!webSocket) {
-    webSocket =  new WebSocket.Server({ port: port });
-
-    let message = {
-      event: 'ws-connection-establish',
-      data: {
-        message: 'Chill WebSocket connection established'
-      }
-    };
-
-    message = JSON.stringify(message);
-
-    webSocket.on('connection', function connection(ws) {
-      ws.send(message);
-    });
+  if (webSocket) {
+    return;
   }
+
+  webSocket =  new WebSocket.Server({ port: port });
+
+  logger().debug(`WebSocket started on port ${port}`);
+
+  let message = {
+    event: 'ws-connection-establish',
+    data: {
+      message: 'Chill WebSocket connection established'
+    }
+  };
+
+  message = JSON.stringify(message);
+
+  webSocket.on('connection', function connection(ws) {
+    ws.send(message);
+  });
+
 }
