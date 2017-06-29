@@ -1,5 +1,6 @@
 import path from 'path';
 import chill from '../../package';
+import * as notifier from '../services/notifier';
 
 /**
  * Initialize the monitor and start monitoring configured services.
@@ -19,6 +20,9 @@ export default async function init(configFile) {
 
     eventListener.listen();
     config.services.forEach(service => (new Monitor(service)).start());
+
+    notifier.init();
+
   } catch (err) {
     process.stderr.write('An error occurred: \n' + err);
   }
