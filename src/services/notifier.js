@@ -16,12 +16,12 @@ const notifiers = {
   websocket
 };
 
-
-// Start WebSeocket server if it is enabled
-for (let [key, service] of Object.entries(notifiers)) {
-  if (key === 'websocket' && service.isEnabled()) {
-    service.start();
-    break;
+/**
+ * Initialize notifier service.
+ */
+export function init() {
+  if (websocket.isEnabled()) {
+    websocket.init();
   }
 }
 
