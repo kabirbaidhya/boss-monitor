@@ -56,6 +56,7 @@ function createLogger(config) {
   const {
     level,
     logDir,
+    maxFiles,
     tsFormat,
     jsonFormat,
     dateFormat
@@ -67,16 +68,18 @@ function createLogger(config) {
     transports: [
       new winston.transports.Console({
         level: level,
-        colorize: true, 
+        colorize: true,
         timestamp: tsFormat,
         formatter: opts => customFormatter(opts, config)
       }),
       new winston.transports.DailyRotateFile({
+        maxFiles,
         align: true,
         level: level,
         prepend: true,
         json: jsonFormat,
         timestamp: tsFormat,
+        zippedArchive: true,
         datePattern: dateFormat,
         filename: `${logDir}/-log.log`,
         formatter: opts => customFormatter(opts, config)
