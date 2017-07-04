@@ -30,12 +30,14 @@ export function init() {
  * @param {Object} params
  */
 export function notify(params) {
+  logger().info('Sending notification via all enabled notifiers.');
+
   for (let [key, service] of Object.entries(notifiers)) {
     if (!service.isEnabled()) {
       continue;
     }
 
-    logger().debug(`Triggering ${key} notification.`);
+    logger().info(`Triggering ${key} notification.`);
     service.notify(params);
   }
 }

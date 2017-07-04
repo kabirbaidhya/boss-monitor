@@ -16,7 +16,6 @@ export function init(port) {
   }
 
   wsServer = new WebSocket.Server({ port });
-  wsServer.broadcast = handleBroadcast;
   wsServer.on('connection', handleConnection);
   wsServer.on('error', handleError);
 
@@ -85,23 +84,19 @@ function sendToClient(client, data) {
  *
  * @param  {Object} data
  */
-export function broadcast(data) {
+export async function broadcast(data) {
   logger().info('Doing a WebSocket broadcast');
   logger().debug('Broadcast data', data);
-  wsServer.broadcast(data);
-}
 
-/**
- * Handle WebSocket broadcast.
- *
- * @param  {Object} data
- */
-function handleBroadcast(data) {
-  wsServer.clients.forEach(client => {
-    if (client.readyState === WebSocket.OPEN) {
-      sendToClient(client, data).catch(err => {
+  // Send broadcast message to all the connected clients.
+  let promises = Array.from(wsServer.clients)
+    .filter(client => client.readyState === WebSocket.OPEN)
+    .map(client => {
+      return sendToClient(client, data).catch(err => {
         logger().error('Error on broadcasting message to client', err);
       });
-    }
-  });
+    });
+
+  await Promise.all(promises);
+  logger().info('Broadcasted to all the clients.');
 }

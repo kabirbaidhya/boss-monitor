@@ -1,6 +1,6 @@
 import logger from '../utils/logger';
 import * as config from '../config/config';
-import * as wsServer from '../utils/websocket';
+import * as websocketServer from '../utils/websocketServer';
 
 /**
  * Check WebScoket notification is enabled.
@@ -17,14 +17,14 @@ export function isEnabled() {
  * Initialize WebSocket server.
  */
 export function init() {
-  let { websocket } = config.get().notifications;
-
   if (!isEnabled()) {
     return;
   }
 
+  let { websocket } = config.get().notifications;
+
   logger().info(`Initializing WebSocket Server on port ${websocket.port}.`);
-  wsServer.init(websocket.port);
+  websocketServer.init(websocket.port);
 }
 
 /**
@@ -35,5 +35,5 @@ export function init() {
 export function notify(payload) {
   logger().info('Sending websocket notification to all connected clients.');
   logger().debug('WebSocket broadcast payload: ', payload);
-  wsServer.broadcast(payload);
+  websocketServer.broadcast(payload);
 }
