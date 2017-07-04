@@ -20,9 +20,7 @@ const notifiers = {
  * Initialize notifier service.
  */
 export function init() {
-  if (websocket.isEnabled()) {
-    websocket.init();
-  }
+  websocket.init();
 }
 
 /**
