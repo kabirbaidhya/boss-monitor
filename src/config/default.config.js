@@ -2,12 +2,13 @@ import path from 'path';
 
 export default {
   logging: {
+    maxFiles: 3,
     level: 'info',
     logDir: 'logs',
     jsonFormat: false,
     levelColumnWidth: 7,
-    tsFormat: () => new Date().toISOString(),
-    dateFormat: 'yyyy-MM-dd'
+    dateFormat: 'yyyy-MM-dd',
+    tsFormat: () => new Date().toISOString()
   },
   db: {
     client: 'sqlite3',
