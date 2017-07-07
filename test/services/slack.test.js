@@ -22,6 +22,10 @@ describe('slack.isEnabled', () => {
     sandbox.stub(config, 'get').returns({
       notifications: {
         slack: {
+          color: {
+            up: faker.random.word(),
+            down: faker.random.word()
+          },
           enabled: true,
           endpoint: faker.random.word()
         }
@@ -54,6 +58,10 @@ describe('slack.notify', () => {
       notifications: {
         slack: {
           enabled: true,
+          color: {
+            up: faker.random.word(),
+            down: faker.random.word()
+          },
           endpoint: slackEndpoint
         }
       }

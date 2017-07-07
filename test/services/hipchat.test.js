@@ -23,6 +23,10 @@ describe('hipchat.isEnabled', () => {
       notifications: {
         hipchat: {
           enabled: true,
+          color: {
+            up: faker.random.word(),
+            down: faker.random.word()
+          },
           roomId: faker.random.word(),
           authToken: faker.random.word()
         }
@@ -56,6 +60,10 @@ describe('hipchat.notify', () => {
       notifications: {
         hipchat: {
           enabled: true,
+          color: {
+            up: faker.random.word(),
+            down: faker.random.word()
+          },
           roomId,
           authToken
         }
