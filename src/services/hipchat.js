@@ -42,12 +42,12 @@ export async function notify(params) {
  */
 function preparePayload(params) {
   let { status, name } = params;
-  let { text, color } = messages[status];
-  let { email, notify } = config.get().notifications.hipchat;
+  let { text } = messages[status];
+  let { email, color, notify } = config.get().notifications.hipchat;
 
   return {
     message: text(name, params.downtime),
-    color: color,
+    color: color[status],
     from: email,
     value: name,
     notify: notify

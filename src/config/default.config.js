@@ -25,11 +25,19 @@ export default {
   },
   notifications: {
     slack: {
+      color: {
+        up: 'good',
+        down: 'danger'
+      },
       enabled: false,
       endpoint: null,
       baseUrl: 'https://hooks.slack.com/services'
     },
     hipchat: {
+      color: {
+        up: 'green',
+        down: 'red'
+      },
       notify: true,
       enabled: false,
       roomId: null,
