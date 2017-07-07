@@ -42,20 +42,14 @@ export async function notify(params) {
  */
 function preparePayload(params) {
   const { status, name } = params;
-  const { text, color } = messages[status];
+  const { text } = messages[status];
+  const { color } = config.get().notifications.slack;
 
   return {
-    text: text(name, params.downtime),
     attachments: [
       {
-        color: color,
-        fields: [
-          {
-            short: true,
-            value: name,
-            title: 'Service'
-          }
-        ]
+        color: color[status],
+        text: text(name, params.downtime)
       }
     ]
   };

@@ -26,12 +26,20 @@ export default {
   notifications: {
     slack: {
       enabled: false,
+      color: {
+        up: 'good',
+        down: 'danger'
+      },
       endpoint: null,
       baseUrl: 'https://hooks.slack.com/services'
     },
     hipchat: {
-      notify: true,
       enabled: false,
+      notify: true,
+      color: {
+        up: 'green',
+        down: 'red'
+      },
       roomId: null,
       authToken: null,
       emailId: 'chill@noreply.com',
