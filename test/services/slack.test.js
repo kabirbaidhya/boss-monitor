@@ -50,6 +50,7 @@ describe('slack.isEnabled', () => {
 
 describe('slack.notify', () => {
   let sandbox;
+  let baseUrl = faker.internet.url() + '/';
   let slackEndpoint = faker.lorem.slug();
 
   beforeEach(() => {
@@ -62,7 +63,8 @@ describe('slack.notify', () => {
             up: faker.random.word(),
             down: faker.random.word()
           },
-          endpoint: slackEndpoint
+          endpoint: slackEndpoint,
+          baseUrl
         }
       }
     });
@@ -74,7 +76,7 @@ describe('slack.notify', () => {
 
   it('should send the notification payload to the slack API endpoint.', () => {
     let rpStub = sandbox.stub(rp, 'post').callsFake(params => {
-      assert.match(params.url, new RegExp(`^https://.*${slackEndpoint}$`));
+      assert.equal(params.url, `${baseUrl}${slackEndpoint}`);
       assert.isObject(params.body);
 
       return Promise.resolve();
