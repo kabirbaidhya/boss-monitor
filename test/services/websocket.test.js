@@ -4,6 +4,7 @@ import { assert } from 'chai';
 import * as config from '../../src/config/config';
 import { STATUS_UP } from '../../src/services/status';
 import * as websocket from '../../src/services/websocket';
+import * as websocketServer from '../../src/utils/websocketServer';
 
 describe('websocket.isEnabled', () => {
   let sandbox;
@@ -46,19 +47,19 @@ describe('websocket.isEnabled', () => {
 });
 
 describe('websocket.init', () => {
-  let init;
   let sandbox;
+  let initStub;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    init = sandbox.stub(websocket, 'init');
+    initStub = sandbox.stub(websocketServer, 'init');
   });
 
   afterEach(() => {
     sandbox.restore();
   });
 
-  it('should call websocket init function.', () => {
+  it('should initialize websocket server if websocket is enabled.', () => {
     sandbox.stub(config, 'get').returns({
       notifications: {
         websocket: {
@@ -73,31 +74,44 @@ describe('websocket.init', () => {
 
     websocket.init();
 
-    assert.isTrue(init.calledOnce);
+    assert.isTrue(initStub.calledOnce);
+  });
+
+  it('should not initialize websocket server if websocket is disabled.', () => {
+    sandbox.stub(config, 'get').returns({
+      notifications: {
+        websocket: {
+          enabled: false
+        }
+      }
+    });
+
+    websocket.init();
+
+    assert.isFalse(initStub.calledOnce);
   });
 
 });
 
 describe('websocket.notify', () => {
-  let notify;
   let sandbox;
+  let broadcastStub;
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
-    notify = sandbox.stub(websocket, 'notify');
+    broadcastStub = sandbox.stub(websocketServer, 'broadcast');
   });
 
   afterEach(() => {
     sandbox.restore();
   });
 
-  it('should call websocket notify function.', () => {
+  it('should broadcast to all clients.', () => {
     let params = { status: STATUS_UP, name: faker.random.word() };
 
     websocket.notify(params);
 
-    assert(notify.calledOnce);
-    assert(notify.calledWith(params));
+    assert(broadcastStub.calledOnce);
+    assert(broadcastStub.calledWith(params));
   });
-
 });
