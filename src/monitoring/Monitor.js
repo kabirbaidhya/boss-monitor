@@ -1,20 +1,24 @@
 import moment from 'moment';
 import logger from '../utils/logger';
 import * as events from '../services/events';
+import * as statusService from '../services/status';
 import * as persistence from '../services/persistence';
-import { checkHostStatus, getCheckInterval } from '../services/status';
 
 class Monitor {
   constructor(serviceConfig) {
-    this.config = serviceConfig;
+    this.retried = 0;
     this.status = null;
+    this.config = serviceConfig;
     this.lastStatusChanged = null;
   }
 
   start() {
     // TODO: We need to spawn each monitor into a separate thread,
     // such that each thread will monitor a service.
-    events.trigger(events.EVENT_MONITORING_STARTED, { serviceName: this.config.name });
+    events.trigger(
+      events.EVENT_MONITORING_STARTED,
+      { serviceName: this.config.name }
+    );
     this.fetchLastStatus().then(() => this.startMonitoring());
   }
 
@@ -23,7 +27,7 @@ class Monitor {
     let lastStatus = await persistence.getLastStatus(name);
 
     if (!lastStatus) {
-      logger().info(`Last status for service "${name}" is unknown.`);
+      logger().info(`Last status for service '${name}' is unknown.`);
 
       return;
     }
@@ -32,18 +36,23 @@ class Monitor {
     this.status = lastStatus.get('status');
     this.lastStatusChanged = lastStatus.get('createdAt');
     logger().info(
-      `Service "${name}" was ${this.status} last time on ${moment(this.lastStatusChanged).format()}.`
+      `Service '${name}' was ${this.status} last time on ${moment(
+        this.lastStatusChanged
+      ).format()}.`
     );
   }
 
   async startMonitoring() {
-    let { url, name, minInterval, maxInterval } = this.config;
-    let status = await checkHostStatus({ url, name });
-    let interval = getCheckInterval(status, minInterval, maxInterval);
+    let { url, name, maxRetry, minInterval, maxInterval } = this.config;
+    let status = await statusService.checkHostStatus({ url, name });
+    let interval = statusService.getCheckInterval(
+      status, minInterval, maxInterval
+    );
 
-    logger().debug(`Status of service "${name}" now is "${status}"`);
+    logger().debug(`Status of service '${name}' now is '${status}'`);
 
-    if (this.isStatusDifferent(status)) {
+    if (!this.shouldRetry(name, status, maxRetry) &&
+        this.isStatusDifferent(status)) {
       this.handleStatusChange(status);
     }
 
@@ -55,6 +64,20 @@ class Monitor {
     return (this.status !== status);
   }
 
+  shouldRetry(name, status, maxRetry) {
+    if (status === statusService.STATUS_DOWN && this.retried < maxRetry) {
+      this.retried++;
+
+      logger().info(`Service '${name}' retry count is ${this.retried}`);
+
+      return true;
+    }
+
+    this.retried = 0;
+
+    return false;
+  }
+
   handleStatusChange(status) {
     let currentTime = moment();
     let params = {
@@ -62,12 +85,17 @@ class Monitor {
       time: currentTime.clone(),
       oldStatus: this.status,
       serviceName: this.config.name,
-      lastStatusChanged: this.lastStatusChanged ? moment(this.lastStatusChanged).clone() : null
+      lastStatusChanged: this.lastStatusChanged
+        ? moment(this.lastStatusChanged).clone()
+        : null
     };
 
     // Trigger the status change event.
     events.trigger(events.EVENT_STATUS_CHANGED, params);
-    logger().debug(`Event triggered ${events.EVENT_STATUS_CHANGED} with params`, params);
+    logger().debug(
+      `Event triggered ${events.EVENT_STATUS_CHANGED} with params`,
+      params
+    );
 
     this.status = status;
     this.lastStatusChanged = currentTime; // Set the status changed date to current time.

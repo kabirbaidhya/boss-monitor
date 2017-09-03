@@ -18,6 +18,7 @@ export default {
     useNullAsDefault: true
   },
   monitoring: {
+    maxRetry: 3,
     method: 'OPTIONS',
     minInterval: 1000,
     maxInterval: 10000,
