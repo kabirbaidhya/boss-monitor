@@ -22,7 +22,14 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "prepack": "npm run build",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
@@ -61,7 +68,9 @@
     "codecov": "^2.1.0",
     "eslint": "^3.19.0",
     "faker": "^4.1.0",
+    "husky": "^0.14.3",
     "istanbul": "1.1.0-alpha.1",
+    "lint-staged": "^4.0.4",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^3.1.1",
