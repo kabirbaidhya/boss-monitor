@@ -14,9 +14,6 @@ monitoring:
   downStatus: '^(5..|4..)$'
 
 notifications:
-  websocket:
-    enabled: true
-    port: 8080
   slack:
     enabled: false
     endpoint: SLACK_WEBHOOK_ENDPOINT

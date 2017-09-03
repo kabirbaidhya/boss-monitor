@@ -3,7 +3,6 @@ import * as email from './email';
 import * as twilio from './twilio';
 import * as hipchat from './hipchat';
 import logger from '../utils/logger';
-import * as websocket from './websocket';
 
 /**
  * Available Notifier services.
@@ -12,16 +11,8 @@ const notifiers = {
   slack,
   email,
   twilio,
-  hipchat,
-  websocket
+  hipchat
 };
-
-/**
- * Initialize notifier service.
- */
-export function init() {
-  websocket.init();
-}
 
 /**
  * Send the uptime notifcations to the user
