@@ -65,7 +65,7 @@ class Monitor {
   }
 
   shouldRetry(name, status, maxRetry) {
-    if (status === statusService.STATUS_DOWN && this.retried < maxRetry) {
+    if (status === statusService.STATUS_DOWN && this.retried <= maxRetry) {
       this.retried++;
 
       logger().info(`Service '${name}' retry count is ${this.retried}`);
