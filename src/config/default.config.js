@@ -24,6 +24,11 @@ export default {
     maxInterval: 10000,
     downStatus: '^(5..|4..)$'
   },
+  socket: {
+    enabled: false,
+    port: 34455,
+    host: 'http://127.0.0.1'
+  },
   notifications: {
     slack: {
       enabled: false,

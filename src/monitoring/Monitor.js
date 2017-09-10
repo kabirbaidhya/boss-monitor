@@ -1,13 +1,15 @@
 import moment from 'moment';
 import logger from '../utils/logger';
+
 import * as events from '../services/events';
 import * as statusService from '../services/status';
-import * as persistence from '../services/persistence';
 
 class Monitor {
   constructor(serviceConfig) {
+    this.timeoutId;
     this.retried = 0;
     this.status = null;
+    this.lastStatus = null;
     this.config = serviceConfig;
     this.lastStatusChanged = null;
   }
@@ -15,31 +17,24 @@ class Monitor {
   start() {
     // TODO: We need to spawn each monitor into a separate thread,
     // such that each thread will monitor a service.
-    events.trigger(
-      events.EVENT_MONITORING_STARTED,
-      { serviceName: this.config.name }
-    );
-    this.fetchLastStatus().then(() => this.startMonitoring());
+    let service = { id: this.id, serviceName: this.config.name };
+
+    if (!this.timeoutId) {
+      this.startMonitoring();
+      events.trigger(events.EVENT_MONITORING_STARTED, service);
+    } else {
+      events.trigger(events.EVENT_MONITORING, service);
+    }
   }
 
-  async fetchLastStatus() {
-    let { name } = this.config;
-    let lastStatus = await persistence.getLastStatus(name);
+  stop() {
+    let service = { id: this.id, serviceName: this.config.name };
 
-    if (!lastStatus) {
-      logger().info(`Last status for service '${name}' is unknown.`);
-
-      return;
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
     }
 
-    // Get the last persisted status information for this service.
-    this.status = lastStatus.get('status');
-    this.lastStatusChanged = lastStatus.get('createdAt');
-    logger().info(
-      `Service '${name}' was ${this.status} last time on ${moment(
-        this.lastStatusChanged
-      ).format()}.`
-    );
+    events.trigger(events.EVENT_MONITORING_STOPPED, service);
   }
 
   async startMonitoring() {
@@ -57,7 +52,7 @@ class Monitor {
     }
 
     logger().debug(`Check interval for ${name} is ${interval}`);
-    setTimeout(this.startMonitoring.bind(this), interval);
+    this.timeoutId = setTimeout(this.startMonitoring.bind(this), interval);
   }
 
   isStatusDifferent(status) {

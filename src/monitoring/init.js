@@ -1,5 +1,8 @@
 import path from 'path';
+
 import chill from '../../package';
+import * as map from '../services/map';
+import * as socket from '../services/socket';
 
 /**
  * Initialize the monitor and start monitoring configured services.
@@ -18,7 +21,17 @@ export default async function init(configFile) {
     const eventListener = await import('./eventListener');
 
     eventListener.listen();
-    config.services.forEach(service => (new Monitor(service)).start());
+    if (config.socket.enabled) {
+      socket.start();
+    } else {
+      config.services.forEach(serviceConfig => {
+        let service = new Monitor(serviceConfig);
+
+        service.start();
+        map.set(service.cname, service);
+      });
+    }
+
   } catch (err) {
     process.stderr.write('An error occurred: \n' + err);
   }

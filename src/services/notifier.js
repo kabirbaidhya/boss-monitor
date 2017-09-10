@@ -1,5 +1,6 @@
 import * as slack from './slack';
 import * as email from './email';
+import * as socket from './socket';
 import * as twilio from './twilio';
 import * as hipchat from './hipchat';
 import logger from '../utils/logger';
@@ -11,11 +12,12 @@ const notifiers = {
   slack,
   email,
   twilio,
+  socket,
   hipchat
 };
 
 /**
- * Send the uptime notifcations to the user
+ * Send the uptime notifications to the user
  * depending upon what notification services are enabled.
  *
  * @param {Object} params
