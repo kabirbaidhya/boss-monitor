@@ -5,6 +5,11 @@ import * as str from '../utils/string';
 import * as config from '../config/config';
 
 /**
+ * Logger instance.
+ */
+let instance;
+
+/**
  * Create log directory if it does not exist.
  */
 function createDirectory(logDir) {
@@ -45,8 +50,6 @@ function formatLevel(level, width) {
   return `${winston.config.colorize(level, centeredLevel.toUpperCase())}`;
 }
 
-let instance;
-
 /**
  * Create and return a new instance of Logger.
  *
@@ -81,7 +84,7 @@ function createLogger(config) {
         timestamp: tsFormat,
         zippedArchive: true,
         datePattern: dateFormat,
-        filename: `${logDir}/-log.log`,
+        filename: `${logDir}/.log`,
         formatter: opts => customFormatter(opts, config)
       })
     ]
