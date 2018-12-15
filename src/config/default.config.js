@@ -33,18 +33,6 @@ export default {
       endpoint: null,
       baseUrl: 'https://hooks.slack.com/services'
     },
-    hipchat: {
-      enabled: false,
-      notify: true,
-      color: {
-        up: 'green',
-        down: 'red'
-      },
-      roomId: null,
-      authToken: null,
-      emailId: 'chill@noreply.com',
-      baseUrl: 'https://api.hipchat.com/v2/room/'
-    },
     twilio: {
       enabled: false,
       sender: null,

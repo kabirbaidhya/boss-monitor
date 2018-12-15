@@ -1,7 +1,6 @@
 import * as slack from './slack';
 import * as email from './email';
 import * as twilio from './twilio';
-import * as hipchat from './hipchat';
 import logger from '../utils/logger';
 import * as websocket from './websocket';
 
@@ -12,7 +11,6 @@ const notifiers = {
   slack,
   email,
   twilio,
-  hipchat,
   websocket
 };
 
