@@ -7,6 +7,15 @@
     "Kabir Baidhya <kabirbaidhya@gmail.com>"
   ],
   "license": "MIT",
+  "bin": {
+    "chill": "bin/chill"
+  },
+  "files": [
+    "bin/",
+    "dist/",
+    "chill.yml.dist",
+    "knexfile.js"
+  ],
   "scripts": {
     "start": "run-s start:dev",
     "start:dev": "nodemon --exec babel-node src/index.js",
@@ -59,7 +68,8 @@
     "chai": "^3.5.0",
     "chai-subset": "^1.5.0",
     "codecov": "^2.1.0",
-    "eslint": "^3.19.0",
+    "eslint": "^5.10.0",
+    "eslint-config-leapfrog": "^2.0.0-beta.0",
     "faker": "^4.1.0",
     "istanbul": "1.1.0-alpha.1",
     "mocha": "^3.2.0",
@@ -70,16 +80,6 @@
     "shelljs": "^0.7.7",
     "sinon": "^2.1.0"
   },
-  "preferGlobal": true,
-  "bin": {
-    "chill": "bin/chill"
-  },
-  "files": [
-    "bin/",
-    "dist/",
-    "chill.yml.dist",
-    "knexfile.js"
-  ],
   "engines": {
     "node": ">= 6.9.0",
     "npm": ">= 3.10.8"
