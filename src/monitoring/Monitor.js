@@ -5,7 +5,7 @@ import * as persistence from '../services/persistence';
 import { checkHostStatus, getCheckInterval } from '../services/status';
 
 /**
- * The main Monitor.
+ * The Monitor.
  */
 class Monitor {
   /**
