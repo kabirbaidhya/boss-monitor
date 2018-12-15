@@ -1,11 +1,8 @@
 import Yaml from 'yamljs';
-import Promise from 'bluebird';
 import cache from 'memory-cache';
 import merge from 'webpack-merge';
 
 import defaultConfig from './default.config';
-
-global.Promise = Promise;
 
 export const CACHE_KEY = 'config';
 export const DEFAULT_FILENAME = 'chill.yml';

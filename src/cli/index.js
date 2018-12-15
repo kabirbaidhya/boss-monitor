@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import yargs from 'yargs';
 import chill from '../../package';
 import init from '../monitoring/init';
