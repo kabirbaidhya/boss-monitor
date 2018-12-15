@@ -48,9 +48,6 @@ describe('config.resolve', () => {
       notifications: {
         slack: {
           enabled: true
-        },
-        hipchat: {
-          enabled: true
         }
       },
       monitoring: {
@@ -66,11 +63,6 @@ describe('config.resolve', () => {
     assert.deepEqual(result.notifications.slack, Object.assign({},
       defaultConfig.notifications.slack,
       configFromFile.notifications.slack
-    ));
-
-    assert.deepEqual(result.notifications.hipchat, Object.assign({},
-      defaultConfig.notifications.hipchat,
-      configFromFile.notifications.hipchat
     ));
 
     assert.deepEqual(result.monitoring, Object.assign({},
