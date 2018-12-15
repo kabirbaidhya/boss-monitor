@@ -19,7 +19,7 @@ describe('notifier.notify', () => {
   });
 
   it('should notify if slack is enabled', () => {
-    let params = { status: STATUS_UP, name: faker.random.word() };
+    const params = { status: STATUS_UP, name: faker.random.word() };
 
     sandbox.stub(slack, 'isEnabled').returns(true);
     notifier.notify(params);
@@ -29,7 +29,7 @@ describe('notifier.notify', () => {
   });
 
   it('should not notify if slack is not enabled', () => {
-    let params = { status: STATUS_UP, name: faker.random.word() };
+    const params = { status: STATUS_UP, name: faker.random.word() };
 
     sandbox.stub(slack, 'isEnabled').returns(false);
     notifier.notify(params);

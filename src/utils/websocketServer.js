@@ -31,7 +31,7 @@ function handleConnection(client) {
   logger().info('Connected with a new WebSocket client');
   logger().debug('Client data', client);
 
-  let data = {
+  const data = {
     event: CONNECTION_ESTABLISHED_EVENT,
     data: {
       message: 'Chill WebSocket connection established'
@@ -60,7 +60,7 @@ function handleError(err) {
  * @returns {Promise}
  */
 function sendToClient(client, data) {
-  let payload = JSON.stringify(data);
+  const payload = JSON.stringify(data);
 
   logger().info('Sending data to client via WebSocket.');
   logger().debug('Client: ', client);
@@ -89,7 +89,7 @@ export async function broadcast(data) {
   logger().debug('Broadcast data', data);
 
   // Send broadcast message to all the connected clients.
-  let promises = Array.from(wsServer.clients)
+  const promises = Array.from(wsServer.clients)
     .filter(client => client.readyState === WebSocket.OPEN)
     .map(client => {
       return sendToClient(client, data).catch(err => {

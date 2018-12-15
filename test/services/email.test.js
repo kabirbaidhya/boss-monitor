@@ -51,9 +51,9 @@ describe('email.getClient', () => {
   });
 
   it('should create a nodemailer transport with provided configurations', () => {
-    let params = { foo: faker.random.word(), bar: faker.random.word() };
-    let result = { foo: faker.random.word() };
-    let mock = sandbox.mock(nodemailer);
+    const params = { foo: faker.random.word(), bar: faker.random.word() };
+    const result = { foo: faker.random.word() };
+    const mock = sandbox.mock(nodemailer);
 
     mock.expects('createTransport').once().withArgs(params).returns(result);
     assert.equal(email.getClient(params), result);
@@ -72,10 +72,10 @@ describe('email.notify', () => {
   });
 
   it('should send email notification with correct parameters.', () => {
-    let emailHtml = '<h1>Test</h1>';
-    let name = faker.random.word();
-    let status = STATUS_UP;
-    let clientStub = { sendMail: sandbox.stub() };
+    const emailHtml = '<h1>Test</h1>';
+    const name = faker.random.word();
+    const status = STATUS_UP;
+    const clientStub = { sendMail: sandbox.stub() };
 
     sandbox.stub(nodemailer, 'createTransport').returns(clientStub);
     sandbox.stub(emailRenderer, 'render').callsFake(() => emailHtml);

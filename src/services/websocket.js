@@ -5,10 +5,10 @@ import * as websocketServer from '../utils/websocketServer';
 /**
  * Check WebScoket notification is enabled.
  *
- * @return {Boolean}
+ * @returns {Boolean}
  */
 export function isEnabled() {
-  let { websocket } = config.get().notifications;
+  const { websocket } = config.get().notifications;
 
   return websocket && websocket.enabled;
 }
@@ -21,7 +21,7 @@ export function init() {
     return;
   }
 
-  let { websocket } = config.get().notifications;
+  const { websocket } = config.get().notifications;
 
   logger().info(`Initializing WebSocket Server on port ${websocket.port}.`);
   websocketServer.init(websocket.port);

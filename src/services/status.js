@@ -10,8 +10,8 @@ export const FALLBACK_HTTP_METHOD = http.HEAD;
 /**
  * Check the host's status by sending an HTTP request.
  *
- * @param {Object} service
- * @param {String} [method='OPTIONS']
+ * @param   {Object} service
+ * @param   {String} [method='OPTIONS']
  * @returns {Promise}
  */
 export async function checkHostStatus(service, method = http.OPTIONS) {
@@ -20,7 +20,7 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
   logger().debug(`Checking the status for ${name} <${url}>`);
 
   try {
-    let { statusCode, body } = await http.sendRequest(method, url);
+    const { statusCode, body } = await http.sendRequest(method, url);
 
     logger().debug(`Received response for ${name}: `, { statusCode, body });
 
@@ -47,9 +47,9 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
 /**
  * Get the status check polling interval.
  *
- * @param {String} status
- * @param {Number} min
- * @param {Number} max
+ * @param   {String} status
+ * @param   {Number} min
+ * @param   {Number} max
  * @returns {Number}
  */
 export function getCheckInterval(status, min, max) {
@@ -59,8 +59,9 @@ export function getCheckInterval(status, min, max) {
 /**
  * Check if it should retry sending HTTP request.
  *
- * @param  {Object} err
- * @return {Boolean}
+ * @param   {Error} err
+ * @param   {string} method
+ * @returns {Boolean}
  */
 function shouldRetry(err, method) {
   return (

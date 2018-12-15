@@ -16,9 +16,9 @@ describe('Monitor.start', () => {
   });
 
   it('should trigger the EVENT_MONITORING_STARTED event.', () => {
-    let serviceName = faker.random.word();
-    let monitor = new Monitor({ name: serviceName });
-    let listener = sandbox.stub().callsFake(params => {
+    const serviceName = faker.random.word();
+    const monitor = new Monitor({ name: serviceName });
+    const listener = sandbox.stub().callsFake(params => {
       assert.equal(params.serviceName, serviceName);
     });
 

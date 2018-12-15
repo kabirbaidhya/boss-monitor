@@ -9,8 +9,8 @@ import * as config from '../config/config';
  * @returns {Object}
  */
 export function getClient() {
-  let { authToken, accountSid } = config.get().notifications.twilio;
-  let client = twilio(accountSid, authToken);
+  const { authToken, accountSid } = config.get().notifications.twilio;
+  const client = twilio(accountSid, authToken);
 
   return client;
 }
@@ -21,7 +21,7 @@ export function getClient() {
  * @returns {Boolean}
  */
 export function isEnabled() {
-  let twilioConfig = config.get().notifications.twilio;
+  const twilioConfig = config.get().notifications.twilio;
 
   return twilioConfig && twilioConfig.enabled;
 }
@@ -34,10 +34,10 @@ export function isEnabled() {
  */
 export async function notify(params) {
   logger().debug('Notification Params:', params);
-  let payLoad = preparePayLoad(params);
+  const payLoad = preparePayLoad(params);
 
   try {
-    let response = await sendNotification(payLoad);
+    const response = await sendNotification(payLoad);
 
     logger().info('Sent notification to', response.to);
     logger().debug('Result:', response);
@@ -71,7 +71,7 @@ function preparePayLoad(params) {
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  let client = getClient();
+  const client = getClient();
 
   return client.sendMessage(payload);
 }

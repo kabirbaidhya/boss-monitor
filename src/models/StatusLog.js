@@ -3,12 +3,21 @@ import { getClient } from '../utils/db';
 const db = getClient();
 const TABLE_NAME = 'status_logs';
 
+/**
+ * StatusLog Model.
+ */
 class StatusLog extends db.Model {
 
+  /**
+   * Get the table name for the model.
+   */
   get tableName() {
     return TABLE_NAME;
   }
 
+  /**
+   * If true, get the timestamps for the model.
+   */
   get hasTimestamps() {
     return true;
   }
@@ -16,11 +25,11 @@ class StatusLog extends db.Model {
   /**
    * Fetch a statusLog by its name.
    *
-   * @param  {String} id
-   * @return {Promise}
+   * @param   {String} name
+   * @returns {Promise}
    */
   static async fetchByName(name) {
-    let statusLog = await new StatusLog({ name }).orderBy('created_at', 'DESC').fetch();
+    const statusLog = await new StatusLog({ name }).orderBy('created_at', 'DESC').fetch();
 
     if (!statusLog) {
       return null;
@@ -32,11 +41,11 @@ class StatusLog extends db.Model {
   /**
     * Create a new statusLog.
     *
-    * @param  {Object} statusLog
-    * @return {Promise}
+    * @param   {Object} statusLog
+    * @returns {Promise}
     */
   static async create({ name, status }) {
-    let statusLog = await new StatusLog({ name, status }).save();
+    const statusLog = await new StatusLog({ name, status }).save();
 
     return statusLog;
   }

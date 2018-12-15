@@ -11,10 +11,10 @@ import * as config from '../config/config';
  * @returns {String}
  */
 export function render(filename, params) {
-  let { encoding, templateDir } = config.get().notifications.email;
-  let templateFile = path.join(templateDir, `${filename}.html`);
-  let html = fs.readFileSync(templateFile, encoding);
-  let template = handlebars.compile(html);
+  const { encoding, templateDir } = config.get().notifications.email;
+  const templateFile = path.join(templateDir, `${filename}.html`);
+  const html = fs.readFileSync(templateFile, encoding);
+  const template = handlebars.compile(html);
 
   return template(params);
 }

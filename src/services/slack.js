@@ -9,7 +9,7 @@ import * as config from '../config/config';
  * @returns {Boolean}
  */
 export function isEnabled() {
-  let slackConfig = config.get().notifications.slack;
+  const slackConfig = config.get().notifications.slack;
 
   return slackConfig && slackConfig.enabled;
 }
@@ -22,10 +22,10 @@ export function isEnabled() {
  */
 export async function notify(params) {
   logger().debug('Notification Params:', params);
-  let payload = preparePayload(params);
+  const payload = preparePayload(params);
 
   try {
-    let result = await sendNotification(payload);
+    const result = await sendNotification(payload);
 
     logger().info('Sent notification to slack.');
     logger().debug('Result:', result);
