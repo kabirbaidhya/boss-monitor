@@ -1,4 +1,4 @@
- --compilers js:babel-register
- --require babel-polyfill
+ --compilers js:@babel/register
+ --require @babel/polyfill
  --require test/bootstrap.js
  --recursive
