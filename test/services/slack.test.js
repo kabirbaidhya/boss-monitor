@@ -50,8 +50,8 @@ describe('slack.isEnabled', () => {
 
 describe('slack.notify', () => {
   let sandbox;
-  let baseUrl = faker.internet.url() + '/';
-  let slackEndpoint = faker.lorem.slug();
+  const baseUrl = faker.internet.url() + '/';
+  const slackEndpoint = faker.lorem.slug();
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
@@ -75,7 +75,7 @@ describe('slack.notify', () => {
   });
 
   it('should send the notification payload to the slack API endpoint.', () => {
-    let rpStub = sandbox.stub(rp, 'post').callsFake(params => {
+    const rpStub = sandbox.stub(rp, 'post').callsFake(params => {
       assert.equal(params.url, `${baseUrl}${slackEndpoint}`);
       assert.isObject(params.body);
 
@@ -92,7 +92,7 @@ describe('slack.notify', () => {
   });
 
   it('should log error if it fails to send notification to slack.', () => {
-    let loggerStub = sandbox.stub(logger(), 'error');
+    const loggerStub = sandbox.stub(logger(), 'error');
 
     sandbox.stub(rp, 'post').throws('Error');
 

@@ -16,7 +16,7 @@ describe('config.get', () => {
   });
 
   it('should return the previously resolved config from the cache.', () => {
-    let resolvedConfig = {
+    const resolvedConfig = {
       foo: faker.random.word()
     };
 

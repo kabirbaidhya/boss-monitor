@@ -17,10 +17,10 @@ describe('Monitor.handleStatusChange', () => {
   });
 
   it('should trigger the EVENT_STATUS_CHANGED event.', () => {
-    let status = STATUS_UP;
-    let serviceName = faker.random.word();
-    let monitor = new Monitor({ name: serviceName });
-    let listener = sandbox.stub().callsFake(params => {
+    const status = STATUS_UP;
+    const serviceName = faker.random.word();
+    const monitor = new Monitor({ name: serviceName });
+    const listener = sandbox.stub().callsFake(params => {
       assert.equal(params.serviceName, serviceName);
       assert.equal(params.status, status);
     });

@@ -5,13 +5,13 @@ import StatusLog from '../models/StatusLog';
 
 /**
  * Persist status log of a service to the database.
- * 
- * @param {Object} 
+ *
+ * @param   {Object} statusLog
  * @returns {Promise}
  */
 export async function persist({ status, serviceName }) {
   try {
-    let data = await StatusLog.create({ status, name: serviceName });
+    const data = await StatusLog.create({ status, name: serviceName });
 
     logger().info(`Persisted service "${serviceName}" with status as "${status}"`);
     logger().debug('Data', data.attributes);
@@ -24,13 +24,13 @@ export async function persist({ status, serviceName }) {
 
 /**
  * Fetch last status log by service name.
- * 
- * @param {String} serviceName 
+ *
+ * @param   {String} serviceName
  * @returns {Promise}
  */
 export async function getLastStatus(serviceName) {
   try {
-    let data = await StatusLog.fetchByName(serviceName);
+    const data = await StatusLog.fetchByName(serviceName);
 
     if (!data) {
       return null;

@@ -30,7 +30,7 @@ export function init() {
 export function notify(params) {
   logger().info('Sending notification via all enabled notifiers.');
 
-  for (let [key, service] of Object.entries(notifiers)) {
+  for (const [key, service] of Object.entries(notifiers)) {
     if (!service.isEnabled()) {
       continue;
     }

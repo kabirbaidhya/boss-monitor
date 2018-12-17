@@ -7,8 +7,8 @@ describe('cli', () => {
 
   describe('--version', () => {
     it('should print the chill cli version', () => {
-      let { stdout } = shell.exec('bin/chill --version', { fatal: true });
-      let expected = `chill ${pkg.version}`;
+      const { stdout } = shell.exec('bin/chill --version', { fatal: true });
+      const expected = `chill ${pkg.version}`;
 
       assert.equal(stdout.trim(), expected);
     });
@@ -16,8 +16,8 @@ describe('cli', () => {
 
   describe('--help', () => {
     it('should print the chill usage help string', () => {
-      let { stdout } = shell.exec('bin/chill --help', { fatal: true });
-      let result = stdout.trim();
+      const { stdout } = shell.exec('bin/chill --help', { fatal: true });
+      const result = stdout.trim();
 
       assert.include(result, 'Usage: chill');
       assert.include(result, 'Options:');

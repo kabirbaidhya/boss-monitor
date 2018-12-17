@@ -4,13 +4,22 @@ import * as events from '../services/events';
 import * as persistence from '../services/persistence';
 import { checkHostStatus, getCheckInterval } from '../services/status';
 
+/**
+ * The Monitor.
+ */
 class Monitor {
+  /**
+   * @param {Object} serviceConfig
+   */
   constructor(serviceConfig) {
     this.config = serviceConfig;
     this.status = null;
     this.lastStatusChanged = null;
   }
 
+  /**
+   * Start the monitor.
+   */
   start() {
     // TODO: We need to spawn each monitor into a separate thread,
     // such that each thread will monitor a service.
@@ -18,9 +27,12 @@ class Monitor {
     this.fetchLastStatus().then(() => this.startMonitoring());
   }
 
+  /**
+   * Fetch last status of the monitor.
+   */
   async fetchLastStatus() {
-    let { name } = this.config;
-    let lastStatus = await persistence.getLastStatus(name);
+    const { name } = this.config;
+    const lastStatus = await persistence.getLastStatus(name);
 
     if (!lastStatus) {
       logger().info(`Last status for service "${name}" is unknown.`);
@@ -36,10 +48,13 @@ class Monitor {
     );
   }
 
+  /**
+   * Start monitoring services.
+   */
   async startMonitoring() {
-    let { url, name, minInterval, maxInterval } = this.config;
-    let status = await checkHostStatus({ url, name });
-    let interval = getCheckInterval(status, minInterval, maxInterval);
+    const { url, name, minInterval, maxInterval } = this.config;
+    const status = await checkHostStatus({ url, name });
+    const interval = getCheckInterval(status, minInterval, maxInterval);
 
     logger().debug(`Status of service "${name}" now is "${status}"`);
 
@@ -51,13 +66,23 @@ class Monitor {
     setTimeout(this.startMonitoring.bind(this), interval);
   }
 
+  /**
+   * Check current and previous status.
+   *
+   * @param {string} status
+   */
   isStatusDifferent(status) {
     return (this.status !== status);
   }
 
+  /**
+   * Handle change in status and trigger a status change event.
+   *
+   * @param {string} status
+   */
   handleStatusChange(status) {
-    let currentTime = moment();
-    let params = {
+    const currentTime = moment();
+    const params = {
       status,
       time: currentTime.clone(),
       oldStatus: this.status,

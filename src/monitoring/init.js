@@ -4,6 +4,8 @@ import * as notifier from '../services/notifier';
 
 /**
  * Initialize the monitor and start monitoring configured services.
+ *
+ * @param {String} configFile
  */
 export default async function init(configFile) {
   process.stdout.write(`Starting chill ${chill.version}\n`);
