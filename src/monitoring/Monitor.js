@@ -59,7 +59,7 @@ class Monitor {
    */
   async startMonitoring() {
     const { url, name, maxRetry, minInterval, maxInterval } = this.config;
-    const status = await statusService.checkkHostStatus({ url, name });
+    const status = await statusService.checkHostStatus({ url, name });
     const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
 
     logger().debug(`Status of service '${name}' now is '${status}'`);
