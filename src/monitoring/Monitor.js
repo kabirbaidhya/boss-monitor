@@ -59,7 +59,7 @@ class Monitor {
    */
   async startMonitoring() {
     const { url, name, maxRetry, minInterval, maxInterval } = this.config;
-    const status = await statusService.kHostStatus({ url, name });
+    const status = await statusService.checkkHostStatus({ url, name });
     const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
 
     logger().debug(`Status of service '${name}' now is '${status}'`);
@@ -93,7 +93,7 @@ class Monitor {
     if (status === statusService.STATUS_DOWN && this.retried <= maxRetry) {
       this.retried++;
 
-      logger().info(`Service '${name}' retry count is ${this.retried}`);
+      logger().info(`Retrying '${name}' service: ${this.retried} time/s.`);
 
       return true;
     }
