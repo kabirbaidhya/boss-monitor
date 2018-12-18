@@ -22,13 +22,13 @@ describe('config.resolve', () => {
     sandbox.stub(Yaml, 'load').returns({});
     sandbox.stub(cache, 'put');
 
-    let result = config.resolve(faker.system.fileName);
+    const result = config.resolve(faker.system.fileName);
 
     assert.deepEqual(result, defaultConfig);
   });
 
   it('should merge and return both the config loaded from file and the default ones.', () => {
-    let configFromFile = {
+    const configFromFile = {
       foo: faker.random.word(),
       bar: faker.random.word()
     };
@@ -36,7 +36,7 @@ describe('config.resolve', () => {
     sandbox.stub(Yaml, 'load').returns(configFromFile);
     sandbox.stub(cache, 'put');
 
-    let result = config.resolve(faker.system.fileName);
+    const result = config.resolve(faker.system.fileName);
 
     assert.deepEqual(result, merge(defaultConfig, configFromFile));
     assert.containSubset(result, configFromFile);
@@ -44,12 +44,9 @@ describe('config.resolve', () => {
   });
 
   it('should return the resolved config that overrides the default values if same keys are found.', () => {
-    let configFromFile = {
+    const configFromFile = {
       notifications: {
         slack: {
-          enabled: true
-        },
-        hipchat: {
           enabled: true
         }
       },
@@ -61,16 +58,11 @@ describe('config.resolve', () => {
     sandbox.stub(Yaml, 'load').returns(configFromFile);
     sandbox.stub(cache, 'put');
 
-    let result = config.resolve(faker.system.fileName);
+    const result = config.resolve(faker.system.fileName);
 
     assert.deepEqual(result.notifications.slack, Object.assign({},
       defaultConfig.notifications.slack,
       configFromFile.notifications.slack
-    ));
-
-    assert.deepEqual(result.notifications.hipchat, Object.assign({},
-      defaultConfig.notifications.hipchat,
-      configFromFile.notifications.hipchat
     ));
 
     assert.deepEqual(result.monitoring, Object.assign({},
@@ -82,11 +74,11 @@ describe('config.resolve', () => {
   });
 
   it('should put the resolved config in the cache.', () => {
-    let configFromFile = {
+    const configFromFile = {
       foo: faker.random.word(),
       bar: faker.random.word()
     };
-    let expectedResult = merge(defaultConfig, configFromFile);
+    const expectedResult = merge(defaultConfig, configFromFile);
 
     sandbox.stub(Yaml, 'load').returns(configFromFile);
     sandbox.stub(cache, 'put').callsFake((key, valueToBeCached) => {
@@ -94,7 +86,7 @@ describe('config.resolve', () => {
       assert.deepEqual(valueToBeCached, expectedResult);
     });
 
-    let result = config.resolve(faker.random.word());
+    const result = config.resolve(faker.random.word());
 
     assert.deepEqual(result, expectedResult);
   });

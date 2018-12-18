@@ -41,8 +41,8 @@ describe('twilio.isEnabled', () => {
 
 describe('twilio.notify', () => {
   let sandbox;
-  let randomId = faker.random.uuid();
-  let phoneNumber = faker.phone.phoneNumber();
+  const randomId = faker.random.uuid();
+  const phoneNumber = faker.phone.phoneNumber();
 
   beforeEach(() => {
     sandbox = sinon.sandbox.create();
@@ -64,7 +64,7 @@ describe('twilio.notify', () => {
   });
 
   it('should send notification from twilio with correct params', () => {
-    let sendMessageStub = sandbox.stub().returns({
+    const sendMessageStub = sandbox.stub().returns({
       // Fake response from https://www.twilio.com/docs/api/rest/response
       'sid': 'SM1f0e8ae6ade43cb3c0ce4525424e404f',
       'date_created': 'Fri, 13 Aug 2010 01:16:24 +0000',
@@ -78,10 +78,11 @@ describe('twilio.notify', () => {
       'flags': [ 'outbound' ],
       'api_version': '2010-04-01',
       'price': null,
-      'uri': '\/2010-04-01\/Accounts\/AC228ba7a5fe4238be081ea6f3c44186f3\/SMS\/Messages\/SM1f0e8ae6ade43cb3c0ce4525424e404f.json'
+      'uri': '/2010-04-01/Accounts/AC228ba7a5fe4238be081ea6f3c44186f3/SMS/Messages/SM1f0e8ae6ade43cb3c0ce4525424e404f.json'
     });
 
-    let twilioSerivce = proxyquire('../../src/services/twilio', {
+    const twilioSerivce = proxyquire('../../src/services/twilio', {
+      // eslint-disable-next-line
       twilio() {
         return { sendMessage: sendMessageStub };
       }
@@ -92,16 +93,17 @@ describe('twilio.notify', () => {
   });
 
   it('should log error when twilio fails to send the message', () => {
-    let sendMessageStub = sandbox.stub().throws(new Error());
-    let twilioSerivce = proxyquire('../../src/services/twilio', {
+    const sendMessageStub = sandbox.stub().throws(new Error());
+    const twilioSerivce = proxyquire('../../src/services/twilio', {
+      // eslint-disable-next-line
       twilio() {
         return {
           sendMessage: sendMessageStub
         };
       }
     });
-    let loggerInstance = logger();
-    let loggerStub = sandbox.stub(loggerInstance, 'error');
+    const loggerInstance = logger();
+    const loggerStub = sandbox.stub(loggerInstance, 'error');
 
     twilioSerivce.notify({ status: STATUS_DOWN, name: faker.random.word() });
     assert.isTrue(loggerStub.calledOnce);

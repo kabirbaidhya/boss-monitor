@@ -1,11 +1,8 @@
 import Yaml from 'yamljs';
-import Promise from 'bluebird';
 import cache from 'memory-cache';
 import merge from 'webpack-merge';
 
 import defaultConfig from './default.config';
-
-global.Promise = Promise;
 
 export const CACHE_KEY = 'config';
 export const DEFAULT_FILENAME = 'chill.yml';
@@ -19,8 +16,8 @@ export const DEFAULT_FILENAME = 'chill.yml';
 export function resolve(filename = DEFAULT_FILENAME) {
   process.stdout.write(`Loading config file: ${filename}\n`);
 
-  let loadedConfig = Yaml.load(filename);
-  let config = merge(defaultConfig, loadedConfig);
+  const loadedConfig = Yaml.load(filename);
+  const config = merge(defaultConfig, loadedConfig);
 
   // Add monitoring config as defaults for each service configuration.
   config.services = config.services.map(service => {

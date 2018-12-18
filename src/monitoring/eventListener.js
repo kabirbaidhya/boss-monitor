@@ -19,8 +19,8 @@ export function listen() {
  * @param {any} params
  */
 function handleStatusChange(params) {
-  let { serviceName, status, time, lastStatusChanged } = params;
-  let notification = {
+  const { serviceName, status, time, lastStatusChanged } = params;
+  const notification = {
     status,
     name: serviceName,
     time: time.clone(),
@@ -28,7 +28,7 @@ function handleStatusChange(params) {
   };
 
   if (status === STATUS_UP && lastStatusChanged) {
-    let downtime = time.diff(lastStatusChanged);
+    const downtime = time.diff(lastStatusChanged);
 
     notification.downtime = moment.duration(downtime, 'milliseconds').humanize();
 

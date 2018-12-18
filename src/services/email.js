@@ -7,10 +7,11 @@ import * as emailRenderer from '../utils/emailRenderer';
 /**
  * Get the nodemailer email client using the configured transport.
  *
+ * @param   {string | Object} transport
  * @returns {Object}
  */
 export function getClient(transport) {
-  let client = nodemailer.createTransport(transport);
+  const client = nodemailer.createTransport(transport);
 
   return client;
 }
@@ -21,7 +22,7 @@ export function getClient(transport) {
  * @returns {Boolean}
  */
 export function isEnabled() {
-  let { email } = config.get().notifications;
+  const { email } = config.get().notifications;
 
   return email && email.enabled;
 }
@@ -29,7 +30,7 @@ export function isEnabled() {
 /**
  * Send email notification.
  *
- * @param {Object} params
+ * @param   {Object} params
  * @returns {Promise}
  */
 export async function notify(params) {
@@ -45,7 +46,7 @@ export async function notify(params) {
   }
 
   try {
-    let result = await sendNotification(payload);
+    const result = await sendNotification(payload);
 
     logger().info('Sent notification to email.');
     logger().debug('Result:', result);
@@ -59,17 +60,17 @@ export async function notify(params) {
 /**
  * Create and return payload required for email.
  *
- * @param {Object} params
+ * @param   {Object} params
  * @returns {Object}
  */
 function preparePayLoad(params) {
-  let { status, name, downtime } = params;
-  let { sender, receivers } = config.get().notifications.email;
-  let subject = `Status for ${name}`;
-  let message = Object.assign({}, messages[status], {
+  const { status, name, downtime } = params;
+  const { sender, receivers } = config.get().notifications.email;
+  const subject = `Status for ${name}`;
+  const message = Object.assign({}, messages[status], {
     text: messages[status].text(name, downtime)
   });
-  let html = emailRenderer.render('status', message);
+  const html = emailRenderer.render('status', message);
 
   return {
     html,
@@ -82,12 +83,12 @@ function preparePayLoad(params) {
 /**
  * Use nodemailer to send email notifications.
  *
- * @param {Object} payload
+ * @param   {Object} payload
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  let { transport } = config.get().notifications.email;
-  let client = getClient(transport);
+  const { transport } = config.get().notifications.email;
+  const client = getClient(transport);
 
   return client.sendMail(payload);
 }

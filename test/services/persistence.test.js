@@ -21,7 +21,7 @@ describe('persistence.persist', () => {
   });
 
   it('should persist status log to database.', async() => {
-    let params = {
+    const params = {
       status: STATUS_DOWN,
       serviceName: faker.random.word()
     };
@@ -35,7 +35,7 @@ describe('persistence.persist', () => {
       }
     });
 
-    let result = await persistence.persist(params);
+    const result = await persistence.persist(params);
 
     assert.isTrue(createStub.calledWith({
       status: params.status,
@@ -46,13 +46,13 @@ describe('persistence.persist', () => {
   });
 
   it('should log an error if it cannot persist to database.', async() => {
-    let params = {
+    const params = {
       status: STATUS_DOWN,
       serviceName: faker.random.word()
     };
 
-    let loggerInstance = logger();
-    let loggerStub = sandbox.stub(loggerInstance, 'error');
+    const loggerInstance = logger();
+    const loggerStub = sandbox.stub(loggerInstance, 'error');
 
     createStub.rejects('Database operation failed.');
 
@@ -86,7 +86,7 @@ describe('persistence.getLastStatus', () => {
   });
 
   it('should get last status of service from database.', async() => {
-    let serviceName = faker.random.word();
+    const serviceName = faker.random.word();
 
     fetchByNameStub.resolves(StatusLogModel);
 
@@ -99,21 +99,21 @@ describe('persistence.getLastStatus', () => {
   });
 
   it('should return null if it cannot get last status of service from database.', async() => {
-    let serviceName = faker.random.word();
+    const serviceName = faker.random.word();
 
     fetchByNameStub.resolves(null);
 
-    let result = await persistence.getLastStatus(serviceName);
+    const result = await persistence.getLastStatus(serviceName);
 
     assert.isTrue(fetchByNameStub.calledWith(serviceName));
     assert.equal(result, null);
   });
 
   it('should log an error if it cannot fetch from database.', async() => {
-    let serviceName = faker.random.word();
+    const serviceName = faker.random.word();
 
-    let loggerInstance = logger();
-    let loggerStub = sandbox.stub(loggerInstance, 'error');
+    const loggerInstance = logger();
+    const loggerStub = sandbox.stub(loggerInstance, 'error');
 
     fetchByNameStub.rejects('Database operation failed.');
 

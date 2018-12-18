@@ -107,7 +107,7 @@ describe('websocket.notify', () => {
   });
 
   it('should broadcast to all clients.', () => {
-    let params = { status: STATUS_UP, name: faker.random.word() };
+    const params = { status: STATUS_UP, name: faker.random.word() };
 
     websocket.notify(params);
 

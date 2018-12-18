@@ -4,7 +4,13 @@ import * as events from '../services/events';
 import * as statusService from '../services/status';
 import * as persistence from '../services/persistence';
 
+/**
+ * The Monitor.
+ */
 class Monitor {
+  /**
+   * @param {Object} serviceConfig
+   */
   constructor(serviceConfig) {
     this.retried = 0;
     this.status = null;
@@ -12,6 +18,9 @@ class Monitor {
     this.lastStatusChanged = null;
   }
 
+  /**
+   * Start the monitor.
+   */
   start() {
     // TODO: We need to spawn each monitor into a separate thread,
     // such that each thread will monitor a service.
@@ -22,9 +31,12 @@ class Monitor {
     this.fetchLastStatus().then(() => this.startMonitoring());
   }
 
+  /**
+   * Fetch last status of the monitor.
+   */
   async fetchLastStatus() {
-    let { name } = this.config;
-    let lastStatus = await persistence.getLastStatus(name);
+    const { name } = this.config;
+    const lastStatus = await persistence.getLastStatus(name);
 
     if (!lastStatus) {
       logger().info(`Last status for service '${name}' is unknown.`);
@@ -42,12 +54,13 @@ class Monitor {
     );
   }
 
+  /**
+   * Start monitoring services.
+   */
   async startMonitoring() {
-    let { url, name, maxRetry, minInterval, maxInterval } = this.config;
-    let status = await statusService.checkHostStatus({ url, name });
-    let interval = statusService.getCheckInterval(
-      status, minInterval, maxInterval
-    );
+    const { url, name, maxRetry, minInterval, maxInterval } = this.config;
+    const status = await statusService.kHostStatus({ url, name });
+    const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
 
     logger().debug(`Status of service '${name}' now is '${status}'`);
 
@@ -60,10 +73,22 @@ class Monitor {
     setTimeout(this.startMonitoring.bind(this), interval);
   }
 
+  /**
+   * Check current and previous status.
+   *
+   * @param {string} status
+   */
   isStatusDifferent(status) {
     return (this.status !== status);
   }
 
+  /**
+   * Check if monitor should retry pinging.
+   *
+   * @param {string} name
+   * @param {string} status
+   * @param {number} maxRetry
+   */
   shouldRetry(name, status, maxRetry) {
     if (status === statusService.STATUS_DOWN && this.retried <= maxRetry) {
       this.retried++;
@@ -78,9 +103,14 @@ class Monitor {
     return false;
   }
 
+  /**
+   * Handle change in status and trigger a status change event.
+   *
+   * @param {string} status
+   */
   handleStatusChange(status) {
-    let currentTime = moment();
-    let params = {
+    const currentTime = moment();
+    const params = {
       status,
       time: currentTime.clone(),
       oldStatus: this.status,

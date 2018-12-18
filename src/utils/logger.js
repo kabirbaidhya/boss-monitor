@@ -5,7 +5,14 @@ import * as str from '../utils/string';
 import * as config from '../config/config';
 
 /**
+ * Logger instance.
+ */
+let instance;
+
+/**
  * Create log directory if it does not exist.
+ *
+ * @param {string} logDir
  */
 function createDirectory(logDir) {
   if (!fs.existsSync(logDir)) {
@@ -40,16 +47,15 @@ function customFormatter(options, config) {
  * @returns {String}
  */
 function formatLevel(level, width) {
-  let centeredLevel = str.center(level.toUpperCase(), width);
+  const centeredLevel = str.center(level.toUpperCase(), width);
 
   return `${winston.config.colorize(level, centeredLevel.toUpperCase())}`;
 }
 
-let instance;
-
 /**
  * Create and return a new instance of Logger.
  *
+ * @param   {Object} config
  * @returns {winston.Logger}
  */
 function createLogger(config) {
@@ -81,7 +87,7 @@ function createLogger(config) {
         timestamp: tsFormat,
         zippedArchive: true,
         datePattern: dateFormat,
-        filename: `${logDir}/-log.log`,
+        filename: `${logDir}/.log`,
         formatter: opts => customFormatter(opts, config)
       })
     ]
@@ -94,7 +100,9 @@ function createLogger(config) {
  * @returns {winston.Logger}
  */
 export default function logger() {
-  if (instance) return instance;
+  if (instance) {
+    return instance;
+  }
 
   instance = createLogger(config.get().logging);
 
