@@ -34,6 +34,7 @@
     "prepare": "npm run build"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "bookshelf": "^0.10.3",
     "bookshelf-camelcase": "^1.1.4",
     "handlebars": "^4.0.6",
