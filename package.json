@@ -31,7 +31,14 @@
     "migrate": "knex migrate:latest",
     "rollback": "knex migrate:rollback",
     "prepack": "npm run build",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
@@ -47,7 +54,7 @@
     "nodemailer": "^4.0.1",
     "request": "^2.72.0",
     "request-promise": "^4.1.0",
-    "sqlite3": "^3.1.8",
+    "sqlite3": "^3.1.9",
     "twilio": "^2.11.1",
     "webpack-merge": "^4.1.0",
     "winston": "^2.3.0",
@@ -70,7 +77,9 @@
     "eslint": "^5.10.0",
     "eslint-config-leapfrog": "^2.0.0-beta.0",
     "faker": "^4.1.0",
+    "husky": "^0.14.3",
     "istanbul": "1.1.0-alpha.1",
+    "lint-staged": "^4.0.4",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^3.1.1",
