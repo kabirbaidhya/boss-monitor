@@ -67,6 +67,10 @@ class Monitor {
     if (!this.shouldRetry(name, status, maxRetry) &&
         this.isStatusDifferent(status)) {
       this.handleStatusChange(status);
+
+      this.retried = 0;
+    } else {
+      this.retried++;
     }
 
     logger().debug(`Check interval for ${name} is ${interval}`);
@@ -91,14 +95,11 @@ class Monitor {
    */
   shouldRetry(name, status, maxRetry) {
     if (status === statusService.STATUS_DOWN && this.retried <= maxRetry) {
-      this.retried++;
 
       logger().info(`Retrying '${name}' service: ${this.retried} time/s.`);
 
       return true;
     }
-
-    this.retried = 0;
 
     return false;
   }

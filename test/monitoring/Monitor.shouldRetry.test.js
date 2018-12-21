@@ -4,10 +4,9 @@ import Monitor from '../../src/monitoring/Monitor';
 import { STATUS_UP, STATUS_DOWN } from '../../src/services/status';
 
 describe('Monitor.shouldRetry', () => {
-  const name = faker.random.word();
-  const monitor = new Monitor({ name });
-
   it('should return false if status is up.', () => {
+    const name = faker.random.word();
+    const monitor = new Monitor({ name });
     const maxRetry = faker.random.number({ min: 3, max: 5 });
 
     monitor.retried = maxRetry;
@@ -15,6 +14,8 @@ describe('Monitor.shouldRetry', () => {
   });
 
   it('should return false if status is down and retried count is greater than max retry', () => {
+    const name = faker.random.word();
+    const monitor = new Monitor({ name });
     const maxRetry = faker.random.number({ min: 3, max: 5 });
 
     monitor.retried = maxRetry + 1;
@@ -22,6 +23,8 @@ describe('Monitor.shouldRetry', () => {
   });
 
   it('should return true if status is down and retried count is less than max retry', () => {
+    const name = faker.random.word();
+    const monitor = new Monitor({ name });
     const maxRetry = faker.random.number({ min: 3, max: 5 });
 
     monitor.retried = maxRetry - 1;
