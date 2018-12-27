@@ -32,7 +32,7 @@ version=$DEFAULT_VERSION
 
 
 ##### Functions #####
-# Replace string in the config file.
+# Replace string in file.
 replace_string() {
   sed -i '' "s|$1|$2|g" $3
 }
@@ -168,7 +168,7 @@ create_chill_config_file() {
   # Add new entry "restApi" to chill.yml.
   echo "" >> chill.yml;
   echo "restApi:" >> chill.yml;
-  echo "  port: ${apiPort}" >> chill.yml;
+  echo "  port: $apiPort" >> chill.yml;
 
   cd -;
 }
@@ -180,9 +180,9 @@ create_dot_env_file() {
 
   replace_string "{APP_LOGO}" $logoUrl ./.env;
   replace_string "{LOGO_HEIGHT}" "80px" ./.env;
-  replace_string "{APP_TITLE}" "Chill ${name}" ./.env;
-  replace_string "{API_ENDPOINT}" "https://${domainName}" ./.env;
-  replace_string "{WEBSOCKET_ENDPOINT}" "wss://${domainName}" ./.env;
+  replace_string "{APP_TITLE}" "Chill $name" ./.env;
+  replace_string "{API_ENDPOINT}" "https://$domainName" ./.env;
+  replace_string "{WEBSOCKET_ENDPOINT}" "wss://$domainName" ./.env;
 
   cd -;
 }
@@ -203,9 +203,20 @@ build_services() {
 
 # Start all the services.
 start_services() {
- CHILL_CONFIG=$CHILL_CONFIG pm2 start chill/dist/index.js --name $name-monitor;
- CHILL_CONFIG=$CHILL_CONFIG pm2 start chill-rest-api/dist/index.js --name $name-rest-api;
+ CHILL_CONFIG=$CHILL_CONFIG pm2 start $FOLDER_CHILL_MONITOR/dist/index.js --name $name-monitor;
+ CHILL_CONFIG=$CHILL_CONFIG pm2 start $FOLDER_CHILL_REST_API/dist/index.js --name $name-rest-api;
  pm2 save;
+}
+
+# Print message for API urls and dashboard path.
+show_message() {
+  echo
+  echo "----------------------------------------------------------"
+  echo "  Chill is up in the following local addresses";
+  echo "  Rest API: http://localhost:$apiPort";
+  echo "  Websocket: http://localhost:$wsPort";
+  echo "  Dashboard: $(pwd)/$FOLDER_CHILL_DASHBOARD/dist/index.js"
+  echo "----------------------------------------------------------"
 }
 
 
@@ -220,4 +231,4 @@ create_dot_env_file
 migrate_database
 build_services
 start_services
-
+show_message
