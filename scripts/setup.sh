@@ -212,7 +212,8 @@ start_services() {
 show_message() {
   echo
   echo "----------------------------------------------------------"
-  echo "  Chill is up in the following local addresses";
+  echo "  Chill is up in the following local addresses: ";
+  echo
   echo "  Rest API: http://localhost:$apiPort";
   echo "  Websocket: http://localhost:$wsPort";
   echo "  Dashboard: $(pwd)/$FOLDER_CHILL_DASHBOARD/dist/index.js"
