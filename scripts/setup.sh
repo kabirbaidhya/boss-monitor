@@ -39,8 +39,7 @@ replace_string() {
 
 # Check the existence of the program.
 has_program() {
-  if type $1 > '/dev/null'; 
-  then 
+  if type $1 > '/dev/null'; then 
     return 0;
   fi
 
@@ -81,15 +80,13 @@ read_inputs() {
   read -p "Domain name: (eg. chill.lftechnology.com) " domainName
   read -p "Would you like to enable Slack notifications?: (y/n) " enableNotification
 
-  if [ "$enableNotification" = "y" ]; 
-  then 
+  if [ "$enableNotification" = "y" ]; then 
     slackEnabled=true;
   else 
     slackEnabled=false;
   fi
 
-  if $slackEnabled;
-  then
+  if $slackEnabled; then
     read -p "Enter slack endpoint (eg. /T11Q734UA/BEZ1YK136/ZImB2wheUbYKbSrMJ32WnRlO): " slackEndpoint;
   fi
 
@@ -102,8 +99,7 @@ read_inputs() {
     serviceNames+=($serviceName)
 
     read -p "Would you like to add another service?: (y/n) " addNewService
-    if ! [ "$addNewService" = "y" ]; 
-    then 
+    if ! [ "$addNewService" = "y" ]; then 
       break
     fi
   done
@@ -113,8 +109,7 @@ read_inputs() {
 check_programs() {
   for i in "${REQUIRED_PROGRAMS[@]}"
   do
-    if ! has_program $i;
-    then
+    if ! has_program $i; then
       echo "chill: Please install '"$i"' to continue the installation process.";
       exit 0;
     fi
@@ -203,9 +198,10 @@ build_services() {
 
 # Start all the services.
 start_services() {
- CHILL_CONFIG=$CHILL_CONFIG pm2 start $FOLDER_CHILL_MONITOR/dist/index.js --name $name-monitor;
- CHILL_CONFIG=$CHILL_CONFIG pm2 start $FOLDER_CHILL_REST_API/dist/index.js --name $name-rest-api;
- pm2 save;
+  CHILL_CONFIG=$CHILL_CONFIG pm2 start "${$FOLDER_CHILL_MONITOR}/dist/index.js" --name "${name}-monitor";
+  CHILL_CONFIG=$CHILL_CONFIG pm2 start "${$FOLDER_CHILL_REST_API}/dist/index.js" --name "${name}-rest-api";
+
+  pm2 save;
 }
 
 # Print message for API urls and dashboard path.
