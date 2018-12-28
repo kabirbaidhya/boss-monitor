@@ -101,7 +101,7 @@ read_inputs() {
     serviceUrls+=($serviceUrl)
     serviceNames+=($serviceName)
 
-    read -p "Would you like to add her service?: (y/n) " addNewService
+    read -p "Would you like to add another service?: (y/n) " addNewService
     if ! [ "$addNewService" = "y" ]; 
     then 
       break
