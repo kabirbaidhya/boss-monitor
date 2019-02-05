@@ -1,0 +1,55 @@
+logging:
+  level: debug
+
+db:
+# SQLite Database Configuration
+  client: 'sqlite3'
+  connection:
+    filename: './chill.db'
+
+# PostgreSQL Database Configuration
+# connection:
+#   charset: 'utf8'
+#   database: chill
+#   host: 127.0.0.1
+#   user: PG_USER
+#   password: PG_PASSWORD
+
+restApi:
+  port: 8000
+
+monitoring:
+  minInterval: 1000
+  maxInterval: 10000
+  method: OPTIONS
+  downStatus: '^(5..|4..)$'
+
+notifications:
+  slack:
+    enabled: false
+    endpoint: SLACK_WEBHOOK_ENDPOINT
+  hipchat:
+    enabled: false
+    authToken: HIPCHAT_WEBHOOK_TOKENID
+    roomId: HIPTCHAT_WEBHOOK_ROOMID
+  twilio:
+    enabled: false
+    sender: SENDING_NUMBER
+    receiver: RECEIVING_NUMBER
+    authToken: AUTH_TOKEN
+    accountSid: ACCOUNT_SID
+  email:
+    enabled: false
+    transport:
+      service: EMAIL_SERVICE # Check https://nodemailer.com/smtp/well-known/ for all email services
+      auth:
+        user: EMAIL_ACCOUNT_USERNAME
+        pass: EMAIL_ACCOUNT_PASSWORD
+    sender: SENDER_NAME_EMAIL
+    receivers:
+      - RECEIVER_EMAIL
+    templateDir: TEMPLATE_DIRECTORY
+
+services:
+  - name: 'Localhost'
+    url: 'http://127.0.0.1'
