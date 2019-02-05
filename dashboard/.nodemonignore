@@ -1,0 +1,9 @@
+# Build directory
+dist
+
+# Test directory
+test
+
+# Other directories
+src/server/seeds
+src/server/migrations
