@@ -21,6 +21,7 @@
   "authors": [],
   "license": "MIT",
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
     "body-parser": "^1.15.2",
     "bookshelf": "^0.10.2",
     "bookshelf-camelcase": "^1.1.4",

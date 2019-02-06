@@ -1,0 +1,66 @@
+{
+  "name": "chill-core",
+  "version": "1.0.0-alpha.1",
+  "description": "Chill core utilities and common dependencies.",
+  "main": "dist/index.js",
+  "authors": [
+    "Kabir Baidhya"
+  ],
+  "files": [
+    "dist/"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "clean": "rimraf dist/",
+    "babel": "babel src/ -d dist/",
+    "build": "run-s clean babel",
+    "prepublish": "npm run build",
+    "postinstall": "npm run build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "keywords": [
+    "chill",
+    "core",
+    "utilities"
+  ],
+  "dependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.0.0",
+    "babel-plugin-dynamic-import-node": "^2.2.0",
+    "bookshelf": "^0.14.1",
+    "bookshelf-camelcase": "^2.0.1",
+    "knex": "^0.16.2",
+    "memory-cache": "^0.2.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^2.6.2",
+    "webpack-merge": "^4.1.5",
+    "winston": "^2.3.0",
+    "winston-daily-rotate-file": "^1.4.0",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.10.0",
+    "eslint-config-leapfrog": "^2.0.0-beta.0",
+    "husky": "^1.2.1",
+    "lint-staged": "^8.1.0"
+  },
+  "engines": {
+    "node": ">= 8.12.0",
+    "npm": ">= 6.4.1"
+  }
+}
