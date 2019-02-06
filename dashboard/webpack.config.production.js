@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const { init } = require('chill-core');
+const { init } = require('../core/src');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
