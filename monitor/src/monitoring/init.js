@@ -1,6 +1,7 @@
 import path from 'path';
 import chill from '../../package';
 import * as notifier from '../services/notifier';
+import { synchronize } from '../services/persistence';
 
 /**
  * Initialize the monitor and start monitoring configured services.
@@ -19,6 +20,8 @@ export default async function init(configFile) {
     const config = resolve(configFile);
     const { 'default': Monitor } = await import('./Monitor');
     const eventListener = await import('./eventListener');
+
+    await synchronize();
 
     eventListener.listen();
     config.services.forEach(service => (new Monitor(service)).start());

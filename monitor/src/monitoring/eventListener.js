@@ -3,7 +3,7 @@ import logger from '../utils/logger';
 import * as events from '../services/events';
 import { STATUS_UP } from '../services/status';
 import * as notifier from '../services/notifier';
-import { persist } from '../services/persistence';
+import { synchronize } from '../services/persistence';
 
 /**
  * Start listening for monitor events.
@@ -18,7 +18,7 @@ export function listen() {
  *
  * @param {any} params
  */
-function handleStatusChange(params) {
+async function handleStatusChange(params) {
   const { serviceName, status, time, lastStatusChanged } = params;
   const notification = {
     status,
@@ -41,7 +41,7 @@ function handleStatusChange(params) {
   notifier.notify(notification);
 
   // Persist to database
-  persist({ status, serviceName });
+  await synchronize();
 }
 
 /**

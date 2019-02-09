@@ -1,5 +1,11 @@
 import { seed } from '../seeds/statuses';
 
+/**
+ * Create statuses table.
+ *
+ * @param   {Object} knex
+ * @returns {Promise}
+ */
 export function up(knex) {
   return knex.schema.createTable('statuses', table => {
     table.increments().primary();
@@ -8,6 +14,12 @@ export function up(knex) {
   }).then(() => seed(knex));
 }
 
+/**
+ * Drop statuses table.
+ *
+ * @param   {Object} knex
+ * @returns {Promise}
+ */
 export function down(knex) {
   return knex.schema.dropTable('statuses');
 }

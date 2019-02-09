@@ -4,7 +4,7 @@ import { UNKNOWN } from '../models/Status';
  * Create status_logs table.
  *
  * @param  {Object} knex
- * @return {Promise}
+ * @returns {Promise}
  */
 export function up(knex) {
   return knex.schema.createTable('status_logs', table => {
@@ -25,7 +25,7 @@ export function up(knex) {
  * Drop status_logs table.
  *
  * @param  {Object} knex
- * @return {Promise}
+ * @returns {Promise}
  */
 export function down(knex) {
   return knex.schema.dropTable('status_logs');
