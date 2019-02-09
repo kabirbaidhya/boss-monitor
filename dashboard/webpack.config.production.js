@@ -1,10 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
-const { init } = require('../core/src');
+const { init } = require('../core/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+
+require('dotenv').config();
 
 /**
  * Configure Webpack.

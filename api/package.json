@@ -57,6 +57,7 @@
     "babel-jest": "^19.0.0",
     "babel-loader": "^8.0.0",
     "babel-plugin-dynamic-import-node": "^1.0.2",
+    "dotenv": "^6.2.0",
     "eslint": "^3.19.0",
     "nodemon": "^1.18.9",
     "rimraf": "^2.6.1",

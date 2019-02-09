@@ -39,7 +39,7 @@ class StatusLog extends db.Model {
       statusLogQuery.STATUS_LOGS
     );
 
-    return camelize(results.rows);
+    return camelize(results);
   }
 
   static async fetchLatestStatuses() {
@@ -49,7 +49,7 @@ class StatusLog extends db.Model {
       statusLogQuery.LATEST_STATUS
     );
 
-    return camelize(results.rows);
+    return camelize(results);
   }
 }
 

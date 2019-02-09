@@ -26,7 +26,7 @@ export async function fetchServiceStatuses() {
  * @returns {Boolean}
  */
 export function isUp(service) {
-  return service.status === statuses.STATUS_UP;
+  return service.name && service.name.toLowerCase() === statuses.STATUS_UP.toLowerCase();
 }
 
 /**

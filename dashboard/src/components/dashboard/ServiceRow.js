@@ -5,15 +5,19 @@ import ToolTip from 'react-tooltip';
 
 import { isUp, getServiceParams } from '../../services/status';
 
-const ServiceRow = ({ service }) => {
-  let { id, name, createdAt } = service;
-  let { message, className, icon } = getServiceParams(isUp(service));
+const ServiceRow = ({ data }) => {
+  let { id, createdAt, service, status } = data;
+
+  const serviceData = JSON.parse(service);
+  const statusData = JSON.parse(status);
+
+  let { message, className, icon } = getServiceParams(isUp(statusData));
 
   let tooltipId = `tooltip-${id}`;
 
   return (
     <li className="list-group-item">
-      <span>{name}</span>
+      <span>{serviceData.name}</span>
       <span className={`list-item-right ${className}`}>{message}</span>
       <a
         data-tip
@@ -30,7 +34,7 @@ const ServiceRow = ({ service }) => {
 };
 
 ServiceRow.propTypes = {
-  service: PropTypes.object
+  data: PropTypes.object
 };
 
 export default ServiceRow;
