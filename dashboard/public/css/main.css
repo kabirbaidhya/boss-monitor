@@ -51,6 +51,7 @@ a:hover {
 .list-group-item {
   height: 62px;
   font-size: 16px;
+  position: static;
   line-height: 42px;
 }
 
@@ -60,9 +61,10 @@ a:hover {
 }
 
 .list-item-tooltip {
-  float:right;
+  float: right;
   color: #333;
   margin: 0 10px;
+  cursor: default;
   line-height: 42px;
 }
 

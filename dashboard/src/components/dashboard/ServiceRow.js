@@ -19,13 +19,13 @@ const ServiceRow = ({ data }) => {
     <li className="list-group-item">
       <span>{serviceData.name}</span>
       <span className={`list-item-right ${className}`}>{message}</span>
-      <a
+      <i
         data-tip
         aria-hidden="true"
         data-for={tooltipId}
-        className={`list-item-tooltip ${icon} ${className}`}
-      />
-
+        className={`list-item-tooltip material-icons ${className}`}>
+        info
+      </i>
       <ToolTip className="tooltip" place="left" id={tooltipId} type="dark">
         <span>Since {moment(createdAt).fromNow()}</span>
       </ToolTip>
