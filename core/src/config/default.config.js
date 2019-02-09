@@ -1,7 +1,3 @@
-// Note: This file is a total copy-paste from the chill repository
-// we'll need to extract a new package called chill-core or chill-common where
-// we can put all the common, initialization/config code.
-
 import path from 'path';
 
 export default {
