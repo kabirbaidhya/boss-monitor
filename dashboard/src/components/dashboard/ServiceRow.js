@@ -6,14 +6,14 @@ import ToolTip from 'react-tooltip';
 import { isUp, getServiceParams } from '../../services/status';
 
 const ServiceRow = ({ data }) => {
-  let { id, createdAt, service, status } = data;
+  const { id, createdAt, service, status } = data;
 
   const serviceData = JSON.parse(service);
   const statusData = JSON.parse(status);
 
-  let { message, className, icon } = getServiceParams(isUp(statusData));
+  const { message, className } = getServiceParams(isUp(statusData));
 
-  let tooltipId = `tooltip-${id}`;
+  const tooltipId = `tooltip-${id}`;
 
   return (
     <li className="list-group-item">

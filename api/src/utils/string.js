@@ -19,8 +19,11 @@ export function center(text, width, fillchar = ' ') {
 
   // Calculate padding left and right.
   let orignalText = text.trim();
+
   let remainingSpace = width - orignalText.length;
+
   let paddingLeft = Math.floor(remainingSpace / 2);
+
   let paddingRight = remainingSpace - paddingLeft;
 
   // Add padding left & right using the fillchar character.

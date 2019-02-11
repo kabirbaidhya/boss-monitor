@@ -97,7 +97,7 @@ export async function getLastStatus(serviceId) {
  *
  * @param {Array} configuredServices
  * @param {Array} persistedServices
- * @returns
+ * @returns {Object}
  */
 function computeDiff(configuredServices, persistedServices) {
   const notPersisted = differenceWith(configuredServices, persistedServices, comparator);

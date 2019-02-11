@@ -78,12 +78,12 @@ function shouldRetry(err, method) {
  * Fetch a single Status record by it's id (pk).
  *
  * @param  {string|Number}  id
- * @return {Promise}
+ * @returns {Promise}
  */
 export async function fetch(id) {
   logger().debug('Fetching a status record by id', { id });
 
-  let result = await new Status({ id }).fetch();
+  const result = await new Status({ id }).fetch();
 
   if (!result) {
     throw new Boom.notFound('Status not found');
@@ -97,22 +97,28 @@ export async function fetch(id) {
 /**
  * Fetch all statuses.
  *
- * @return {Promise}
+ * @returns {Promise}
  */
 export async function fetchAll() {
   logger().info('Fetching all the statuses.');
 
-  let result = await Status.fetchAll();
+  const result = await Status.fetchAll();
 
   logger().debug('Retrieved list of statuses', result.toJSON());
 
   return result;
 }
 
+/**
+ * Fetch status by name.
+ *
+ * @param {string} name
+ * @returns {Promise}
+ */
 export async function fetchByName(name) {
   logger().debug('Fetching a status record by name', { name });
 
-  let result = await new Status({ name }).fetch();
+  const result = await new Status({ name }).fetch();
 
   if (!result) {
     throw new Boom.notFound('Status not found');

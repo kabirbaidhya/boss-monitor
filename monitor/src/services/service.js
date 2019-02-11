@@ -74,8 +74,10 @@ export async function create(data) {
 }
 
 /**
+ * Fetch service by url.
  *
  * @param {string} url
+ * @returns {Promise}
  */
 export async function fetchByUrl(url) {
   const result = await new Service({ url }).fetch();

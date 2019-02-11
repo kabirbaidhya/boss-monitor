@@ -14,7 +14,7 @@ export const LATEST_STATUS = (`
   FROM status_logs sl
   INNER JOIN services s ON s.id = sl.service_id
   INNER JOIN statuses st ON st.id = sl.status_id
-  GROUP By sl.service_id
+  GROUP BY sl.service_id
   ORDER BY sl.service_id, sl.created_at DESC
 `);
 

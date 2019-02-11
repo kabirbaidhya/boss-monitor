@@ -15,12 +15,14 @@ export async function synchronize() {
   logger().info('Synchronizing the configured services.');
 
   let configuredServices = config.get().services;
+
   let existingServices = await Service.fetchAll();
 
   logger().debug('Configured services', configuredServices);
   logger().debug('Existing services.', existingServices.toJSON());
 
   let diff = computeDiff(configuredServices, existingServices.toJSON());
+
   let result = await persist(diff);
 
   logger().info('Persisted the changes.');
@@ -57,6 +59,7 @@ async function persist(diff) {
 
   // Fetch the list of services again.
   let data = await Service.fetchAll();
+
   let created = (persistingPromises.length > 0);
 
   return {

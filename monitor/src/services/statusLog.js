@@ -6,7 +6,7 @@ import { fetch as fetchService } from './service';
 /**
  * Get all status logs.
  *
- * @return {Promise}
+ * @returns {Promise}
  */
 export function fetchAll() {
   // TODO: Pagination
@@ -16,8 +16,7 @@ export function fetchAll() {
 /**
  * Fetch a service grouped by it's name.
  *
- * @param  {String} id
- * @return {Promise}
+ * @returns {Promise}
  */
 export function fetchLatestStatuses() {
   return StatusLog.fetchLatestStatuses();
@@ -27,7 +26,7 @@ export function fetchLatestStatuses() {
  * Persist a status change log into the database.
  *
  * @param {Object} data
- * @return {Object}
+ * @returns {Object}
  */
 export async function save(data) {
   await ensureAttributesExist(data);
@@ -35,7 +34,7 @@ export async function save(data) {
   logger().info('Saving status change log');
   logger().debug('Data: ', data);
 
-  let model = await StatusLog.forge(data).save();
+  const model = await StatusLog.forge(data).save();
 
   return model.toJSON();
 }
