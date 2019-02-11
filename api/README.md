@@ -14,15 +14,6 @@ $ npm install
 # Or using yarn
 $ yarn
 ```
-Create a config file `chill.yml` using the sample file if it doesn't exist already.
-```bash
-$ cp chill.yml.dist chill.yml
-```
-
-Run migrations
-```
-$ CHILL_CONFIG=/path/to/chill.yml yarn migrate
-```
 
 Then start the server by providing the config file path. If this is not provided, it will expect the file to be in the current directory.
 ```

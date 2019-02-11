@@ -4,8 +4,6 @@ const { init } = require('../core/dist');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-require('dotenv').config();
-
 /**
  * Configure Webpack.
  *
