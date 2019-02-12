@@ -2,7 +2,9 @@ import moment from 'moment';
 import logger from '../utils/logger';
 import * as events from '../services/events';
 import * as statusService from '../services/status';
+import * as serviceService from '../services/service';
 import * as persistence from '../services/persistence';
+import * as statusLogService from '../services/statusLog';
 
 /**
  * The Monitor.
@@ -35,8 +37,12 @@ class Monitor {
    * Fetch last status of the monitor.
    */
   async fetchLastStatus() {
-    const { name } = this.config;
-    const lastStatus = await persistence.getLastStatus(name);
+    const { name, url } = this.config;
+
+    const serviceObj = await serviceService.fetchByUrl(url);
+    const serviceId = serviceObj.attributes.id;
+
+    const lastStatus = await persistence.getLastStatus(serviceId);
 
     if (!lastStatus) {
       logger().info(`Last status for service '${name}' is unknown.`);
@@ -62,11 +68,22 @@ class Monitor {
     const status = await statusService.checkHostStatus({ url, name });
     const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
 
+    const serviceObj = await serviceService.fetchByUrl(url);
+    const serviceId = serviceObj.attributes.id;
+
     logger().debug(`Status of service '${name}' now is '${status}'`);
 
     if (!this.shouldRetry(name, status, maxRetry) &&
         this.isStatusDifferent(status)) {
       this.handleStatusChange(status);
+
+      const statusObj = await statusService.fetchByName(status);
+      const statusId = statusObj.attributes.id;
+
+      await statusLogService.save({
+        serviceId,
+        statusId
+      });
 
       this.retried = 0;
     } else {

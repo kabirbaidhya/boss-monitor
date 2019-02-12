@@ -39,7 +39,8 @@ class StatusPanel extends Component {
 
   render() {
     let { isLoading, services } = this.props.status;
-    let { className, message } = statusService.getOutageParams(services);
+    const statuses = services && services.map(service => JSON.parse(service.status));
+    let { className, message } = statusService.getOutageParams(statuses);
 
     if (isLoading) {
       return (
@@ -50,7 +51,7 @@ class StatusPanel extends Component {
     return (
       <Panel title={message} className={className}>
         <ServiceList services={services} />
-      </Panel >
+      </Panel>
     );
   }
 }

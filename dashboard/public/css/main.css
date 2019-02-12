@@ -14,9 +14,9 @@ a:hover {
 }
 
 .page-wrapper {
-  padding-top : 150px;      
+  padding-top : 150px;
 }
-  
+
 .wrapper{
   width: 90%;
   margin: 0 auto;
@@ -35,8 +35,9 @@ a:hover {
   background-color: #e67e22;
 }
 
-.panel-heading { 
+.panel-heading {
   height: 53px;
+  border-radius: .25rem .25rem 0 0;
 }
 
 .panel-title {
@@ -44,11 +45,13 @@ a:hover {
   font-size: 21px;
   font-weight: 200;
   line-height: 33px;
+  padding: .75rem 1.25rem;
 }
 
 .list-group-item {
   height: 62px;
   font-size: 16px;
+  position: static;
   line-height: 42px;
 }
 
@@ -58,9 +61,10 @@ a:hover {
 }
 
 .list-item-tooltip {
-  float:right;
+  float: right;
   color: #333;
   margin: 0 10px;
+  cursor: default;
   line-height: 42px;
 }
 
@@ -72,6 +76,10 @@ a:hover {
 .list-group-item .status-down {
   color: #e74c3c;
   background: #fff;  
+}
+
+.list-group-item:first-child {
+  border-radius: 0;
 }
 
 .page-footer {  

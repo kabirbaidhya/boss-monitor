@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({ style, logoUrl }) => (
+const Header = ({ style, logo }) => (
   <nav className="navbar navbar-default navbar-fixed-top navbar-custom">
     <div className="container-fluid">
       <div className="navbar-logo-container">
-        <img style={style} src={logoUrl} alt="Application Logo" />
+        <img style={style} src={logo.url} alt="Application Logo" />
       </div>
     </div>
   </nav>
@@ -13,7 +13,7 @@ const Header = ({ style, logoUrl }) => (
 
 Header.propTypes = {
   style: PropTypes.object,
-  logoUrl: PropTypes.string
+  logo: PropTypes.object
 };
 
 export default Header;

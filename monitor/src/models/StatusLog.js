@@ -1,3 +1,5 @@
+import Status from './Status';
+import Service from './Service';
 import { getClient } from '../utils/db';
 
 const db = getClient();
@@ -23,6 +25,20 @@ class StatusLog extends db.Model {
   }
 
   /**
+   * Service.
+   */
+  service() {
+    return this.belongsTo(Service);
+  }
+
+  /**
+   * Status.
+   */
+  status() {
+    return this.belongsTo(Status);
+  }
+
+  /**
    * Fetch a statusLog by its name.
    *
    * @param   {String} name
@@ -30,6 +46,22 @@ class StatusLog extends db.Model {
    */
   static async fetchByName(name) {
     const statusLog = await new StatusLog({ name }).orderBy('created_at', 'DESC').fetch();
+
+    if (!statusLog) {
+      return null;
+    }
+
+    return statusLog;
+  }
+
+  /**
+   * Fetch a statusLog by its service id.
+   *
+   * @param   {String} serviceId
+   * @returns {Promise}
+   */
+  static async fetchByServiceId(serviceId) {
+    const statusLog = await new StatusLog({ serviceId }).orderBy('created_at', 'DESC').fetch();
 
     if (!statusLog) {
       return null;

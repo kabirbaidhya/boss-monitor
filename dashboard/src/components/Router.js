@@ -8,12 +8,12 @@ import Header from './commons/Header';
 import Footer from './commons/Footer';
 import StatusPage from './dashboard/StatusPage';
 
-const { logoUrl, logoHeight, baseHref } = config.app;
+const { logo, baseUrl } = config.app;
 
 const Router = () => (
-  <BrowserRouter basename={baseHref}>
+  <BrowserRouter basename={baseUrl}>
     <div>
-      <Header logoUrl={logoUrl} style={{ height: logoHeight }} />
+      <Header logo={logo} style={{ height: logo.height }} />
       <Switch>
         <Route exact path={routes.HOME} component={StatusPage} />
       </Switch>
