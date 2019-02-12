@@ -13,7 +13,7 @@ import * as errorHandler from './middlewares/errorHandler';
 
 const app = express();
 
-app.set('port', config.get().restApi.port);
+app.set('port', config.get().api.port);
 
 app.locals.title = pkg.name;
 app.locals.version = pkg.version;

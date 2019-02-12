@@ -17,7 +17,7 @@ export default {
     },
     useNullAsDefault: true
   },
-  restApi: {
+  api: {
     port: 8000
   },
   dashboard: {

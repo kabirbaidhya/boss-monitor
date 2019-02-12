@@ -15,7 +15,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
  */
 async function configureWebpack() {
   const config = await init();
-  const baseHref = config.dashboard.baseHref || '';
+  const baseUrl = config.dashboard.baseUrl || '';
 
   return {
     mode: 'production',
@@ -46,7 +46,7 @@ async function configureWebpack() {
         },
         {
           test: /\.(jpe?g|png|gif|svg)$/i,
-          use: `file-loader?name=[name].[ext]&publicPath=${baseHref}/images/&outputPath=/images/`
+          use: `file-loader?name=[name].[ext]&publicPath=${baseUrl}/images/&outputPath=/images/`
         },
         {
           test: /\.ico$/,

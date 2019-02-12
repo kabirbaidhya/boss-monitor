@@ -2,9 +2,10 @@ logging:
   level: debug
 
 dashboard:
-  baseHref: '/'
-  logoUrl: LOGO_URL
-  logoHeight: '80px'
+  baseUrl: '/'
+  logo:
+    url: LOGO_URL
+    height: '80px'
   title: 'Chill Dashboard'
   websocketBaseUrl: WEBSOCKET_URL
   apiBaseUrl: 'http://chill.lftechnology.com/api'
@@ -24,7 +25,7 @@ db:
 #   user: PG_USER
 #   password: PG_PASSWORD
 
-restApi:
+api:
   port: 8000
 
 monitoring:

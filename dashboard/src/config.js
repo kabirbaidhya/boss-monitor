@@ -1,9 +1,11 @@
 export default {
   app: {
-    baseHref: __INJECTED_CONFIG.dashboard.baseHref || '/',
-    logoHeight: __INJECTED_CONFIG.dashboard.logoHeight || '80px',
+    baseUrl: __INJECTED_CONFIG.dashboard.baseUrl || '/',
     title: __INJECTED_CONFIG.dashboard.title || 'Chill Dashboard',
-    logoUrl: __INJECTED_CONFIG.dashboard.logo || require('../public/images/chill.png')
+    logo: {
+      url: __INJECTED_CONFIG.dashboard.logo || require('../public/images/chill.png'),
+      height: __INJECTED_CONFIG.dashboard.logoHeight || '80px'
+    }
   },
   api: {
     endpoints: {
