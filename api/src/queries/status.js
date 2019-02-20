@@ -1,6 +1,7 @@
 export const LATEST_STATUS = (`
   SELECT
   sl.*,
+  MAX(sl.created_at) as created_at,
   json_object(
     'id', st.id,
     'name', st.name

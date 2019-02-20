@@ -75,7 +75,7 @@ class Monitor {
 
     if (!this.shouldRetry(name, status, maxRetry) &&
         this.isStatusDifferent(status)) {
-      this.handleStatusChange(status);
+      this.handleStatusChange(status, serviceId);
 
       const statusObj = await statusService.fetchByName(status);
       const statusId = statusObj.attributes.id;
@@ -125,11 +125,20 @@ class Monitor {
    * Handle change in status and trigger a status change event.
    *
    * @param {string} status
+   * @param {number} serviceId
    */
-  handleStatusChange(status) {
+  handleStatusChange(status, serviceId) {
     const currentTime = moment();
     const params = {
-      status,
+      status: JSON.stringify({
+        name: status
+      }),
+      service: JSON.stringify({
+        id: serviceId,
+        url: this.config.url,
+        name: this.config.name,
+      }),
+      id: serviceId,
       time: currentTime.clone(),
       oldStatus: this.status,
       serviceName: this.config.name,

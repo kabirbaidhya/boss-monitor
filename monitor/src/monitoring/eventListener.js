@@ -19,9 +19,11 @@ export function listen() {
  * @param {any} params
  */
 async function handleStatusChange(params) {
-  const { serviceName, status, time, lastStatusChanged } = params;
+  const { serviceName, status, time, lastStatusChanged, id, service } = params;
   const notification = {
+    id,
     status,
+    service,
     name: serviceName,
     time: time.clone(),
     lastStatusChanged: lastStatusChanged ? moment(lastStatusChanged).clone() : null
