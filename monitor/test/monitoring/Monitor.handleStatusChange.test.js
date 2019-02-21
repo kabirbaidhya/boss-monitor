@@ -22,7 +22,7 @@ describe('Monitor.handleStatusChange', () => {
     const monitor = new Monitor({ name: serviceName });
     const listener = sandbox.stub().callsFake(params => {
       assert.equal(params.serviceName, serviceName);
-      assert.equal(params.status, status);
+      assert.equal(params.status, JSON.stringify({ name: status }));
     });
 
     events.addListener(events.EVENT_STATUS_CHANGED, listener);
