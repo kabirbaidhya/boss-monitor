@@ -12,4 +12,4 @@ Check the [CHANGELOG](CHANGELOG.md) for full release history.
 
 ## License
 
-Licensed under [The MIT License](LICENSE.md).
+Licensed under [The MIT License](LICENSE).

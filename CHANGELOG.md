@@ -11,7 +11,7 @@
 
 - Design an Awesome Logo for Chill [\#12](https://github.com/leapfrogtechnology/chill/issues/12) [[design](https://github.com/leapfrogtechnology/chill/labels/design)]
 
-**Improvements:**
+**Changes:**
 
 - Update Chill License [\#60](https://github.com/leapfrogtechnology/chill/pull/60) [[documentation](https://github.com/leapfrogtechnology/chill/labels/documentation)] ([kabirbaidhya](https://github.com/kabirbaidhya))
 - Integrate services of all repos to get them working. [\#58](https://github.com/leapfrogtechnology/chill/pull/58) ([nishanbajracharya](https://github.com/nishanbajracharya))
@@ -26,7 +26,7 @@
 ## [v1.0.0-alpha.2](https://github.com/leapfrogtechnology/chill/tree/v1.0.0-alpha.2) (2017-07-07)
 [Full Changelog](https://github.com/leapfrogtechnology/chill/compare/v1.0.0-beta.1...v1.0.0-alpha.2)
 
-**Improvements:**
+**Changes:**
 
 - Fix color and messaging format for Slack [\#44](https://github.com/leapfrogtechnology/chill/pull/44) ([mesaugat](https://github.com/mesaugat))
 
@@ -41,7 +41,7 @@
 
 - Integrate WebSocket for realtime status page [\#13](https://github.com/leapfrogtechnology/chill/issues/13) [[feature](https://github.com/leapfrogtechnology/chill/labels/feature)] [[wip](https://github.com/leapfrogtechnology/chill/labels/wip)]
 
-**Improvements:**
+**Changes:**
 
 - Configure maxFiles option for logging for auto log files removal [\#43](https://github.com/leapfrogtechnology/chill/pull/43) ([kabirbaidhya](https://github.com/kabirbaidhya))
 - Web socket notifier service [\#42](https://github.com/leapfrogtechnology/chill/pull/42) [[feature](https://github.com/leapfrogtechnology/chill/labels/feature)] ([deepsadhi](https://github.com/deepsadhi))
@@ -69,7 +69,7 @@
 - Integrate Mocha for Unit Testing [\#2](https://github.com/leapfrogtechnology/chill/issues/2) [[test](https://github.com/leapfrogtechnology/chill/labels/test)]
 - Add support for Hipchat notifications [\#1](https://github.com/leapfrogtechnology/chill/issues/1) [[notification](https://github.com/leapfrogtechnology/chill/labels/notification)]
 
-**Improvements:**
+**Changes:**
 
 - Few monitoring issues fixes and improvements [\#38](https://github.com/leapfrogtechnology/chill/pull/38) ([kabirbaidhya](https://github.com/kabirbaidhya))
 - Persist status change to database [\#35](https://github.com/leapfrogtechnology/chill/pull/35) [[feature](https://github.com/leapfrogtechnology/chill/labels/feature)] ([pratishshr](https://github.com/pratishshr))
