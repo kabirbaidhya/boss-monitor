@@ -1,7 +1,7 @@
 # Change Log
 
-## [v1.0.0-beta.2](https://github.com/leapfrogtechnology/chill/tree/v1.0.0-beta.2) (2019-03-05)
-[Full Changelog](https://github.com/leapfrogtechnology/chill/compare/v1.0.0-alpha.2...v1.0.0-beta.2)
+## [Next](https://github.com/leapfrogtechnology/chill/tree/Next) (2019-03-05)
+[Full Changelog](https://github.com/leapfrogtechnology/chill/compare/v1.0.0-alpha.2...Next)
 
 **Fixed bugs:**
 
