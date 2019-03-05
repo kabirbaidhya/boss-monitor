@@ -8,4 +8,4 @@ Read our [contributing guide](CONTRIBUTING.md) to learn about our development pr
 
 ## License
 
-Licensed under [The MIT License](LICENSE.md).
+Licensed under [The MIT License](LICENSE).
