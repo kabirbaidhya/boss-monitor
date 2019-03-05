@@ -11,7 +11,7 @@ changelog() {
 
   echo "Generating changelog upto version: $NEXT"
   github_changelog_generator \
-    --pr-label "**Improvements:**" \
+    --pr-label "**Changes:**" \
     --issue-line-labels=ALL \
     --future-release="$NEXT" \
     --release-branch=master \
