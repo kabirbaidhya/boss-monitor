@@ -18,5 +18,35 @@ changelog() {
     --exclude-labels=unnecessary,duplicate,question,invalid,wontfix
 }
 
+bump() {
+  # Bump package version and generate changelog
+  VERSION="${NEXT/v/}"
+
+  echo "Bump version to ${VERSION}"
+
+  # Update version in the following files
+  sed -i "s/\(\"version\":\s*\"\)[^\"]*\(\"\)/\1${VERSION}\2/g" api/package.json
+  sed -i "s/\(\"version\":\s*\"\)[^\"]*\(\"\)/\1${VERSION}\2/g" core/package.json
+  sed -i "s/\(\"version\":\s*\"\)[^\"]*\(\"\)/\1${VERSION}\2/g" monitor/package.json
+  sed -i "s/\(\"version\":\s*\"\)[^\"]*\(\"\)/\1${VERSION}\2/g" dashboard/package.json
+
+  # Generate change log
+  changelog
+  echo ""
+
+  # Run `yarn` on all the repositories.
+  yarn --cwd api/
+  yarn --cwd core/
+  yarn --cwd monitor/
+  yarn --cwd dashboard/
+
+  # Prepare to commit
+  git add CHANGELOG.md **/package.json **/yarn.lock && \
+    git commit -v --edit -m "${VERSION} Release :tada: :fireworks: :bell:" && \
+    git tag "$NEXT" && \
+    echo -e "\nRelease tagged $NEXT"
+  git push origin HEAD --tags
+}
+
 # Run command received from args.
 $1
