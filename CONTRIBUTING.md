@@ -35,7 +35,7 @@ To setup chill on your machine go through the [installation guide](INSTALL.md).
 Generate changelog using the following command:
 
 ```bash
-$ NEXT=v1.0.0-newversion scripts/release.sh changelog
+$ NEXT=VERSION scripts/release.sh changelog
 ```
 
 **Note**: This requires [`github_changelog_generator`](https://github.com/skywinder/github-changelog-generator) to be installed.
@@ -45,7 +45,7 @@ $ NEXT=v1.0.0-newversion scripts/release.sh changelog
 Generate changelog and publish a new tag using the following command:
 
 ```bash
-$ NEXT=v1.0.0-newversion scripts/release.sh bump
+$ NEXT=VERSION scripts/release.sh bump
 ```
 
 ## How Can I Contribute?
