@@ -1,6 +1,8 @@
 #!/bin/bash
 # Release Management and Changelog generation script.
 
+set -e
+
 changelog() {
   # NOTE: This requires github_changelog_generator to be installed.
   # https://github.com/skywinder/github-changelog-generator
@@ -11,10 +13,14 @@ changelog() {
 
   echo "Generating changelog upto version: $NEXT"
   github_changelog_generator \
-    --pr-label "**Changes:**" \
+    --no-verbose \
+    --pr-label "**Changes**" \
+    --bugs-label "**Bug Fixes**" \
+    --issues-label "**Closed Issues**" \
     --issue-line-labels=ALL \
     --future-release="$NEXT" \
     --release-branch=master \
+    --usernames-as-github-logins \
     --exclude-labels=unnecessary,duplicate,question,invalid,wontfix
 }
 
