@@ -1,5 +1,5 @@
 #!/bin/bash
-# Release Management and Changelog generation script.
+# Release management and changelog generation script.
 
 set -e
 
