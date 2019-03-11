@@ -30,7 +30,7 @@ Please report unacceptable behavior to [opensource@lftechnology.com](mailto:open
 
 To setup chill on your machine go through the [installation guide](INSTALL.md).
 
-### Generate change log
+### Generate Changelog
 
 Generate changelog using the following command:
 
