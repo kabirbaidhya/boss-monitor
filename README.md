@@ -11,7 +11,7 @@
 [![License](https://img.shields.io/github/license/leapfrogtechnology/chill.svg?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-Don't panic, just chill.
+Don't panic, just chill!
 </div>
 
 ## Contributing
