@@ -1,6 +1,6 @@
 {
   "name": "chill-cli",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0",
   "description": "Chill - The monitoring tool.",
   "authors": [
     "Saugat Acharya <mesaugat@gmail.com>",
