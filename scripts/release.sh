@@ -20,7 +20,6 @@ changelog() {
     --issue-line-labels=ALL \
     --future-release="$NEXT" \
     --release-branch=master \
-    --usernames-as-github-logins \
     --exclude-labels=unnecessary,duplicate,question,invalid,wontfix
 }
 
