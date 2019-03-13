@@ -1,8 +1,8 @@
 <div align="center">
   <a href="https://github.com/leapfrogtechnology/chill">
-    <img style="width: 128px;" src="chill.png">
+    <img width="128px" src="chill.png">
   </a>
-  <br/>
+</div>
 
 # chill
 
@@ -12,6 +12,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
 Don't panic, just chill!
+
 </div>
 
 ## Contributing
