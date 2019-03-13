@@ -1,9 +1,8 @@
 <div align="center">
   <a href="https://github.com/leapfrogtechnology/chill">
-    <img width="128px" src="chill.png">
+    <img width="128px" src="chill.png"/> 
   </a>
-</div>
-
+  <br/>
 # chill
 
 [![Build Status](https://img.shields.io/travis/leapfrogtechnology/chill.svg?style=flat-square)](https://travis-ci.org/leapfrogtechnology/chill)
