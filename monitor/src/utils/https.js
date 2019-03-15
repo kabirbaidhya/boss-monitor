@@ -31,9 +31,7 @@ export function getSSLInfo(host, port = DEFAULT_SSL_PORT, method = OPTIONS) {
       });
     });
 
-    req.on('error', e => {
-      reject(e);
-    });
+    req.on('error', e => reject(e));
 
     req.end();
   });
