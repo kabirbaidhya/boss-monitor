@@ -23,6 +23,7 @@ app.use(helmet());
 app.use(compression());
 app.use(morgan('dev', { stream: logger().stream }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // API Routes
 app.use('/api', routes);

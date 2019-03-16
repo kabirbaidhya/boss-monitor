@@ -21,6 +21,10 @@ notifications:
   slack:
     enabled: false
     endpoint: SLACK_WEBHOOK_ENDPOINT
+    signingSecret: SLACK_SIGNING_SECRET
+    channels:
+      - service_name: 'Localhost'
+        channel_id: SLACK_CHANNEL_ID
   twilio:
     enabled: false
     sender: SENDING_NUMBER

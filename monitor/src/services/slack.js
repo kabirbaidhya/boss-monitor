@@ -42,7 +42,7 @@ export async function notify(params) {
  */
 function preparePayload(params) {
   const { status, name } = params;
-  const { text } = messages[status];
+  const { text } = messages[JSON.parse(status).name];
   const { color } = config.get().notifications.slack;
 
   return {

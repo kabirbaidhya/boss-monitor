@@ -1,7 +1,9 @@
 import { Router } from 'express';
 
+import { verifySlackRequest } from './validators/slack';
 import { validateStatusLog } from './validators/statusLog';
 
+import * as slack from './controllers/slack';
 import * as homeController from './controllers/home';
 import * as statusController from './controllers/status';
 import * as serviceController from './controllers/service';
@@ -26,5 +28,8 @@ router.get('/services/:id(\\d+)/status', serviceController.getServiceStatus);
 
 // Statuses
 router.get('/statuses', statusController.getAll);
+
+// Slack Request
+router.post('/chill', verifySlackRequest, slack.getStatus);
 
 export default router;
