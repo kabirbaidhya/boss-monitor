@@ -1,4 +1,3 @@
-
 /**
  * Justify (center) the text in the provided `width` by adding
  * padding on the left and right of the text using the `fillchar`.
@@ -27,4 +26,17 @@ export function center(text, width, fillchar = ' ') {
   const result = fillchar.repeat(paddingLeft) + orignalText + fillchar.repeat(paddingRight);
 
   return result;
+}
+
+/**
+ * Encodes a given text to base64.
+ *
+ * @param {String} text
+ *
+ * @returns {String}
+ */
+export function encodeToBase64(text) {
+  const buf = Buffer.from(text, 'ascii');
+
+  return buf.toString('base64');
 }

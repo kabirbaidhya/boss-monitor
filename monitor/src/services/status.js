@@ -17,12 +17,12 @@ export const FALLBACK_HTTP_METHOD = http.HEAD;
  * @returns {Promise}
  */
 export async function checkHostStatus(service, method = http.OPTIONS) {
-  const { url, name } = service;
+  const { url, name, token } = service;
 
   logger().debug(`Checking the status for ${name} <${url}>`);
 
   try {
-    const { statusCode, body } = await http.sendRequest(method, url);
+    const { statusCode, body } = await http.sendRequest(method, url, token);
 
     logger().debug(`Received response for ${name}: `, { statusCode, body });
 
@@ -69,7 +69,7 @@ function shouldRetry(err, method) {
   return (
     err.response &&
     (err.response.statusCode === HttpStatus.METHOD_NOT_ALLOWED ||
-     err.response.statusCode === HttpStatus.NOT_IMPLEMENTED) &&
+      err.response.statusCode === HttpStatus.NOT_IMPLEMENTED) &&
     method !== FALLBACK_HTTP_METHOD
   );
 }
