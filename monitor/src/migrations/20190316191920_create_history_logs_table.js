@@ -13,6 +13,7 @@ export function up(knex) {
       .references('id').inTable('services');
     table.integer('status_id').notNullable()
       .references('id').inTable('statuses');
+    table.string('description').nullable();
     table.timestamp('created_at');
     table.timestamp('updated_at');
   });
