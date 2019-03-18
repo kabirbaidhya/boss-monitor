@@ -6,7 +6,7 @@ import * as serviceService from '../services/service';
 import * as persistence from '../services/persistence';
 import * as statusLogService from '../services/statusLog';
 
-import * as stringUtil from '../utils/string';
+import * as base64 from '../utils/base64';
 
 /**
  * The Monitor.
@@ -25,14 +25,13 @@ class Monitor {
   /**
    * Calculates token for basic authenticaiton from username and password.
    *
-   *
-   * @returns {String} Token.
+   * @returns {String} 
    */
   getToken() {
     if (this.config.hasAuth) {
       const { userName, password } = this.config;
 
-      return stringUtil.encodeToBase64(`${userName}:${password}`);
+      return base64.encodeToBase64(`${userName}:${password}`);
     }
   }
 
@@ -81,7 +80,6 @@ class Monitor {
   async startMonitoring() {
     const { url, name, maxRetry, minInterval, maxInterval } = this.config;
     const token = this.token;
-
 
     const status = await statusService.checkHostStatus({
       url, name, token

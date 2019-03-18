@@ -3,7 +3,7 @@ import logger from './logger';
 
 export const HEAD = 'HEAD';
 export const OPTIONS = 'OPTIONS';
-export const AUTH_TYPE = 'Basic';
+export const AUTH_TYPE_BASIC = 'Basic';
 
 /**
  * Send HTTP request on a url using the provided method.
@@ -20,7 +20,7 @@ export function sendRequest(method, url, token) {
     method,
     uri: url,
     headers: {
-      Authorization: token ? `${AUTH_TYPE} ${token}` : null
+      Authorization: token ? `${AUTH_TYPE_BASIC} ${token}` : null
     },
     rejectUnauthorized: false,
     resolveWithFullResponse: true

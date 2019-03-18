@@ -69,7 +69,7 @@ function shouldRetry(err, method) {
   return (
     err.response &&
     (err.response.statusCode === HttpStatus.METHOD_NOT_ALLOWED ||
-      err.response.statusCode === HttpStatus.NOT_IMPLEMENTED) &&
+    err.response.statusCode === HttpStatus.NOT_IMPLEMENTED) &&
     method !== FALLBACK_HTTP_METHOD
   );
 }
