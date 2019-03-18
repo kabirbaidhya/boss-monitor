@@ -47,17 +47,17 @@ function filterStatus(requestBody, fetchedStatus) {
       channel => channel.channel_id === requestBody.channel_id
     );
 
-  const filteredStatus = [];
-
-  requiredService.forEach(service => {
-    fetchedStatus.forEach(status => {
-      if (
-        JSON.parse(status.service).name.toLowerCase() ===
-        service.service_name.toLowerCase()
-      ) {
-        filteredStatus.push(status);
-      }
+  const filteredStatus = fetchedStatus.filter(status => {
+    const isRequired = requiredService.some(service => {
+      return (
+        service.service_name.toLowerCase() ===
+        JSON.parse(status.service).name.toLowerCase()
+      );
     });
+
+    if (isRequired) {
+      return status;
+    }
   });
 
   return filteredStatus;
