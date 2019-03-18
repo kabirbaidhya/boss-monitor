@@ -20,6 +20,18 @@ export async function fetchServiceStatuses() {
 }
 
 /**
+ * Get the latest histories.
+ *
+ * @returns {Promise}
+ */
+export async function fetchServiceHistories() {
+  const { endpoints } = config.api;
+  const { data } = await http.get(endpoints.history);
+
+  return data;
+}
+
+/**
  * Check if a service is up by it's status.
  *
  * @param {Object} service
