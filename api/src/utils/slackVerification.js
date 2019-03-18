@@ -3,14 +3,13 @@ import crypto from 'crypto';
 import * as HttpStatus from 'http-status-codes';
 
 import * as config from '../config/config';
-import { timestamp } from 'winston/lib/winston/common';
 
 /**
  * Verify slack request.
  *
- * @param {object} request
+ * @param {object} req
  */
-export function verify(request) {
+export function verify(req) {
   return new Promise((resolve, reject) => {
     const signingSecret = config.get().notifications.slack.signingSecret;
 
@@ -20,9 +19,9 @@ export function verify(request) {
       return;
     }
 
-    const slackSignature = request.headers['x-slack-signature'];
-    const requestBody = qs.stringify(request.body, { format: 'RFC1738' });
-    const timeStamp = request.headers['x-slack-request-timestamp'];
+    const slackSignature = req.headers['x-slack-signature'];
+    const requestBody = qs.stringify(req.body, { format: 'RFC1738' });
+    const timeStamp = req.headers['x-slack-request-timestamp'];
 
     const time = Math.floor(new Date().getTime() / 1000);
 
