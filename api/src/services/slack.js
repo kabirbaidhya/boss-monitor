@@ -5,6 +5,7 @@ import * as config from '../config/config';
 import * as statusLogService from './statusLog';
 
 /**
+ * Send response back to slack slash-command.
  *
  * @param {object} requestBody
  */
@@ -22,7 +23,7 @@ export async function notify(requestBody) {
  * Fetch all latest statuses.
  *
  * @param {object} requestBody
- * @returns {array} filteredStatus
+ * @returns {array}
  */
 async function fetchStatus(requestBody) {
   const fetchedStatus = await statusLogService.fetchLatestStatuses();
@@ -37,7 +38,7 @@ async function fetchStatus(requestBody) {
  *
  * @param {object} requestBody
  * @param {array} fetchedStatus
- * @returns {array} filteredStatus
+ * @returns {array}
  */
 function filterStatus(requestBody, fetchedStatus) {
   const requiredService = config
