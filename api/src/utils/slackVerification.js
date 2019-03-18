@@ -3,6 +3,7 @@ import crypto from 'crypto';
 import * as HttpStatus from 'http-status-codes';
 
 import * as config from '../config/config';
+import { timestamp } from 'winston/lib/winston/common';
 
 /**
  * Verify slack request.
@@ -31,13 +32,12 @@ export function verify(request) {
       return;
     }
 
-    const sigBaseString = 'v0:' + timeStamp + ':' + requestBody;
-    const calculatedSignature =
-      'v0=' +
-      crypto
-        .createHmac('sha256', signingSecret)
-        .update(sigBaseString, 'utf8')
-        .digest('hex');
+    const sigBaseString = `v0:${timeStamp}:${requestBody}`;
+    const hmac = crypto
+      .createHmac('sha256', signingSecret)
+      .update(sigBaseString, 'utf8')
+      .digest('hex');
+    const calculatedSignature = `v0=${hmac}`;
 
     if (signatureMatches(calculatedSignature, slackSignature)) {
       resolve();
