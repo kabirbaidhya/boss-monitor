@@ -31,7 +31,7 @@ class Monitor {
     if (this.config.hasAuth) {
       const { userName, password } = this.config;
 
-      return base64.encodeToBase64(`${userName}:${password}`);
+      return base64.encode(`${userName}:${password}`);
     }
   }
 
