@@ -43,11 +43,10 @@ export function verify(request) {
       resolve();
 
       return;
-    } else {
-      reject(HttpStatus.UNAUTHORIZED);
-
-      return;
     }
+    reject(HttpStatus.UNAUTHORIZED);
+
+    return;
   });
 }
 
