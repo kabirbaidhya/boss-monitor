@@ -1,6 +1,6 @@
 import qs from 'qs';
 import crypto from 'crypto';
-import * as httpStatus from 'http-status-codes';
+import * as HttpStatus from 'http-status-codes';
 
 import * as config from '../config/config';
 
@@ -26,7 +26,7 @@ export function verify(request) {
     const time = Math.floor(new Date().getTime() / 1000);
 
     if (Math.abs(time - timeStamp > 300)) {
-      reject(httpStatus.BAD_REQUEST);
+      reject(HttpStatus.BAD_REQUEST);
 
       return;
     }
@@ -49,7 +49,7 @@ export function verify(request) {
 
       return;
     } else {
-      reject(httpStatus.UNAUTHORIZED);
+      reject(HttpStatus.UNAUTHORIZED);
 
       return;
     }

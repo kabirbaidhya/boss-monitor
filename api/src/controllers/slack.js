@@ -1,4 +1,4 @@
-import * as slackServices from '../services/slack';
+import * as slackService from '../services/slack';
 
 /**
  * Confirm receipt by sending HTTP 200 response to the original request.
@@ -9,5 +9,5 @@ import * as slackServices from '../services/slack';
  */
 export function getStatus(req, res) {
   res.json({ response_type: 'in_channel' });
-  slackServices.notify(req.body);
+  slackService.notify(req.body);
 }
