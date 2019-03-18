@@ -39,12 +39,7 @@ export function verify(request) {
         .update(sigBaseString, 'utf8')
         .digest('hex');
 
-    if (
-      crypto.timingSafeEqual(
-        Buffer.from(calculatedSignature, 'utf-8'),
-        Buffer.from(slackSignature, 'utf8')
-      )
-    ) {
+    if (signatureMatches(calculatedSignature, slackSignature)) {
       resolve();
 
       return;
@@ -54,4 +49,11 @@ export function verify(request) {
       return;
     }
   });
+}
+
+function signatureMatches(calculatedSignature, slackSignature) {
+  return crypto.timingSafeEqual(
+    Buffer.from(calculatedSignature, 'utf-8'),
+    Buffer.from(slackSignature, 'utf8')
+  );
 }
