@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 const HistoryRow = ({ data }) => {
   const { id, createdAt, service, status } = data;
