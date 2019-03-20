@@ -1,9 +1,11 @@
 import Boom from 'boom';
 import HttpStatus from 'http-status-codes';
 
+import * as url from '../utils/url';
 import logger from '../utils/logger';
 import * as http from '../utils/http';
 import Status from '../models/Status';
+import * as https from '../utils/https';
 
 export const STATUS_UP = 'Up';
 export const STATUS_DOWN = 'Down';
@@ -43,6 +45,32 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
     logger().debug(`Received error response for ${name}: `, err);
 
     return STATUS_DOWN;
+  }
+}
+
+/**
+ * Check the host's SSL status by sending an HTTP request.
+ *
+ * @param   {Object} service
+ * @returns {Promise}
+ */
+export async function checkSSLStatus(service) {
+  const { name } = service;
+
+  logger().debug(`Checking SSL status for ${name} <${service.url}>`);
+
+  const { host, port } = url.parse(service.url);
+
+  try {
+    const response = await https.getSSLInfo(host, port);
+
+    logger().debug(`Received SSL status response for ${name}: `, JSON.stringify(response, null, 4));
+
+    return response;
+  } catch (err) {
+    logger().debug(`Received SSL status error response for ${name}: `, err);
+
+    return null;
   }
 }
 
