@@ -2,5 +2,6 @@
     "verbose": false,
     "ignore": [
         "dist"
-    ]
+    ],
+    "ext": "js,yml,html"
 }
