@@ -70,7 +70,11 @@ export async function checkSSLStatus(service) {
   } catch (err) {
     logger().debug(`Received SSL status error response for ${name}: `, err);
 
-    return null;
+    return {
+      valid: false,
+      validTo: null,
+      validFrom: null
+    };
   }
 }
 

@@ -68,10 +68,13 @@ class Monitor {
     const status = await statusService.checkHostStatus({ url, name });
     const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
 
+    const sslStatus = await statusService.checkSSLStatus({ url, name });
+
     const serviceObj = await serviceService.fetchByUrl(url);
     const serviceId = serviceObj.attributes.id;
 
     logger().debug(`Status of service '${name}' now is '${status}'`);
+    logger().debug(`SSL Status of service '${name}' validity '${sslStatus.valid}'`);
 
     if (!this.shouldRetry(name, status, maxRetry) &&
         this.isStatusDifferent(status)) {
@@ -100,7 +103,7 @@ class Monitor {
    * @param {string} status
    */
   isStatusDifferent(status) {
-    return (this.status !== status);
+    return this.status !== status;
   }
 
   /**
@@ -112,7 +115,6 @@ class Monitor {
    */
   shouldRetry(name, status, maxRetry) {
     if (status === statusService.STATUS_DOWN && this.retried <= maxRetry) {
-
       logger().info(`Retrying '${name}' service: ${this.retried} time/s.`);
 
       return true;
@@ -136,7 +138,7 @@ class Monitor {
       service: JSON.stringify({
         id: serviceId,
         url: this.config.url,
-        name: this.config.name,
+        name: this.config.name
       }),
       id: serviceId,
       time: currentTime.clone(),
@@ -153,7 +155,6 @@ class Monitor {
       `Event triggered ${events.EVENT_STATUS_CHANGED} with params`,
       params
     );
-
     this.status = status;
     this.lastStatusChanged = currentTime; // Set the status changed date to current time.
   }
