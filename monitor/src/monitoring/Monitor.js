@@ -65,16 +65,16 @@ class Monitor {
    */
   async startMonitoring() {
     const { url, name, maxRetry, minInterval, maxInterval } = this.config;
+
     const status = await statusService.checkHostStatus({ url, name });
-    const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
-
     const sslStatus = await statusService.checkSSLStatus({ url, name });
-
-    const serviceObj = await serviceService.fetchByUrl(url);
-    const serviceId = serviceObj.attributes.id;
 
     logger().debug(`Status of service '${name}' now is '${status}'`);
     logger().debug(`SSL Status of service '${name}' validity '${sslStatus.valid}'`);
+
+    const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
+    const serviceObj = await serviceService.fetchByUrl(url);
+    const serviceId = serviceObj.attributes.id;
 
     if (!this.shouldRetry(name, status, maxRetry) &&
         this.isStatusDifferent(status)) {
