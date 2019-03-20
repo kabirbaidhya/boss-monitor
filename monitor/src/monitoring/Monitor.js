@@ -1,9 +1,11 @@
 import moment from 'moment';
 import logger from '../utils/logger';
+import { isSame } from '../utils/common';
 import * as events from '../services/events';
 import * as statusService from '../services/status';
 import * as serviceService from '../services/service';
 import * as persistence from '../services/persistence';
+import * as sslStatusService from '../services/sslStatus';
 import * as statusLogService from '../services/statusLog';
 
 /**
@@ -67,23 +69,29 @@ class Monitor {
     const { url, name, maxRetry, minInterval, maxInterval } = this.config;
 
     const status = await statusService.checkHostStatus({ url, name });
-    const sslStatus = await statusService.checkSSLStatus({ url, name });
+    const sslStatus = await sslStatusService.checkSSLStatus({ url, name });
 
     logger().debug(`Status of service '${name}' now is '${status}'`);
-    logger().debug(`SSL Status of service '${name}' validity '${sslStatus.valid}'`);
 
     const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
     const serviceObj = await serviceService.fetchByUrl(url);
     const serviceId = serviceObj.attributes.id;
+    const statusPayload = {
+      sslStatus,
+      status: { name: status }
+    };
 
-    if (!this.shouldRetry(name, status, maxRetry) &&
-        this.isStatusDifferent(status)) {
-      this.handleStatusChange(status, serviceId);
+    if (
+      !this.shouldRetry(name, status, maxRetry) &&
+      this.isStatusDifferent(statusPayload)
+    ) {
+      this.handleStatusChange(statusPayload, serviceId);
 
       const statusObj = await statusService.fetchByName(status);
       const statusId = statusObj.attributes.id;
 
       await statusLogService.save({
+        ...sslStatus,
         serviceId,
         statusId
       });
@@ -103,7 +111,7 @@ class Monitor {
    * @param {string} status
    */
   isStatusDifferent(status) {
-    return this.status !== status;
+    return !isSame(this.status, status);
   }
 
   /**
@@ -132,9 +140,7 @@ class Monitor {
   handleStatusChange(status, serviceId) {
     const currentTime = moment();
     const params = {
-      status: JSON.stringify({
-        name: status
-      }),
+      status: JSON.stringify(status),
       service: JSON.stringify({
         id: serviceId,
         url: this.config.url,
