@@ -10,7 +10,7 @@ export function up(knex) {
   return knex.schema.table('status_logs', table => {
     table
       .integer('ssl_status_id')
-      .nullable()
+      .notNullable()
       .defaultTo(UNKNOWN)
       .references('id')
       .inTable('ssl_statuses');

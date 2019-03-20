@@ -161,6 +161,7 @@ class Monitor {
       `Event triggered ${events.EVENT_STATUS_CHANGED} with params`,
       params
     );
+
     this.status = status;
     this.lastStatusChanged = currentTime; // Set the status changed date to current time.
   }
