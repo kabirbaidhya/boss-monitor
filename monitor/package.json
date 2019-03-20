@@ -29,6 +29,7 @@
     "test:watch": "NODE_ENV=test mocha --watch",
     "test:coverage": "NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- --recursive --require @babel/register --colors --reporter spec test",
     "migrate": "knex migrate:latest",
+    "migrate:make": "knex migrate:make",
     "rollback": "knex migrate:rollback",
     "prepack": "npm run build",
     "prepare": "npm run build",
