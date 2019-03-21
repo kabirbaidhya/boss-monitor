@@ -10,7 +10,7 @@ import * as outage from '../constants/enums/outage';
 /**
  * Get the latest status of the services.
  *
- * @returns {Promise}
+ * @returns {Object}
  */
 export async function fetchServiceStatuses() {
   const { endpoints } = config.api;
@@ -22,7 +22,7 @@ export async function fetchServiceStatuses() {
 /**
  * Get the latest histories.
  *
- * @returns {Promise}
+ * @returns {Object}
  */
 export async function fetchServiceHistories() {
   const { endpoints } = config.api;
