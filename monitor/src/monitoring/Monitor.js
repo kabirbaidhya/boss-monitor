@@ -17,6 +17,7 @@ class Monitor {
    */
   constructor(serviceConfig) {
     this.retried = 0;
+    this.token = null;
     this.status = null;
     this.config = serviceConfig;
     this.lastStatusChanged = null;
@@ -25,21 +26,26 @@ class Monitor {
   /**
    * Calculates token for basic authenticaiton from username and password.
    *
+   * @param {Object} auth
    * @returns {String} 
    */
-  getToken() {
-    if (this.config.hasAuth) {
-      const { userName, password } = this.config;
+  getToken(auth) {
+    const { userName, password } = auth;
 
-      return base64.encode(`${userName}:${password}`);
-    }
+    return base64.encode(`${userName}:${password}`);
+
   }
 
   /**
    * Start the monitor.
    */
   start() {
-    this.token = this.getToken();
+    const { auth } = this.config;
+    const requiresAuthentication = auth && auth.userName && auth.password;
+
+    if (requiresAuthentication) {
+      this.token = this.getToken(auth);
+    }
 
     // TODO: We need to spawn each monitor into a separate thread,
     // such that each thread will monitor a service.

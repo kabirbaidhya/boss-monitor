@@ -7,6 +7,7 @@ import Status from '../models/Status';
 
 export const STATUS_UP = 'Up';
 export const STATUS_DOWN = 'Down';
+export const AUTH_TYPE_BASIC = 'Basic';
 export const FALLBACK_HTTP_METHOD = http.HEAD;
 
 /**
@@ -22,7 +23,8 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
   logger().debug(`Checking the status for ${name} <${url}>`);
 
   try {
-    const { statusCode, body } = await http.sendRequest(method, url, token);
+    const authHeader = token ? createAuthHeader(token) : {};
+    const { statusCode, body } = await http.sendRequest(method, url, authHeader);
 
     logger().debug(`Received response for ${name}: `, { statusCode, body });
 
@@ -59,6 +61,20 @@ export function getCheckInterval(status, min, max) {
 }
 
 /**
+ * 
+ * @param {String} token
+ * @returns {String} 
+ */
+function createAuthHeader(token) {
+  return {
+    headers: {
+      Authorization: token ? `${AUTH_TYPE_BASIC} ${token}` : null
+    }
+  }
+
+}
+
+/**
  * Check if it should retry sending HTTP request.
  *
  * @param   {Error} err
@@ -69,7 +85,7 @@ function shouldRetry(err, method) {
   return (
     err.response &&
     (err.response.statusCode === HttpStatus.METHOD_NOT_ALLOWED ||
-    err.response.statusCode === HttpStatus.NOT_IMPLEMENTED) &&
+      err.response.statusCode === HttpStatus.NOT_IMPLEMENTED) &&
     method !== FALLBACK_HTTP_METHOD
   );
 }
