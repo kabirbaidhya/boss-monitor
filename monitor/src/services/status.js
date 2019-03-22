@@ -23,7 +23,7 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
   logger().debug(`Checking the status for ${name} <${url}>`);
 
   try {
-    const authHeader = token ? createAuthHeader(token) : {};
+    const authHeader = createAuthHeader(token);
     const { statusCode, body } = await http.sendRequest(method, url, authHeader);
 
     logger().debug(`Received response for ${name}: `, { statusCode, body });
@@ -61,6 +61,7 @@ export function getCheckInterval(status, min, max) {
 }
 
 /**
+ * Returns header object with authorization token.
  * 
  * @param {String} token
  * @returns {String} 
@@ -70,8 +71,7 @@ function createAuthHeader(token) {
     headers: {
       Authorization: token ? `${AUTH_TYPE_BASIC} ${token}` : null
     }
-  }
-
+  };
 }
 
 /**
