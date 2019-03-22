@@ -46,5 +46,6 @@ services:
   - name: 'chill'
     url: 'http://test.com/'
     hasAuth: true
-    userName: chill
-    password: justchill
+    auth:  
+      userName: chill
+      password: justchill
