@@ -1,9 +1,12 @@
 import { assert } from 'chai';
 import * as base64 from '../../src/utils/base64';
 
+const testStr = 'chill:justchill';
+const testEncodedStr = 'Y2hpbGw6anVzdGNoaWxs';
+
 describe('base64', () => {
-  const encodedStr = base64.encode('chill:justchill');
-  const decodedStr = base64.decode('Y2hpbGw6anVzdGNoaWxs');
+  const encodedStr = base64.encode(testStr);
+  const decodedStr = base64.decode(testEncodedStr);
 
   describe('base64 encode', () => {
     it('should return a string', () => {
@@ -11,7 +14,7 @@ describe('base64', () => {
     });
 
     it('should return base64 encoded string', () => {
-      assert.strictEqual(encodedStr, 'Y2hpbGw6anVzdGNoaWxs');
+      assert.strictEqual(encodedStr, testEncodedStr);
     });
   });
 
@@ -21,7 +24,7 @@ describe('base64', () => {
     });
 
     it('should return ascii string', () => {
-      assert.strictEqual(decodedStr, 'chill:justchill');
+      assert.strictEqual(decodedStr, testStr);
     });
   });
 });
