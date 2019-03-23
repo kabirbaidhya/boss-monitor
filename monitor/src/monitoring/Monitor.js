@@ -17,7 +17,6 @@ class Monitor {
    */
   constructor(serviceConfig) {
     this.retried = 0;
-    this.token = null;
     this.status = null;
     this.config = serviceConfig;
     this.lastStatusChanged = null;
