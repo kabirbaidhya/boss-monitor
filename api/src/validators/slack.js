@@ -1,5 +1,6 @@
 import * as config from '../config/config';
 import { verify } from '../utils/slackVerification';
+import HttpStatus from 'http-status-codes';
 
 /**
  * Validate slack request.
@@ -10,10 +11,12 @@ import { verify } from '../utils/slackVerification';
  */
 export function verifySlackRequest(req, res, next) {
   if (!config.get().notifications.slack.enabled) {
-    return res.sendStatus(404);
+    return res.sendStatus(HttpStatus.SERVICE_UNAVAILABLE);
   }
 
   return verify(req)
     .then(() => next())
-    .catch(err => res.sendStatus(err));
+    .catch(err => {
+      res.sendStatus(err);
+    });
 }

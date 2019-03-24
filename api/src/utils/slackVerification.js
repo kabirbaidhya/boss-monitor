@@ -14,9 +14,7 @@ export function verify(req) {
     const signingSecret = config.get().notifications.slack.signingSecret;
 
     if (!signingSecret) {
-      reject('Signing secret is empty');
-
-      return;
+      reject(HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     const slackSignature = req.headers['x-slack-signature'];
@@ -27,8 +25,6 @@ export function verify(req) {
 
     if (Math.abs(time - timeStamp > 300)) {
       reject(HttpStatus.BAD_REQUEST);
-
-      return;
     }
 
     const sigBaseString = `v0:${timeStamp}:${requestBody}`;
@@ -40,12 +36,8 @@ export function verify(req) {
 
     if (signatureMatches(calculatedSignature, slackSignature)) {
       resolve();
-
-      return;
     }
     reject(HttpStatus.UNAUTHORIZED);
-
-    return;
   });
 }
 
