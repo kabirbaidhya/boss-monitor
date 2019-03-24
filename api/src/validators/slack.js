@@ -13,7 +13,7 @@ export function verifySlackRequest(req, res, next) {
     return res.sendStatus(404);
   }
 
-  return verify(req, res, next)
+  return verify(req)
     .then(() => next())
     .catch(err => res.sendStatus(err));
 }
