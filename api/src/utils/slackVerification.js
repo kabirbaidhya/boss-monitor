@@ -5,7 +5,7 @@ import * as HttpStatus from 'http-status-codes';
 import * as config from '../config/config';
 
 /**
- * Verify slack request.
+ * Verify incoming slack request by comparing the slack signing secret.
  *
  * @param {object} req
  */
