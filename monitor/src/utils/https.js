@@ -8,8 +8,8 @@ export const DEFAULT_SSL_PORT = 443;
  * Get details about SSL certificate for given host.
  *
  * @param {string} host
- * @param {string} port
- * @param {number} method
+ * @param {number} port
+ * @param {string} method
  */
 export function getSSLInfo(host, port = DEFAULT_SSL_PORT, method = OPTIONS) {
   const options = {
