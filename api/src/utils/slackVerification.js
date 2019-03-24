@@ -10,6 +10,13 @@ import * as config from '../config/config';
  * @param {object} req
  */
 export function verify(req) {
+  function safeCompare(calculatedSignature, slackSignature) {
+    return crypto.timingSafeEqual(
+      Buffer.from(calculatedSignature, 'utf-8'),
+      Buffer.from(slackSignature, 'utf8')
+    );
+  }
+
   return new Promise((resolve, reject) => {
     const signingSecret = config.get().notifications.slack.signingSecret;
 
@@ -34,16 +41,9 @@ export function verify(req) {
       .digest('hex');
     const calculatedSignature = `v0=${hmac}`;
 
-    if (signatureMatches(calculatedSignature, slackSignature)) {
+    if (safeCompare(calculatedSignature, slackSignature)) {
       resolve();
     }
     reject(HttpStatus.UNAUTHORIZED);
   });
-}
-
-function signatureMatches(calculatedSignature, slackSignature) {
-  return crypto.timingSafeEqual(
-    Buffer.from(calculatedSignature, 'utf-8'),
-    Buffer.from(slackSignature, 'utf8')
-  );
 }
