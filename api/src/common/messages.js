@@ -3,9 +3,7 @@ const STATUS_DOWN = 'Down';
 const messages = {
   [STATUS_UP]: {
     title: 'Service is Up',
-    text: name => {
-      return `${name} is up`;
-    }
+    text: name => `${name} is up`
   },
 
   [STATUS_DOWN]: {
