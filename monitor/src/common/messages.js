@@ -15,7 +15,7 @@ const messages = {
 
   [STATUS_MAINTENANCE]: {
     title: 'Service is under maintenance',
-    text: (name) => `${name} is under maintenance right now.`
+    text: (name) => `${name} is under maintenance.`
   }
 };
 

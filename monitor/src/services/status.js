@@ -35,8 +35,7 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
 
     if (shouldRetry(statusCode, method)) {
       logger().debug(
-        `Got ${statusCode} error for ${method} request on service ${name}. ` +
-          `Now trying with the fallback method ${FALLBACK_HTTP_METHOD}`
+        `Got ${statusCode} error for ${method} request on service ${name}. Now trying with the fallback method ${FALLBACK_HTTP_METHOD}`
       );
     }
 
@@ -106,9 +105,9 @@ function shouldRetry(statusCode, method) {
 }
 
 /**
- * Check if it should retry sending HTTP request.
+ * Check if the status code on the response is 200.
  *
- * @param   {string} statusCode
+ * @param   {Number} statusCode
  * @returns {Boolean}
  */
 function matchUpStatus(statusCode) {
