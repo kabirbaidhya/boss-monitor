@@ -7,47 +7,68 @@ import { getClient } from '../utils/db';
 import * as statusLogQuery from '../queries/status';
 
 const db = getClient();
-const TABLE_NAME = 'status_logs';
 
+/**
+ * StatusLog Model.
+ */
 class StatusLog extends db.Model {
+  /**
+   * Table name for StatusLog model.
+   */
   get tableName() {
-    return TABLE_NAME;
+    return 'status_logs';
   }
 
+  /**
+   * Get timestamps for StatusLog model.
+   */
   get hasTimestamps() {
     return true;
   }
 
+  /**
+   * Relationship with Service model.
+   */
   service() {
     return this.belongsTo(Service);
   }
 
+  /**
+   * Relationship with Status model.
+   */
   status() {
     return this.belongsTo(Status);
   }
 
+  /**
+   * Get status of a single service.
+   *
+   * @param {number} serviceId
+   */
   static fetchServiceStatus(serviceId) {
     logger().info(`Fetching the latest status of service ${serviceId}`);
 
     return new StatusLog({ serviceId }).orderBy('created_at', 'DESC').fetch();
   }
 
+  /**
+   * Get all status logs.
+   */
   static async fetchAllLogs() {
     logger().info('Fetching all status logs');
 
-    let results = await db.knex.raw(
-      statusLogQuery.STATUS_LOGS
-    );
+    const results = await db.knex.raw(statusLogQuery.STATUS_LOGS);
 
     return camelize(results);
   }
 
+  /**
+   * Get latest status of all services.
+   */
   static async fetchLatestStatuses() {
     logger().info('Fetching the latest status');
 
-    let results = await db.knex.raw(
-      statusLogQuery.LATEST_STATUS
-    );
+    const results = await db.knex.raw(statusLogQuery.LATEST_STATUS);
 
     return camelize(results);
   }

@@ -4,13 +4,13 @@ import logger from '../utils/logger';
 /**
  * Validates a given data against the predefined schema.
  *
- * @param data
- * @param schema
+ * @param {Object} data
+ * @param {Object} schema
  * @returns {Promise}
  */
 export function validate(data, schema) {
   return new Promise((resolve, reject) => {
-    let { error, result } = Joi.validate(data, schema);
+    const { error, result } = Joi.validate(data, schema);
 
     logger().debug('Validating data: ', data);
 
@@ -26,4 +26,3 @@ export function validate(data, schema) {
     resolve(result);
   });
 }
-
