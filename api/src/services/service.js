@@ -7,12 +7,12 @@ import StatusLog from '../models/StatusLog';
 /**
  * Fetch all services.
  *
- * @return {Promise}
+ * @returns {Promise}
  */
 export async function fetchAll() {
   logger().info('Fetching all the services.');
 
-  let result = await Service.fetchAll();
+  const result = await Service.fetchAll();
 
   logger().debug('Retrieved list of services', result.toJSON());
 
@@ -22,13 +22,13 @@ export async function fetchAll() {
 /**
  * Fetch a single service by it's id (pk).
  *
- * @param  {string|Number}  id
- * @return {Promise}
+ * @param   {string|Number}  id
+ * @returns {Promise}
  */
 export async function fetch(id) {
   logger().debug('Fetching a service by id', { id });
 
-  let result = await new Service({ id }).fetch();
+  const result = await new Service({ id }).fetch();
 
   if (!result) {
     throw new Boom.notFound('Service not found');
@@ -42,11 +42,11 @@ export async function fetch(id) {
 /**
  * Fetch the latest status change log for a service by serviceId.
  *
- * @param {Number} serviceId
+ * @param   {Number} serviceId
  * @returns {Promise}
  */
 export async function fetchStatus(serviceId) {
-  let result = await StatusLog.fetchServiceStatus(serviceId);
+  const result = await StatusLog.fetchServiceStatus(serviceId);
 
   if (!result) {
     throw new Boom.notFound(`No recent logs not found for service ${serviceId}.`);
@@ -60,16 +60,15 @@ export async function fetchStatus(serviceId) {
 /**
  * Create and save service data.
  *
- * @param {Object}
+ * @param   {Object}  data
  * @returns {Promise}
  */
 export async function create(data) {
   try {
-    let service = await Service.create(data);
+    const service = await Service.create(data);
 
     return service.toJSON();
   } catch (err) {
     logger().error('Error while persisting the service into database', err);
   }
 }
-

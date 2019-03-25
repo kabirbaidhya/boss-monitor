@@ -7,23 +7,32 @@ const db = getClient();
 export const TYPE_HTTP = 'http';
 export const TYPE_TCP = 'tcp';
 
+/**
+ * Service Model.
+ */
 class Service extends db.Model {
+  /**
+   * Table name for Service model.
+   */
   get tableName() {
     return 'services';
   }
 
+  /**
+   * Get timestamps for Service model.
+   */
   get hasTimestamps() {
     return true;
   }
 
   /**
-  * Create a new Service.
-  *
-  * @param  {Object} data
-  * @return {Promise}
-  */
+   * Create a new Service.
+   *
+   * @param   {Object} data
+   * @returns {Promise}
+   */
   static async create(data) {
-    let service = new Service({
+    const service = new Service({
       name: data.name,
       url: data.url
     });
