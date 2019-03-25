@@ -64,8 +64,8 @@ class Monitor {
    * Start monitoring services.
    */
   async startMonitoring() {
-    const { url, name, maxRetry, minInterval, maxInterval } = this.config;
-    const status = await statusService.checkHostStatus({ url, name });
+    const { url, name, maxRetry, minInterval, maxInterval, checkMaintain } = this.config;
+    const status = await statusService.checkHostStatus({ url, name, checkMaintain });
     const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
 
     const serviceObj = await serviceService.fetchByUrl(url);

@@ -5,8 +5,11 @@ import logger from '../utils/logger';
 import * as http from '../utils/http';
 import Status from '../models/Status';
 
+const MAINTENANCE_VALUE = '1';
+
 export const STATUS_UP = 'Up';
 export const STATUS_DOWN = 'Down';
+export const STATUS_MAINTENANCE = 'Maintenance';
 export const FALLBACK_HTTP_METHOD = http.HEAD;
 
 /**
@@ -17,29 +20,42 @@ export const FALLBACK_HTTP_METHOD = http.HEAD;
  * @returns {Promise}
  */
 export async function checkHostStatus(service, method = http.OPTIONS) {
-  const { url, name } = service;
+  const { url, name, checkMaintain } = service;
 
   logger().debug(`Checking the status for ${name} <${url}>`);
 
   try {
-    const { statusCode, body } = await http.sendRequest(method, url);
+    const { statusCode, body, headers } = await http.sendRequest(method, url, {
+      simple: false
+    });
+
+    // If the original HTTP method was not allowed (405 Method Not Allowed)
+    // try sending another request with a fallback method.
+    // return checkHostStatus(service, FALLBACK_HTTP_METHOD);
+
+    if (shouldRetry(statusCode, method)) {
+      logger().debug(
+        `Got ${statusCode} error for ${method} request on service ${name}. ` +
+          `Now trying with the fallback method ${FALLBACK_HTTP_METHOD}`
+      );
+    }
+
+    if (checkUnderMaintenance(statusCode, headers.maintain, checkMaintain)) {
+      logger().debug(
+        `Received ${statusCode} on service ${name}. Service ${name} is under maintenance.`
+      );
+
+      return STATUS_MAINTENANCE;
+    } else if (matchUpStatus(statusCode)) {
+      logger().debug(`Received response for ${name}: `, { statusCode, body });
+
+      return STATUS_UP;
+    }
 
     logger().debug(`Received response for ${name}: `, { statusCode, body });
 
-    return STATUS_UP;
+    return STATUS_DOWN;
   } catch (err) {
-    // If the original HTTP method was not allowed (405 Method Not Allowed)
-    // try sending another request with a fallback method.
-    // TODO: Make fallback http method configurable using chill.yml
-    if (shouldRetry(err, method)) {
-      logger().debug(
-        `Got ${err.response.statusCode} error for ${method} request on service ${name}. ` +
-        `Now trying with the fallback method ${FALLBACK_HTTP_METHOD}`
-      );
-
-      return checkHostStatus(service, FALLBACK_HTTP_METHOD);
-    }
-
     logger().debug(`Received error response for ${name}: `, err);
 
     return STATUS_DOWN;
@@ -59,19 +75,44 @@ export function getCheckInterval(status, min, max) {
 }
 
 /**
- * Check if it should retry sending HTTP request.
+ * Check if the system is under Maintenance.
+ * Check status code in response for 503.
+ * Check if in header if Maintain is 1.
  *
- * @param   {Error} err
- * @param   {string} method
+ * @param {Number} statusCode
+ * @param {Number} maintain
+ * @param {Boolean} checkMaintain
  * @returns {Boolean}
  */
-function shouldRetry(err, method) {
+function checkUnderMaintenance(statusCode, maintain, checkMaintain = false) {
   return (
-    err.response &&
-    (err.response.statusCode === HttpStatus.METHOD_NOT_ALLOWED ||
-     err.response.statusCode === HttpStatus.NOT_IMPLEMENTED) &&
+    statusCode === 503 || (checkMaintain && maintain === MAINTENANCE_VALUE)
+  );
+}
+
+/**
+ * Check if it should retry sending HTTP request.
+ *
+ * @param   {Number} statusCode
+ * @param   {String} method
+ * @returns {Boolean}
+ */
+function shouldRetry(statusCode, method) {
+  return (
+    (statusCode === HttpStatus.METHOD_NOT_ALLOWED ||
+      statusCode === HttpStatus.NOT_IMPLEMENTED) &&
     method !== FALLBACK_HTTP_METHOD
   );
+}
+
+/**
+ * Check if it should retry sending HTTP request.
+ *
+ * @param   {string} statusCode
+ * @returns {Boolean}
+ */
+function matchUpStatus(statusCode) {
+  return statusCode === 200;
 }
 
 /**

@@ -9,15 +9,17 @@ export const OPTIONS = 'OPTIONS';
  *
  * @param {String} method
  * @param {String} url
+ * @param {Object} params
  * @returns {Promise}
  */
-export function sendRequest(method, url) {
+export function sendRequest(method, url, params) {
   logger().debug(`Sending HTTP ${method} request to ${url}.`);
 
   return rp({
     method,
     uri: url,
     rejectUnauthorized: false,
-    resolveWithFullResponse: true
+    resolveWithFullResponse: true,
+    ...params
   });
 }
