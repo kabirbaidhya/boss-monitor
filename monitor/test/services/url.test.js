@@ -1,4 +1,4 @@
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 
 import * as url from '../../src/utils/url';
 
@@ -20,9 +20,8 @@ describe('url.parse', () => {
   });
 
   it('would throw error if it url is invalid.', () => {
-    // NEED HELP. it's not working
-    // expect(url.parse(null)).to.throw(new TypeError('Invalid Url'));
-    // expect(url.parse(undefined)).to.throw(new TypeError('Invalid Url'));
-    // expect(url.parse('')).to.throw(new TypeError('Invalid Url'));
+    expect(() => url.parse(null)).to.throw('Invalid URL');
+    expect(() => url.parse(undefined)).to.throw('Invalid URL');
+    expect(() => url.parse('')).to.throw('Invalid URL');
   });
 });
