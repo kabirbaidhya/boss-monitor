@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import isSame from '../../src/utils/common';
+import { isSame } from '../../src/utils/common';
 
 describe('common.isEqual', () => {
   it('would return true or false if valid argument is passed.', () => {
@@ -66,6 +66,24 @@ describe('common.isEqual', () => {
         { a: null, b: { c: undefined } }
       ),
       false
+    );
+  });
+
+  it('would return true or false if circual json is passed.', () => {
+    const a = {};
+    const b = {};
+
+    a.c = a;
+    b.c = b;
+
+    assert.equal(isSame(a, b), true);
+  });
+
+
+  it('would return true or false if object\'s key order is not same.', () => {
+    assert.equal(
+      isSame({ b: null, a: { c: false } }, { a: { c: false }, b: null }),
+      true
     );
   });
 });
