@@ -3,9 +3,8 @@ import { assert } from 'chai';
 import { isSame } from '../../src/utils/common';
 
 describe('common.isEqual', () => {
-  it('would return true or false if valid argument is passed.', () => {
+  it('should return true if same argument value are passed', () => {
     const date = new Date();
-    const oldDate = new Date('Wed Mar 20 2019 16:02:52 GMT+0545');
 
     assert.equal(isSame({}, {}), true);
     assert.equal(isSame({ a: '' }, { a: '' }), true);
@@ -35,6 +34,11 @@ describe('common.isEqual', () => {
       ),
       true
     );
+  });
+
+  it('should return false if different argument value are passed', () => {
+    const date = new Date();
+    const oldDate = new Date('Wed Mar 20 2019 16:02:52 GMT+0545');
 
     assert.equal(isSame({}, { a: '' }), false);
     assert.equal(isSame({ a: '' }, { a: date }), false);
@@ -69,7 +73,7 @@ describe('common.isEqual', () => {
     );
   });
 
-  it('would return true or false if circual json is passed.', () => {
+  it('should return true when equal circular objects are passed', () => {
     const a = {};
     const b = {};
 
@@ -80,7 +84,7 @@ describe('common.isEqual', () => {
   });
 
 
-  it('would return true or false if object\'s key order is not same.', () => {
+  it('should return true if object\'s key order is not same.', () => {
     assert.equal(
       isSame({ b: null, a: { c: false } }, { a: { c: false }, b: null }),
       true

@@ -3,7 +3,7 @@ import { assert, expect } from 'chai';
 import * as url from '../../src/utils/url';
 
 describe('url.parse', () => {
-  it('would return parsed url into URL object if it url is valid.', () => {
+  it('should return parsed url as URL object if valid url is passed', () => {
     assert.deepEqual(url.parse('https://lftechnology.com:8000'), {
       protocol: 'https:',
       host: 'lftechnology.com',
@@ -19,7 +19,7 @@ describe('url.parse', () => {
     });
   });
 
-  it('would throw error if it url is invalid.', () => {
+  it('should throw error when invalid url is passed', () => {
     expect(() => url.parse(null)).to.throw('Invalid URL');
     expect(() => url.parse(undefined)).to.throw('Invalid URL');
     expect(() => url.parse('')).to.throw('Invalid URL');
