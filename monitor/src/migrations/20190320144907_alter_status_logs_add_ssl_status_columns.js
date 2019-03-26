@@ -8,6 +8,7 @@ import { UNKNOWN } from '../models/SSLStatus';
  */
 export function up(knex) {
   return knex.schema.table('status_logs', table => {
+    // Knex:warning - SQLite3 Foreign & Primary keys may only be added on create
     table
       .integer('ssl_status_id')
       .notNullable()
@@ -27,7 +28,8 @@ export function up(knex) {
  */
 export function down(knex) {
   return knex.schema.table('status_logs', table => {
-    // table.dropForeign(['ssl_status_id']); // Not required in SQLite
+    // Knex:warning - SQLite3 Foreign & Primary keys may only be added on create
+    // table.dropForeign(['ssl_status_id']);
     table.dropColumn('ssl_status_id');
     table.dropColumn('valid_from');
     table.dropColumn('valid_to');

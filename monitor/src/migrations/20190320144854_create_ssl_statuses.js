@@ -1,7 +1,7 @@
 import { seed } from '../seeds/ssl_statuses';
 
 /**
- * Create statuses table.
+ * Create ssl_statuses table.
  *
  * @param   {Object} knex
  * @returns {Promise}
@@ -15,7 +15,7 @@ export function up(knex) {
 }
 
 /**
- * Drop statuses table.
+ * Drop ssl_statuses table.
  *
  * @param   {Object} knex
  * @returns {Promise}
