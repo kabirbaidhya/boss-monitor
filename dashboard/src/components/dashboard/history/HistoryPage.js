@@ -3,7 +3,8 @@ import React from 'react';
 import HistoryPanel from './HistoryPanel';
 
 const HistoryPage = () => (
-  <div className="page-wrapper wrapper">
+  <div className="sidebar">
+    <h2>History Logs</h2>
     <HistoryPanel />
   </div>
 );

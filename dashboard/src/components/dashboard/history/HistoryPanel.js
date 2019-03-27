@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import * as historyService from '../../../services/status';
 
-import Panel from '../../commons/Panel';
 import HistoryList from './HistoryList';
 import Spinner from '../../commons/Spinner';
 
@@ -32,12 +31,15 @@ class HistoryPanel extends Component {
 
       this.setState({ isLoading: false, histories });
     } catch (err) {
+      this.setState({ isLoading: false });
       // TODO: Show error messages
     }
   }
 
   render() {
       let { isLoading, histories } = this.state;
+
+      <h2>History Logs</h2>
 
       if(isLoading) {
         return (
@@ -46,9 +48,7 @@ class HistoryPanel extends Component {
       }
 
       return (
-        <Panel title='History Logs' className='status-up'>
-          <HistoryList histories={histories} />
-        </Panel>
+        <HistoryList histories={histories}/>
       );
   }
 }
