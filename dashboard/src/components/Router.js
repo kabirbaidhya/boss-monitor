@@ -6,16 +6,21 @@ import * as routes from '../constants/routes';
 
 import Header from './commons/Header';
 import Footer from './commons/Footer';
-import StatusPage from './dashboard/StatusPage';
+import Home from './dashboard/Home';
 
-const { logo, baseUrl } = config.app;
+const { appLogo, projectLogo, baseUrl } = config.app;
 
 const Router = () => (
   <BrowserRouter basename={baseUrl}>
     <div>
-      <Header logo={logo} style={{ height: logo.height }} />
+      <Header
+        appLogo={appLogo}
+        projectLogo={projectLogo}
+        appStyle={{ height: appLogo.height }}
+        projectStyle={{ height: projectLogo.height }}
+      />
       <Switch>
-        <Route exact path={routes.HOME} component={StatusPage} />
+        <Route exact path={routes.HOME} component={Home} />
       </Switch>
       <Footer />
     </div>

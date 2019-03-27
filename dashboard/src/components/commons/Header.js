@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({ style, logo }) => (
+const Header = ({ appStyle, projectStyle, appLogo, projectLogo }) => (
   <header className="Header">
     <div className="container-fluid">
       <div className="d-flex align-items-center justify-content-between Header__row">
         <div className="Header__row__left-part d-flex align-items-center">
           <div className="Header__row__logo">
             <a href="#">
-              <img style={style} src={logo.url} alt="Application Logo" />
+              <img style={appStyle} src={appLogo.url} alt="Application Logo" />
             </a>
           </div>
         </div>
         <div className="Header__row__right-part d-flex align-items-center">
           <a href="#">
-          <img style={style} src={logo.url} alt="Application Logo" />
+          <img style={projectStyle} src={projectLogo.url} alt="Project Logo" />
           </a>
         </div>
       </div>
@@ -24,7 +24,8 @@ const Header = ({ style, logo }) => (
 
 Header.propTypes = {
   style: PropTypes.object,
-  logo: PropTypes.object
+  appLogo: PropTypes.object,
+  projectLogo: PropTypes.object,
 };
 
 export default Header;
