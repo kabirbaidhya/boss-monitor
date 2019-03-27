@@ -32,6 +32,7 @@ class HistoryPanel extends Component {
 
       this.setState({ isLoading: false, histories });
     } catch (err) {
+      this.setState({ isLoading: false });
       // TODO: Show error messages
     }
   }
