@@ -6,10 +6,10 @@ import ToolTip from 'react-tooltip';
 import { isUp, getServiceParams } from '../../services/status';
 
 const ServiceRow = ({ data }) => {
-  const { id, createdAt, service, status } = data;
+  const { id, createdAt, service, http } = data;
 
   const serviceData = JSON.parse(service);
-  const statusData = JSON.parse(status);
+  const statusData = JSON.parse(http);
 
   const { message, className } = getServiceParams(isUp(statusData));
 
