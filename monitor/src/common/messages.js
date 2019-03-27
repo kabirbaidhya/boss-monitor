@@ -1,4 +1,4 @@
-import { STATUS_UP, STATUS_DOWN, STATUS_MAINTENANCE } from '../services/status';
+import { STATUS_UP, STATUS_DOWN, STATUS_UNDER_MAINTENANCE } from '../services/status';
 
 const messages = {
   [STATUS_UP]: {
@@ -13,7 +13,7 @@ const messages = {
     text: (name) => `${name} went down.`
   },
 
-  [STATUS_MAINTENANCE]: {
+  [STATUS_UNDER_MAINTENANCE]: {
     title: 'Service is under maintenance',
     text: (name) => `${name} is under maintenance.`
   }

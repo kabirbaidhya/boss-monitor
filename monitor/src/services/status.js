@@ -5,11 +5,9 @@ import logger from '../utils/logger';
 import * as http from '../utils/http';
 import Status from '../models/Status';
 
-const MAINTENANCE_VALUE = '1';
-
 export const STATUS_UP = 'Up';
 export const STATUS_DOWN = 'Down';
-export const STATUS_MAINTENANCE = 'Maintenance';
+export const STATUS_UNDER_MAINTENANCE = 'Under Maintenance';
 export const FALLBACK_HTTP_METHOD = http.HEAD;
 
 /**
@@ -20,41 +18,34 @@ export const FALLBACK_HTTP_METHOD = http.HEAD;
  * @returns {Promise}
  */
 export async function checkHostStatus(service, method = http.OPTIONS) {
-  const { url, name, checkMaintain } = service;
+  const { url, name } = service;
 
   logger().debug(`Checking the status for ${name} <${url}>`);
 
   try {
-    const { statusCode, body, headers } = await http.sendRequest(method, url, {
-      simple: false
-    });
+    const { statusCode, body } = await http.sendRequest(method, url);
+
+    logger().debug(`Received response for ${name}: `, { statusCode, body });
+
+    return STATUS_UP;
+  } catch (err) {
+    const statusCode = err.response.statusCode;
 
     // If the original HTTP method was not allowed (405 Method Not Allowed)
     // try sending another request with a fallback method.
-    // return checkHostStatus(service, FALLBACK_HTTP_METHOD);
-
     if (shouldRetry(statusCode, method)) {
       logger().debug(
         `Got ${statusCode} error for ${method} request on service ${name}. Now trying with the fallback method ${FALLBACK_HTTP_METHOD}`
       );
-    }
 
-    if (checkUnderMaintenance(statusCode, headers.maintain, checkMaintain)) {
+      return checkHostStatus(service, FALLBACK_HTTP_METHOD);
+    } else if (checkUnderMaintenance(statusCode, err.response.headers['retry-after'])) {
       logger().debug(
         `Received ${statusCode} on service ${name}. Service ${name} is under maintenance.`
       );
 
-      return STATUS_MAINTENANCE;
-    } else if (matchUpStatus(statusCode)) {
-      logger().debug(`Received response for ${name}: `, { statusCode, body });
-
-      return STATUS_UP;
+      return STATUS_UNDER_MAINTENANCE;
     }
-
-    logger().debug(`Received response for ${name}: `, { statusCode, body });
-
-    return STATUS_DOWN;
-  } catch (err) {
     logger().debug(`Received error response for ${name}: `, err);
 
     return STATUS_DOWN;
@@ -74,19 +65,15 @@ export function getCheckInterval(status, min, max) {
 }
 
 /**
- * Check if the system is under Maintenance.
- * Check status code in response for 503.
- * Check if in header if Maintain is 1.
+ * Check if the system is under maintenance.
+ * Return true if value of statusCode is 503 or check retryAfter is greater than 0 else returns false.
  *
  * @param {Number} statusCode
- * @param {Number} maintain
- * @param {Boolean} checkMaintain
+ * @param {Number} retryAfter
  * @returns {Boolean}
  */
-function checkUnderMaintenance(statusCode, maintain, checkMaintain = false) {
-  return (
-    statusCode === 503 || (checkMaintain && maintain === MAINTENANCE_VALUE)
-  );
+function checkUnderMaintenance(statusCode, retryAfter) {
+  return statusCode === 503 || retryAfter > 0;
 }
 
 /**
@@ -102,16 +89,6 @@ function shouldRetry(statusCode, method) {
       statusCode === HttpStatus.NOT_IMPLEMENTED) &&
     method !== FALLBACK_HTTP_METHOD
   );
-}
-
-/**
- * Check if the status code on the response is 200.
- *
- * @param   {Number} statusCode
- * @returns {Boolean}
- */
-function matchUpStatus(statusCode) {
-  return statusCode === 200;
 }
 
 /**

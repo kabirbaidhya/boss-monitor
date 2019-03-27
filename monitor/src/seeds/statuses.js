@@ -1,4 +1,4 @@
-import { UNKNOWN, UP, DOWN, MAINTENANCE } from '../models/Status';
+import { UNKNOWN, UP, DOWN, UNDER_MAINTENANCE } from '../models/Status';
 
 /**
  * Insert initial data for statuses table.
@@ -11,6 +11,6 @@ export function seed(knex) {
     { id: UNKNOWN, name: 'Unknown', description: 'Status of the service is unknown.' },
     { id: UP, name: 'Up', description: 'Status of the service is up.' },
     { id: DOWN, name: 'Down', description: 'Status of the service is down.' },
-    { id: MAINTENANCE, name: 'Under Maintenance', description: 'Status of the service is under maintenance.' }
+    { id: UNDER_MAINTENANCE, name: 'Under Maintenance', description: 'Status of the service is under maintenance.' }
   ]);
 }
