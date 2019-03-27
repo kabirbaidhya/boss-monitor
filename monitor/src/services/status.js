@@ -33,13 +33,14 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
 
     // If the original HTTP method was not allowed (405 Method Not Allowed)
     // try sending another request with a fallback method.
+    // TODO: Make fallback http method configurable using chill.yml
     if (shouldRetry(statusCode, method)) {
       logger().debug(
         `Got ${statusCode} error for ${method} request on service ${name}. Now trying with the fallback method ${FALLBACK_HTTP_METHOD}`
       );
 
       return checkHostStatus(service, FALLBACK_HTTP_METHOD);
-    } else if (checkUnderMaintenance(statusCode, err.response.headers['retry-after'])) {
+    } else if (checkUnderMaintenance(statusCode, parseInt(err.response.headers['retry-after']))) {
       logger().debug(
         `Received ${statusCode} on service ${name}. Service ${name} is under maintenance.`
       );
@@ -66,7 +67,7 @@ export function getCheckInterval(status, min, max) {
 
 /**
  * Check if the system is under maintenance.
- * Return true if value of statusCode is 503 or check retryAfter is greater than 0 else returns false.
+ * Return true if value of statusCode is 503 or retryAfter is greater than 0 else return false.
  *
  * @param {Number} statusCode
  * @param {Number} retryAfter
