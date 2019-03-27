@@ -3,16 +3,20 @@ export const LATEST_STATUS = (`
   sl.id,
   MAX(sl.created_at) AS created_at,
   sl.updated_at,
-  json_object(
-    'id', st.id,
-    'status', st.name
-  ) AS http,
-  json_object(
-    'id', sst.id,
-    'status', sst.name,
-    'valid_from', sl.valid_from,
-    'valid_to', sl.valid_to
-  ) AS ssl,
+  json_array(
+    json_object(
+      'type', 'SSL',
+      'id', sst.id,
+      'status', sst.name,
+      'valid_from', sl.valid_from,
+      'valid_to', sl.valid_to
+    ),
+    json_object(
+      'type', 'HTTP',
+      'id', st.id,
+      'status', st.name
+    )
+  ) AS status,
   json_object(
     'id', s.id,
     'name', s.name,

@@ -1,3 +1,5 @@
+import camelize from 'camelize';
+
 import logger from '../utils/logger';
 import StatusLog from '../models/StatusLog';
 import { fetch as fetchStatus } from './status';
@@ -19,8 +21,10 @@ export function fetchAll() {
  * @param  {String} id
  * @return {Promise}
  */
-export function fetchLatestStatuses() {
-  return StatusLog.fetchLatestStatuses();
+export async function fetchLatestStatuses() {
+  const results = await StatusLog.fetchLatestStatuses();
+
+  return parseStatusLog(results);
 }
 
 /**
@@ -54,4 +58,20 @@ function ensureAttributesExist(data) {
     fetchService(data.serviceId),
     fetchStatus(data.statusId)
   ]);
+}
+
+/**
+ * Parse status log response.
+ *
+ * @param {any} data
+ * @returns {object}
+ */
+function parseStatusLog(data) {
+  const parsedResults = data.map(result => ({
+    ...result,
+    status: JSON.parse(result.status),
+    service: JSON.parse(result.service)
+  }));
+
+  return camelize(parsedResults);
 }

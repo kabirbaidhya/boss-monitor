@@ -42,14 +42,12 @@ class StatusLog extends db.Model {
     return camelize(results);
   }
 
-  static async fetchLatestStatuses() {
+  static fetchLatestStatuses() {
     logger().info('Fetching the latest status');
 
-    let results = await db.knex.raw(
+    return db.knex.raw(
       statusLogQuery.LATEST_STATUS
     );
-
-    return camelize(results);
   }
 }
 
