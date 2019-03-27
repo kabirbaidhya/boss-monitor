@@ -2,8 +2,12 @@ export default {
   app: {
     baseUrl: __INJECTED_CONFIG.dashboard.baseUrl || '/',
     title: __INJECTED_CONFIG.dashboard.title || 'Chill Dashboard',
-    logo: {
-      url: __INJECTED_CONFIG.dashboard.logo || require('../public/images/chill.png'),
+    appLogo: {
+      url: __INJECTED_CONFIG.dashboard.appLogo || require('../public/images/chill.png'),
+      height: __INJECTED_CONFIG.dashboard.logoHeight || '80px'
+    },
+    projectLogo: {
+      url: __INJECTED_CONFIG.dashboard.projectLogo || require('../public/images/chill.png'),
       height: __INJECTED_CONFIG.dashboard.logoHeight || '80px'
     }
   },
