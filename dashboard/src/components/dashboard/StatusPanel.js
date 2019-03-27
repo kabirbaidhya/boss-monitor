@@ -39,7 +39,7 @@ class StatusPanel extends Component {
 
   render() {
     let { isLoading, services } = this.props.status;
-    const statuses = services && services.map(service => JSON.parse(service.http));
+    const statuses = services && services.map(service => JSON.parse(service.status));
     let { className, message } = statusService.getOutageParams(statuses);
 
     if (isLoading) {
