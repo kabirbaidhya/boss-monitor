@@ -3,7 +3,6 @@ import { sprintf } from 'sprintf-js';
 import config from '../config';
 import http from '../utils/http';
 
-import * as icons from '../constants/icons';
 import * as statuses from '../constants/statuses';
 import * as outage from '../constants/enums/outage';
 
@@ -85,14 +84,12 @@ export function getOutageLevel(services) {
 export function getServiceParams(isOperational) {
   if (!isOperational) {
     return {
-      icon: icons.EXCLAMATION,
       className: statuses.STATUS_DOWN_CLASS,
       message: statuses.STATUS_DOWN_MESSAGE
     };
   }
 
   return {
-    icon: icons.INFO,
     className: statuses.STATUS_UP_CLASS,
     message: statuses.STATUS_UP_MESSAGE
   };
