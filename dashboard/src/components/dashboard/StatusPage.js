@@ -4,9 +4,8 @@ import StatusPanel from './StatusPanel';
 import HistoryPanel from './history/HistoryPanel';
 
 const StatusPage = () => (
-  <div className="page-wrapper wrapper">
+  <div className="main">
     <StatusPanel />
-    <HistoryPanel />
   </div>
 );
 

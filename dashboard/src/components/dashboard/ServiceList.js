@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import ServiceRow from './ServiceRow';
 
 const ServiceList = ({ services }) => (
-  <ul className="list-group">
+  <div className="components-section">
     {
       services.map(service => <ServiceRow data={service} key={service.id} />)
     }
-  </ul>
+  </div>
 );
 
 ServiceList.propTypes = {
