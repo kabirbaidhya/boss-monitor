@@ -5,7 +5,7 @@ const Footer = () => {
     <div className="footer">
       Powered By
       <a target="_blank" href="https://github.com/leapfrogtechnology/chill">
-      {' Chill'}
+      Chill
       </a>
     </div>
   );
