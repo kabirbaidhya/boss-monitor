@@ -1,11 +1,11 @@
 /**
  * Returns object with key of unique date and value with array of objects.
  *
- * @param {Array} histories
+ * @param {Array} history
  * @returns {Object}
  */
-export function uniqueDate(histories) {
-  const allDate = histories
+export function uniqueDate(history) {
+  const allDate = history
     .map((date) => date)
     .reduce((acc, curr) => {
       const date = new Date(curr.createdAt).toDateString();

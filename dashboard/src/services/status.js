@@ -23,7 +23,7 @@ export async function fetchServiceStatuses() {
  *
  * @returns {Object}
  */
-export async function fetchServiceHistories() {
+export async function fetchServiceHistory() {
   const { endpoints } = config.api;
   const { data } = await http.get(endpoints.history);
 
