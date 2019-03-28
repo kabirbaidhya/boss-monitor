@@ -9,9 +9,9 @@ const ServiceRow = ({ data }) => {
   const serviceData = JSON.parse(service);
   const statusData = JSON.parse(status);
 
-  const { message, className } = getServiceParams(isUp(statusData));
+  const { message, serviceClassName } = getServiceParams(isUp(statusData));
   return (
-    <div className={`component-container ${className}`}>
+    <div className={`component-container ${serviceClassName}`}>
       <div className="component-inner-container">
         <div className="component-title">{serviceData.name}</div>
         <div className="component-status">{message}</div>
