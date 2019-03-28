@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import HistoryInnerRow from './HistoryInnerRow';
 import HistoryRow from './HistoryRow';
+import HistoryOuterRow from './HistoryOuterRow';
+
 import { uniqueDate } from '../../../services/historyDate';
 
 const HistoryList = ({ histories }) => {
@@ -12,7 +13,7 @@ const HistoryList = ({ histories }) => {
     <>
       {Object.keys(historyDate).map(date => (
         <div className="incidents-block" key={date}>
-          <HistoryInnerRow data={date} />
+          <HistoryOuterRow data={date} />
           {historyDate[date].map((history, index) => (
             <HistoryRow data={history} key={index} />
           ))}
