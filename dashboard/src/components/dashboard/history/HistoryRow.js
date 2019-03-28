@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 import * as statuses from '../../../constants/statuses';
 
-const historyStatusToClassName = {
-  Up: statuses.HISTORY_STATUS_UP_CLASS,
-  Pending: statuses.HISTORY_STATUS_PENDING_CLASS,
-  Down: statuses.HISTORY_STATUS_DOWN_CLASS
+const historyStatusParam = {
+  up: statuses.HISTORY_STATUS_UP_CLASS,
+  pending: statuses.HISTORY_STATUS_PENDING_CLASS,
+  down: statuses.HISTORY_STATUS_DOWN_CLASS
 };
 
 const HistoryRow = ({ data }) => {
@@ -16,7 +16,7 @@ const HistoryRow = ({ data }) => {
   const serviceData = JSON.parse(service);
   const statusData = JSON.parse(status);
 
-  const className = historyStatusToClassName[statusData.name];
+  const className = historyStatusParam[statusData.name.toLowerCase()];
 
   return (
     <ul className="status-update-list">
