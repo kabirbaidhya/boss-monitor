@@ -39,8 +39,6 @@ class HistoryPanel extends Component {
   render() {
       let { isLoading, histories } = this.state;
 
-      <h2>History Logs</h2>
-
       if(isLoading) {
         return (
           <Spinner />
