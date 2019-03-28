@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import HistoryRow from './HistoryRow';
-import HistoryOuterRow from './HistoryOuterRow';
+import Event from './Event';
+import EventRow from './EventRow';
 
 import { uniqueDate } from '../../../services/historyDate';
 
-const HistoryList = ({ histories }) => {
-  const historyDate = uniqueDate(histories);
+const HistoryList = ({ events }) => {
+  const historyDate = uniqueDate(events);
 
   return (
     <>
       {Object.keys(historyDate).map(date => (
         <div className="incidents-block" key={date}>
-          <HistoryOuterRow data={date} />
-          {historyDate[date].map((history, index) => (
-            <HistoryRow data={history} key={index} />
+          <EventRow data={date} />
+          {historyDate[date].map((event, index) => (
+            <Event data={event} key={index} />
           ))}
         </div>
       ))}
@@ -24,7 +24,7 @@ const HistoryList = ({ histories }) => {
 };
 
 HistoryList.propTypes = {
-  histories: PropTypes.array
+  events: PropTypes.array
 };
 
 export default HistoryList;

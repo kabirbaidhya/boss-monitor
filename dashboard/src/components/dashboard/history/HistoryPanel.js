@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import * as historyService from '../../../services/status';
 
-import HistoryList from './HistoryList';
+import History from './HistoryList';
 import Spinner from '../../commons/Spinner';
 
 class HistoryPanel extends Component {
@@ -10,34 +10,33 @@ class HistoryPanel extends Component {
     super(props);
 
     this.state = {
-        histories: [],
+        history: [],
         isLoading: false,
     }
   }
 
   componentDidMount() {
-    this.fetchHistories();
+    this.fetchHistory();
   }
 
   /**
-   * Fetch list of histories.
+   * Fetch list of history.
    *
    * @returns {Promise}
    */
-  async fetchHistories() {
+  async fetchHistory() {
     try {
       this.setState({ isLoading: true });
-      let histories = await historyService.fetchServiceHistories();
+      let history = await historyService.fetchServiceHistory();
 
-      this.setState({ isLoading: false, histories });
+      this.setState({ isLoading: false, history });
     } catch (err) {
       this.setState({ isLoading: false });
-      // TODO: Show error messages
     }
   }
 
   render() {
-      let { isLoading, histories } = this.state;
+      let { isLoading, history } = this.state;
 
       if(isLoading) {
         return (
@@ -46,7 +45,7 @@ class HistoryPanel extends Component {
       }
 
       return (
-        <HistoryList histories={histories}/>
+        <History events={history}/>
       );
   }
 }
