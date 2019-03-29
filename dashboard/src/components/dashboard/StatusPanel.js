@@ -49,7 +49,7 @@ class StatusPanel extends Component {
     }
 
     return (
-      <Panel title={message} className={className}>
+      <Panel title={message} panelClassName={className}>
         <ServiceList services={services} />
       </Panel>
     );
