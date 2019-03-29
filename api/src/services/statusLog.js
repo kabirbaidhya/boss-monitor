@@ -59,8 +59,8 @@ function ensureAttributesExist(data) {
 /**
  * Parse status log response.
  *
- * @param {any} data
- * @returns {object}
+ * @param {array} data
+ * @returns {array}
  */
 function parseStatusLog(data) {
   const parsedResults = data.map(result => ({
