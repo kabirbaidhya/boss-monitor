@@ -79,18 +79,18 @@ export function getOutageLevel(services) {
  * Get required parameters to render services.
  *
  * @param {Boolean} isOperational
- * @returns {Object} {icon, message, className}
+ * @returns {Object} {message, serviceClassName}
  */
 export function getServiceParams(isOperational) {
   if (!isOperational) {
     return {
-      className: statuses.STATUS_DOWN_CLASS,
+      serviceClassName: statuses.STATUS_DOWN_CLASS,
       message: statuses.STATUS_DOWN_MESSAGE
     };
   }
 
   return {
-    className: statuses.STATUS_UP_CLASS,
+    serviceClassName: statuses.STATUS_UP_CLASS,
     message: statuses.STATUS_UP_MESSAGE
   };
 }
