@@ -9,7 +9,8 @@ import * as statusLogService from '../services/statusLog';
  * @param {Object} next
  */
 export function getAll(req, res, next) {
-  statusLogService.fetchAll()
+  statusLogService
+    .fetchAll()
     .then(data => res.json(data))
     .catch(err => next(err));
 }
@@ -22,7 +23,8 @@ export function getAll(req, res, next) {
  * @param {Object} next
  */
 export function getLatestStatus(req, res, next) {
-  statusLogService.fetchLatestStatuses()
+  statusLogService
+    .fetchLatestStatuses()
     .then(data => res.json(data))
     .catch(err => next(err));
 }
@@ -30,13 +32,13 @@ export function getLatestStatus(req, res, next) {
 /**
  * Save the status change log into the database.
  *
- * @export
- * @param {any} req
- * @param {any} res
- * @param {any} next
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Object} next
  */
 export function save(req, res, next) {
-  statusLogService.save(req.body)
+  statusLogService
+    .save(req.body)
     .then(data => res.status(HttpStatus.CREATED).json(data))
     .catch(err => next(err));
 }

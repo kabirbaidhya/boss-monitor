@@ -8,7 +8,8 @@ import * as serviceService from '../services/service';
  * @param {Object} next
  */
 export function getAll(req, res, next) {
-  serviceService.fetchAll()
+  serviceService
+    .fetchAll()
     .then(data => res.json(data))
     .catch(err => next(err));
 }
@@ -21,7 +22,8 @@ export function getAll(req, res, next) {
  * @param {Object} next
  */
 export function get(req, res, next) {
-  serviceService.fetch(req.params.id)
+  serviceService
+    .fetch(req.params.id)
     .then(data => res.json(data))
     .catch(err => next(err));
 }
@@ -34,7 +36,8 @@ export function get(req, res, next) {
  * @param {Object} next
  */
 export function getServiceStatus(req, res, next) {
-  serviceService.fetchStatus(req.params.id)
+  serviceService
+    .fetchStatus(req.params.id)
     .then(data => res.json(data))
     .catch(err => next(err));
 }

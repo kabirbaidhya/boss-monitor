@@ -8,7 +8,7 @@ import { fetch as fetchService } from './service';
 /**
  * Get all status logs.
  *
- * @return {Promise}
+ * @returns {Promise}
  */
 export function fetchAll() {
   // TODO: Pagination
@@ -18,8 +18,7 @@ export function fetchAll() {
 /**
  * Fetch a service grouped by it's name.
  *
- * @param  {String} id
- * @return {Promise}
+ * @returns {Promise}
  */
 export async function fetchLatestStatuses() {
   const results = await StatusLog.fetchLatestStatuses();
@@ -30,8 +29,8 @@ export async function fetchLatestStatuses() {
 /**
  * Persist a status change log into the database.
  *
- * @param {Object} data
- * @return {Object}
+ * @param   {Object} data
+ * @returns {Object}
  */
 export async function save(data) {
   await ensureAttributesExist(data);
@@ -39,7 +38,7 @@ export async function save(data) {
   logger().info('Saving status change log');
   logger().debug('Data: ', data);
 
-  let model = await StatusLog.forge(data).save();
+  const model = await StatusLog.forge(data).save();
 
   return model.toJSON();
 }
@@ -48,16 +47,13 @@ export async function save(data) {
  * Verifies that the attributes (serviceId & statusId)
  * exists in the database before they're saved in the status log.
  *
- * @param {Object} data
+ * @param   {Object} data
  * @returns {Promise}
  */
 function ensureAttributesExist(data) {
   logger().debug('Ensure status log attributes exist: ', data);
 
-  return Promise.all([
-    fetchService(data.serviceId),
-    fetchStatus(data.statusId)
-  ]);
+  return Promise.all([fetchService(data.serviceId), fetchStatus(data.statusId)]);
 }
 
 /**

@@ -6,6 +6,8 @@ import * as config from '../config/config';
 
 /**
  * Create log directory if it does not exist.
+ *
+ * @param {string} logDir
  */
 function createDirectory(logDir) {
   if (!fs.existsSync(logDir)) {
@@ -18,7 +20,7 @@ function createDirectory(logDir) {
  *
  * @param {Object} options
  * @param {Object} config
- * @returns {String}
+ * @returns {string}
  */
 function customFormatter(options, config) {
   const { levelColumnWidth } = config;
@@ -35,12 +37,12 @@ function customFormatter(options, config) {
 /**
  * Formats the logging level with and colors & justification.
  *
- * @param {String} level
- * @param {Number} width
- * @returns {String}
+ * @param {string} level
+ * @param {number} width
+ * @returns {string}
  */
 function formatLevel(level, width) {
-  let centeredLevel = str.center(level.toUpperCase(), width);
+  const centeredLevel = str.center(level.toUpperCase(), width);
 
   return `${winston.config.colorize(level, centeredLevel.toUpperCase())}`;
 }
@@ -50,20 +52,15 @@ let instance;
 /**
  * Create and return a new instance of Logger.
  *
+ * @param   {Object} config
  * @returns {winston.Logger}
  */
 function createLogger(config) {
-  const {
-    level,
-    logDir,
-    maxFiles,
-    jsonFormat,
-    dateFormat
-  } = config;
+  const { level, logDir, maxFiles, jsonFormat, dateFormat } = config;
 
   createDirectory(logDir);
 
-  let logger = new (winston.Logger)({
+  const logger = new winston.Logger({
     transports: [
       new winston.transports.Console({
         level: level,
@@ -85,6 +82,11 @@ function createLogger(config) {
   });
 
   logger.stream = {
+    /**
+     * A writable stream for winston logger.
+     *
+     * @param {any} message
+     */
     write(message) {
       logger.info(message);
     }
