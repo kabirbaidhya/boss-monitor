@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 
 import * as statuses from '../../../constants/statuses';
