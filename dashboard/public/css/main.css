@@ -1,5 +1,5 @@
-body{
-	background-color: #F3F3F3;
+body {
+  background-color: #f3f3f3;
   margin: 0;
   padding: 0;
   font-family: 'Lato', sans-serif;
@@ -14,37 +14,37 @@ a {
 a:hover {
   color: #4e4e4e;
 }
-.Header{
-	background-color: #fff;
+.header {
+  background-color: #fff;
   padding: 1rem 1.8rem;
-  border-bottom: 1px solid #E5E2E2;
+  border-bottom: 1px solid #e5e2e2;
 }
-.footer{
-	background-color: #fff;
+.footer {
+  background-color: #fff;
   padding: 1rem 2.1rem;
-  border-top: 1px solid #E5E2E2;
+  border-top: 1px solid #e5e2e2;
 }
-.Header__row {
+.header__row {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.Header__row__left-part {
+.header__row__left-part {
   display: flex;
   align-items: center;
 }
-.Header__row__right-part {
+.header__row__right-part {
   display: flex;
   align-items: center;
 }
-.main{
-	order: 1;
-	flex: 8;
+.main {
+  order: 1;
+  flex: 8;
   padding: 2rem 2.25rem 2rem;
 }
-.flexbox-container{
-	display: flex;
-	width: 100%;
+.flexbox-container {
+  display: flex;
+  width: 100%;
 }
 .page-header h2 {
   font-size: 24px;
@@ -52,7 +52,7 @@ a:hover {
 }
 .page-header h2 span {
   font-size: 18px;
-  color: #2ECC71;
+  color: #2ecc71;
 }
 .components-section {
   display: block;
@@ -60,27 +60,27 @@ a:hover {
 .component-container {
   padding: 18px 24px;
   margin-bottom: 10px;
-  background:  #fff;
-  border: 1px solid #E5E2E2;
+  background: #fff;
+  border: 1px solid #e5e2e2;
 }
 .component-inner-container::before {
   display: inline-block;
-  content: " ";
+  content: ' ';
   margin: 0 10px 0 0;
   width: 12px;
   height: 12px;
   border-radius: 10px;
 }
 .component-title {
-    vertical-align: middle;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    display: inline-block;
-    font-weight: 500;
-    max-width: 75%;
-    font-size: 18px;
-    color: #414141;
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: inline-block;
+  font-weight: 500;
+  max-width: 75%;
+  font-size: 18px;
+  color: #414141;
 }
 .component-status {
   position: relative;
@@ -88,22 +88,22 @@ a:hover {
   float: right;
   width: 90px;
   text-align: center;
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .component-status::before {
   display: block;
-  content: " ";
+  content: ' ';
   position: absolute;
   left: -22px;
   top: -18px;
   height: 59px;
-  border-left: 1px solid #E5E2E2;
+  border-left: 1px solid #e5e2e2;
 }
-.sidebar{
-	order: 1;
-	flex: 1;
-	background-color: #fff;
+.sidebar {
+  order: 1;
+  flex: 1;
+  background-color: #fff;
   flex-basis: auto;
   padding: 30px;
   min-height: 666px;
@@ -121,14 +121,14 @@ a:hover {
 
 .status-container::before {
   display: inline-block;
-    content: " ";
-    margin: 0 10px 0 0;
-    width: 6px;
-    height: 6px;
-    background: #FDC809;
-    position: absolute;
-    left: -16px;
-    top: 17px;
+  content: ' ';
+  margin: 0 10px 0 0;
+  width: 6px;
+  height: 6px;
+  background: #fdc809;
+  position: absolute;
+  left: -16px;
+  top: 17px;
 }
 .status-date {
   font-size: 12px;
@@ -138,7 +138,7 @@ a:hover {
 .status-update {
   font-size: 12px;
   font-weight: normal;
-  color: #4F4F4F;
+  color: #4f4f4f;
 }
 .status-update span {
   font-size: 12px;
@@ -151,19 +151,19 @@ a:hover {
 }
 .incidents-block::before {
   display: inline-block;
-    content: " ";
-    margin: 0 10px 0 0;
-    width: 6px;
-    height: 6px;
-    background: #FDC809;
-    position: absolute;
-    left: -16px;
-    top: 5px;
+  content: ' ';
+  margin: 0 10px 0 0;
+  width: 6px;
+  height: 6px;
+  background: #fdc809;
+  position: absolute;
+  left: -16px;
+  top: 5px;
 }
 .incidents-block .status-date {
   padding: 0 0 5px;
   margin: 0 0 10px;
-  border-bottom: 1px solid #E5E2E2;
+  border-bottom: 1px solid #e5e2e2;
 }
 .status-update-list {
   margin: 0 0 0 15px;
@@ -173,46 +173,45 @@ a:hover {
   padding: 3px 0;
   font-size: 12px;
   font-weight: normal;
-  color: #4F4F4F;
+  color: #4f4f4f;
 }
 
 .component-success .component-inner-container::before {
-  background: #2ECC71;
+  background: #2ecc71;
 }
 .component-success .component-status,
 .status-success .state {
-  color: #2ECC71;
+  color: #2ecc71;
 }
 .component-down .component-inner-container::before {
-  background: #FF3D00;
+  background: #ff3d00;
 }
 .component-down .component-status,
 .status-down .state {
-  color: #FF3D00;
+  color: #ff3d00;
 }
 .component-pending .component-inner-container::before {
-  background: #FEC808;
+  background: #fec808;
 }
 .component-pending .component-status,
 .status-pending .state {
-  color: #FEC808;
+  color: #fec808;
 }
 /* mobile layout */
-@media (max-width: 480px){
-	.container{
-		display: -webkit-box;
-		display: -moz-box;
-		display: -ms-flexbox;
-		display: -webkit-flex;
-		display: flex;
+@media (max-width: 480px) {
+  .container {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
 
-		width: 100%;
+    width: 100%;
 
-		-webkit-box-orient: vertical;
-		-moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
     -ms-flex-orient: vertical;
     -webkit-orient: vertical;
     orient: vertical;
-	}
-
+  }
 }

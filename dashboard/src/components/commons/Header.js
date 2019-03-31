@@ -2,20 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Header = ({ appStyle, projectStyle, appLogo, projectLogo }) => (
-  <header className="Header">
+  <header className="header">
     <div className="container-fluid">
-      <div className="d-flex align-items-center justify-content-between Header__row">
-        <div className="Header__row__left-part d-flex align-items-center">
-          <div className="Header__row__logo">
-            <a href="">
+      <div className="d-flex align-items-center justify-content-between header__row">
+        <div className="header__row__left-part d-flex align-items-center">
+          <div className="header__row__logo">
+            <div>
               <img style={appStyle} src={appLogo.url} alt="Application Logo" />
-            </a>
+            </div>
           </div>
         </div>
-        <div className="Header__row__right-part d-flex align-items-center">
-          <a href="">
-          <img style={projectStyle} src={projectLogo.url} alt="Project Logo" />
-          </a>
+        <div className="header__row__right-part d-flex align-items-center">
+          <div>
+            <img style={projectStyle} src={projectLogo.url} alt="Project Logo" />
+          </div>
         </div>
       </div>
     </div>
