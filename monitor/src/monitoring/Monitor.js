@@ -1,7 +1,7 @@
 import moment from 'moment';
 import logger from '../utils/logger';
 import * as events from '../services/events';
-import * as tokenService from '../services/token'
+import * as tokenService from '../services/token';
 import * as statusService from '../services/status';
 import * as serviceService from '../services/service';
 import * as persistence from '../services/persistence';
