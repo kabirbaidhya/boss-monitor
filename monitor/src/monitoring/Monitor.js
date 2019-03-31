@@ -1,12 +1,12 @@
 import moment from 'moment';
 import logger from '../utils/logger';
 import * as events from '../services/events';
+import * as tokenService from '../services/token'
 import * as statusService from '../services/status';
 import * as serviceService from '../services/service';
 import * as persistence from '../services/persistence';
 import * as statusLogService from '../services/statusLog';
 
-import * as base64 from '../utils/base64';
 
 /**
  * The Monitor.
@@ -22,27 +22,14 @@ class Monitor {
     this.lastStatusChanged = null;
   }
 
-  /**
-   * Calculates token for basic authenticaiton from username and password.
-   *
-   * @returns {String} 
-   */
-  getToken() {
-    const { auth } = this.config;
-    const requiresAuthentication = auth && auth.userName && auth.password;
-
-    if (requiresAuthentication) {
-      const { userName, password } = auth;
-
-      return base64.encode(`${userName}:${password}`);
-    }
-  }
 
   /**
    * Start the monitor.
    */
   start() {
-    this.token = this.getToken();
+    const { auth } = this.config;
+
+    this.token = tokenService.getToken(auth);
 
     // TODO: We need to spawn each monitor into a separate thread,
     // such that each thread will monitor a service.
