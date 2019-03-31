@@ -2,9 +2,11 @@ import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 
+import FormattedDate from '../../../utils/formattedDate';
+
 const EventRow = ({ data }) => {
   return (
-    <div className="status-date"> {moment(new Date(data)).format("MMMM DD, YYYY, dddd")}</div>
+    <div className="status-date"> {FormattedDate(data, "date")}</div>
   );
 };
 

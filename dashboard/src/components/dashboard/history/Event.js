@@ -3,6 +3,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 
 import * as statuses from '../../../constants/statuses';
+import FormattedDate from '../../../utils/formattedDate';
 
 const eventStatusParam = {
   up: statuses.HISTORY_STATUS_UP_CLASS,
@@ -22,7 +23,7 @@ const Event = ({ data }) => {
     <ul className="status-update-list">
       <li className={`status-update ${eventStatus}`}>
         {serviceData.name} - <span className="state">{statusData.name} state</span> on
-        <span className="time"> {moment(createdAt).format('hh:mm A')}</span>
+        <span className="time"> {FormattedDate(createdAt, "time")}</span>
       </li>
     </ul>
   );
