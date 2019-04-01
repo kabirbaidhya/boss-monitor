@@ -79,7 +79,7 @@ export function getOutageLevel(services) {
  * Get required parameters to render services.
  *
  * @param {Boolean} isOperational
- * @returns {Object} {message, serviceClassName}
+ * @returns {Object}
  */
 export function getServiceParams(isOperational) {
   if (!isOperational) {
@@ -99,7 +99,7 @@ export function getServiceParams(isOperational) {
  * Get required parameters to render the status panel.
  *
  * @param {Array} services
- * @returns {Object} {message, className}
+ * @returns {Object}
  */
 export function getOutageParams(services) {
   let outageLevel = getOutageLevel(services);
