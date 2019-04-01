@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import * as statuses from '../../../constants/statuses';
-import formattedDate from '../../../utils/getFormattedDate';
+import {getFormattedDate} from '../../../utils/getFormattedDate';
 
 const eventStatusParam = {
   up: statuses.HISTORY_STATUS_UP_CLASS,
@@ -16,13 +16,16 @@ const Event = ({ data }) => {
   const serviceData = JSON.parse(service);
   const statusData = JSON.parse(status);
 
+  const time = new Date(createdAt);
+  const formattedTime = getFormattedDate(time, 'time');
+
   const eventStatus = eventStatusParam[statusData.name.toLowerCase()];
 
   return (
     <ul className="status-update-list">
       <li className={`status-update ${eventStatus}`}>
         {serviceData.name} - <span className="state">{statusData.name} state</span> on
-        <span className="time"> {formattedDate(createdAt, "time")}</span>
+        <span className="time"> {formattedTime}</span>
       </li>
     </ul>
   );

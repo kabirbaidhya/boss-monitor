@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import formattedDate from '../../../utils/getFormattedDate';
+import {getFormattedDate} from '../../../utils/getFormattedDate';
 
 const EventRow = ({ data }) => {
+
+  const date = new Date(data);
+  const formattedDate = getFormattedDate(date, 'date');
+
   return (
-    <div className="status-date"> {formattedDate(data, "date")}</div>
+    <div className="status-date">{formattedDate}</div>
   );
 };
 
