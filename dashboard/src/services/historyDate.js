@@ -6,7 +6,6 @@
  */
 export function uniqueDate(history) {
   const allDate = history
-    .map((date) => date)
     .reduce((acc, curr) => {
       const date = new Date(curr.createdAt).toDateString();
 
