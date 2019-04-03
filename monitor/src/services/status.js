@@ -67,7 +67,7 @@ export function getCheckInterval(status, min, max) {
 
 /**
  * Check if the system is under maintenance.
- * Return true if value of statusCode is 503 or retryAfter is greater than 0 else return false.
+ * Return true if value of statusCode is 503 and retryAfter is greater than 0 else return false.
  *
  * @param {Number} statusCode
  * @param {Number} retryAfter
