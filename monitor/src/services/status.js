@@ -29,7 +29,7 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
 
     return STATUS_UP;
   } catch (err) {
-    const statusCode = err.response.statusCode;
+    const { statusCode } = err.response;
 
     // If the original HTTP method was not allowed (405 Method Not Allowed)
     // try sending another request with a fallback method.
