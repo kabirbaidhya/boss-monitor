@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import * as historyService from '../../../services/status';
+import * as statusService from '../../../services/status';
 
 import Panel from '../../commons/Panel';
 import HistoryList from './HistoryList';
@@ -28,7 +28,7 @@ class HistoryPanel extends Component {
   async fetchHistories() {
     try {
       this.setState({ isLoading: true });
-      let histories = await historyService.fetchServiceHistories();
+      const histories = await statusService.fetchServiceHistories();
 
       this.setState({ isLoading: false, histories });
     } catch (err) {
@@ -38,7 +38,7 @@ class HistoryPanel extends Component {
   }
 
   render() {
-      let { isLoading, histories } = this.state;
+      const { isLoading, histories } = this.state;
 
       if(isLoading) {
         return (
