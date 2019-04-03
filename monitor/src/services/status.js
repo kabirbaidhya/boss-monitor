@@ -74,7 +74,7 @@ export function getCheckInterval(status, min, max) {
  * @returns {Boolean}
  */
 function checkUnderMaintenance(statusCode, retryAfter) {
-  return statusCode === 503 || retryAfter > 0;
+  return statusCode === 503 && retryAfter > 0;
 }
 
 /**
