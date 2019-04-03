@@ -1,4 +1,4 @@
-import { UNKNOWN, UP, DOWN } from '../models/Status';
+import { UNKNOWN, UP, DOWN, UNDER_MAINTENANCE } from '../models/Status';
 
 /**
  * Insert initial data for statuses table.
@@ -8,8 +8,9 @@ import { UNKNOWN, UP, DOWN } from '../models/Status';
  */
 export function seed(knex) {
   return knex('statuses').insert([
-    { id: UNKNOWN, name: 'Unknown', description: 'Status of the service is Unknown.' },
-    { id: UP, name: 'Up', description: 'Status of the service is Up.' },
-    { id: DOWN, name: 'Down', description: 'Status of the service is Down.' }
+    { id: UNKNOWN, name: 'Unknown', description: 'Status of the service is unknown.' },
+    { id: UP, name: 'Up', description: 'Status of the service is up.' },
+    { id: DOWN, name: 'Down', description: 'Status of the service is down.' },
+    { id: UNDER_MAINTENANCE, name: 'Under Maintenance', description: 'Status of the service is under maintenance.' }
   ]);
 }
