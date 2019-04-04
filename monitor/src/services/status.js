@@ -4,9 +4,11 @@ import HttpStatus from 'http-status-codes';
 import logger from '../utils/logger';
 import * as http from '../utils/http';
 import Status from '../models/Status';
+import * as tokenService from '../services/token';
 
 export const STATUS_UP = 'Up';
 export const STATUS_DOWN = 'Down';
+export const AUTH_TYPE_BASIC = 'Basic';
 export const STATUS_UNDER_MAINTENANCE = 'Under Maintenance';
 export const FALLBACK_HTTP_METHOD = http.HEAD;
 
@@ -18,12 +20,14 @@ export const FALLBACK_HTTP_METHOD = http.HEAD;
  * @returns {Promise}
  */
 export async function checkHostStatus(service, method = http.OPTIONS) {
-  const { url, name } = service;
+  const { url, name, auth } = service;
+  const token = tokenService.getToken(auth);
 
   logger().debug(`Checking the status for ${name} <${url}>`);
 
   try {
-    const { statusCode, body } = await http.sendRequest(method, url);
+    const authHeader = createAuthHeader(token);
+    const { statusCode, body } = await http.sendRequest(method, url, authHeader);
 
     logger().debug(`Received response for ${name}: `, { statusCode, body });
 
@@ -66,7 +70,21 @@ export function getCheckInterval(status, min, max) {
 }
 
 /**
- * Check if the system is under maintenance.
+ * Returns header object with authorization token.
+ * 
+ * @param {String} token
+ * @returns {String} 
+ */
+function createAuthHeader(token) {
+  return {
+    headers: {
+      Authorization: token ? `${AUTH_TYPE_BASIC} ${token}` : null
+    }
+  };
+}
+
+/**  
+* Check if the system is under maintenance.
  * Return true if value of statusCode is 503 and retryAfter is greater than 0 else return false.
  *
  * @param {Number} statusCode
