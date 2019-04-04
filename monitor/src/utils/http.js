@@ -12,7 +12,7 @@ export const OPTIONS = 'OPTIONS';
  * @param {Object} params
  * @returns {Promise}
  */
-export function sendRequest(method, url, params) {
+export function sendRequest(method, url, params = {}) {
   logger().debug(`Sending HTTP ${method} request to ${url}.`);
 
   return rp({

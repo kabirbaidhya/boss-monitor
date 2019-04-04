@@ -9,6 +9,7 @@ import * as tokenService from '../services/token';
 export const STATUS_UP = 'Up';
 export const STATUS_DOWN = 'Down';
 export const AUTH_TYPE_BASIC = 'Basic';
+export const STATUS_UNDER_MAINTENANCE = 'Under Maintenance';
 export const FALLBACK_HTTP_METHOD = http.HEAD;
 
 /**
@@ -32,18 +33,24 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
 
     return STATUS_UP;
   } catch (err) {
+    const { statusCode } = err.response;
+
     // If the original HTTP method was not allowed (405 Method Not Allowed)
     // try sending another request with a fallback method.
     // TODO: Make fallback http method configurable using chill.yml
-    if (shouldRetry(err, method)) {
+    if (shouldRetry(statusCode, method)) {
       logger().debug(
-        `Got ${err.response.statusCode} error for ${method} request on service ${name}. ` +
-        `Now trying with the fallback method ${FALLBACK_HTTP_METHOD}`
+        `Got ${statusCode} error for ${method} request on service ${name}. Now trying with the fallback method ${FALLBACK_HTTP_METHOD}`
       );
 
       return checkHostStatus(service, FALLBACK_HTTP_METHOD);
-    }
+    } else if (checkUnderMaintenance(statusCode, parseInt(err.response.headers['retry-after']))) {
+      logger().debug(
+        `Received ${statusCode} on service ${name}. Service ${name} is under maintenance.`
+      );
 
+      return STATUS_UNDER_MAINTENANCE;
+    }
     logger().debug(`Received error response for ${name}: `, err);
 
     return STATUS_DOWN;
@@ -76,18 +83,29 @@ function createAuthHeader(token) {
   };
 }
 
+/**  
+* Check if the system is under maintenance.
+ * Return true if value of statusCode is 503 and retryAfter is greater than 0 else return false.
+ *
+ * @param {Number} statusCode
+ * @param {Number} retryAfter
+ * @returns {Boolean}
+ */
+function checkUnderMaintenance(statusCode, retryAfter) {
+  return statusCode === 503 && retryAfter > 0;
+}
+
 /**
  * Check if it should retry sending HTTP request.
  *
- * @param   {Error} err
- * @param   {string} method
+ * @param   {Number} statusCode
+ * @param   {String} method
  * @returns {Boolean}
  */
-function shouldRetry(err, method) {
+function shouldRetry(statusCode, method) {
   return (
-    err.response &&
-    (err.response.statusCode === HttpStatus.METHOD_NOT_ALLOWED ||
-      err.response.statusCode === HttpStatus.NOT_IMPLEMENTED) &&
+    (statusCode === HttpStatus.METHOD_NOT_ALLOWED ||
+      statusCode === HttpStatus.NOT_IMPLEMENTED) &&
     method !== FALLBACK_HTTP_METHOD
   );
 }

@@ -1,12 +1,14 @@
 import swaggerSpec from '../utils/swagger';
 
 /**
- * GET /api/swagger.json
+ * Get swagger JSON.
+ *
+ * @param {Object} req
+ * @param {Object} res
  */
 export function getSwaggerSpec(req, res) {
   res.json(swaggerSpec);
 }
-
 
 /**
  * @swagger
@@ -40,6 +42,12 @@ export function getSwaggerSpec(req, res) {
  *           $ref: '#/definitions/App'
  */
 
+/**
+ * Get API information.
+ *
+ * @param {Object} req
+ * @param {Object} res
+ */
 export function getAppInfo(req, res) {
   res.json({
     app: req.app.locals.title,
