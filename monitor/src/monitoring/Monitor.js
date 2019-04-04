@@ -6,7 +6,6 @@ import * as serviceService from '../services/service';
 import * as persistence from '../services/persistence';
 import * as statusLogService from '../services/statusLog';
 
-
 /**
  * The Monitor.
  */
@@ -20,7 +19,6 @@ class Monitor {
     this.config = serviceConfig;
     this.lastStatusChanged = null;
   }
-
 
   /**
    * Start the monitor.
