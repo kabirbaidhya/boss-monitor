@@ -1,7 +1,6 @@
 import moment from 'moment';
 import logger from '../utils/logger';
 import * as events from '../services/events';
-import * as tokenService from '../services/token';
 import * as statusService from '../services/status';
 import * as serviceService from '../services/service';
 import * as persistence from '../services/persistence';
@@ -27,10 +26,6 @@ class Monitor {
    * Start the monitor.
    */
   start() {
-    const { auth } = this.config;
-
-    this.token = tokenService.getToken(auth);
-
     // TODO: We need to spawn each monitor into a separate thread,
     // such that each thread will monitor a service.
     events.trigger(
@@ -70,11 +65,10 @@ class Monitor {
    * Start monitoring services.
    */
   async startMonitoring() {
-    const { url, name, maxRetry, minInterval, maxInterval } = this.config;
-    const token = this.token;
+    const { url, name, maxRetry, minInterval, maxInterval, auth } = this.config;
 
     const status = await statusService.checkHostStatus({
-      url, name, token
+      url, name, auth
     });
     const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
 

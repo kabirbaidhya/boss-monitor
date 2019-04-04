@@ -2,7 +2,7 @@
 import * as base64 from '../utils/base64';
 
 /**
- * Calculates token for basic authenticaiton from username and password.
+ * Calculates token for basic authentication from username and password.
  *
  * @param {Object} auth
  * @returns {String} 
