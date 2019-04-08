@@ -3,6 +3,8 @@ import pkg from '../package';
 
 /**
  * Initialize the monitor and start monitoring configured services.
+ *
+ * @param {function} callback
  */
 export default async function init(callback) {
   process.stdout.write(`Starting ${pkg.name} ${pkg.version}\n`);

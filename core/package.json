@@ -1,6 +1,6 @@
 {
   "name": "chill-core",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "description": "Chill core utilities and common dependencies.",
   "main": "dist/index.js",
   "authors": [

@@ -42,6 +42,12 @@ notifications:
 services:
   - name: 'Localhost'
     url: 'http://127.0.0.1'
+    
+  - name: 'chill'
+    url: 'http://test.com/'
+    auth:  
+      userName: chill
+      password: justchill
 
 dashboard:
   baseUrl: '/'

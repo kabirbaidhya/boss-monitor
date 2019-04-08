@@ -1,4 +1,5 @@
 import '@babel/polyfill';
+
 import { resolveConfig } from '../init';
 
 (async () => {

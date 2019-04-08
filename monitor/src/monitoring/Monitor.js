@@ -27,8 +27,7 @@ class Monitor {
     // TODO: We need to spawn each monitor into a separate thread,
     // such that each thread will monitor a service.
     events.trigger(
-      events.EVENT_MONITORING_STARTED,
-      { serviceName: this.config.name }
+      events.EVENT_MONITORING_STARTED, { serviceName: this.config.name }
     );
     this.fetchLastStatus().then(() => this.startMonitoring());
   }
@@ -64,8 +63,11 @@ class Monitor {
    * Start monitoring services.
    */
   async startMonitoring() {
-    const { url, name, maxRetry, minInterval, maxInterval } = this.config;
-    const status = await statusService.checkHostStatus({ url, name });
+    const { url, name, maxRetry, minInterval, maxInterval, auth } = this.config;
+
+    const status = await statusService.checkHostStatus({
+      url, name, auth
+    });
     const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
 
     const serviceObj = await serviceService.fetchByUrl(url);
@@ -73,8 +75,11 @@ class Monitor {
 
     logger().debug(`Status of service '${name}' now is '${status}'`);
 
-    if (!this.shouldRetry(name, status, maxRetry) &&
-        this.isStatusDifferent(status)) {
+    if (
+      !this.shouldRetry(name, status, maxRetry) &&
+      this.isStatusDifferent(status)
+    ) {
+
       this.handleStatusChange(status, serviceId);
 
       const statusObj = await statusService.fetchByName(status);
@@ -100,7 +105,7 @@ class Monitor {
    * @param {string} status
    */
   isStatusDifferent(status) {
-    return (this.status !== status);
+    return this.status !== status;
   }
 
   /**
@@ -112,7 +117,6 @@ class Monitor {
    */
   shouldRetry(name, status, maxRetry) {
     if (status === statusService.STATUS_DOWN && this.retried <= maxRetry) {
-
       logger().info(`Retrying '${name}' service: ${this.retried} time/s.`);
 
       return true;
@@ -136,7 +140,7 @@ class Monitor {
       service: JSON.stringify({
         id: serviceId,
         url: this.config.url,
-        name: this.config.name,
+        name: this.config.name
       }),
       id: serviceId,
       time: currentTime.clone(),
