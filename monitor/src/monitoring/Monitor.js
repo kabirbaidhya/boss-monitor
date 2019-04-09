@@ -2,10 +2,10 @@ import moment from 'moment';
 import logger from '../utils/logger';
 import { isSame } from '../utils/common';
 import * as events from '../services/events';
+import * as sslService from '../services/ssl';
 import * as statusService from '../services/status';
 import * as serviceService from '../services/service';
 import * as persistence from '../services/persistence';
-import * as sslStatusService from '../services/sslStatus';
 import * as statusLogService from '../services/statusLog';
 
 /**
@@ -69,7 +69,7 @@ class Monitor {
     const status = await statusService.checkHostStatus({
       url, name, auth
     });
-    const sslStatus = await sslStatusService.checkSSLStatus({ url, name });
+    const sslStatus = await sslService.checkSSLStatus({ url, name });
 
     logger().debug(`Status of service '${name}' now is '${status}'`);
 
