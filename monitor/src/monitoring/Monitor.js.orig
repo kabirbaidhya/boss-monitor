@@ -65,11 +65,19 @@ class Monitor {
    * Start monitoring services.
    */
   async startMonitoring() {
+<<<<<<< HEAD
+    const { url, name, maxRetry, minInterval, maxInterval } = this.config;
+
+    const status = await statusService.checkHostStatus({ url, name });
+    const sslStatus = await sslStatusService.checkSSLStatus({ url, name });
+=======
     const { url, name, maxRetry, minInterval, maxInterval, auth } = this.config;
+
     const status = await statusService.checkHostStatus({
       url, name, auth
     });
-    const sslStatus = await sslStatusService.checkSSLStatus({ url, name });
+    const interval = statusService.getCheckInterval(status, minInterval, maxInterval);
+>>>>>>> 30183303e3efefe29213a09665921caf9de64161
 
     logger().debug(`Status of service '${name}' now is '${status}'`);
 
@@ -81,11 +89,22 @@ class Monitor {
       status: { name: status }
     };
 
+<<<<<<< HEAD
     if (
       !this.shouldRetry(name, status, maxRetry) &&
       this.isStatusDifferent(statusPayload)
     ) {
       this.handleStatusChange(statusPayload, serviceId);
+=======
+    logger().debug(`Status of service '${name}' now is '${status}'`);
+
+    if (
+      !this.shouldRetry(name, status, maxRetry) &&
+      this.isStatusDifferent(status)
+    ) {
+
+      this.handleStatusChange(status, serviceId);
+>>>>>>> 30183303e3efefe29213a09665921caf9de64161
 
       const statusObj = await statusService.fetchByName(status);
       const statusId = statusObj.attributes.id;
@@ -111,7 +130,11 @@ class Monitor {
    * @param {string} status
    */
   isStatusDifferent(status) {
+<<<<<<< HEAD
     return !isSame(this.status, status);
+=======
+    return this.status !== status;
+>>>>>>> 30183303e3efefe29213a09665921caf9de64161
   }
 
   /**

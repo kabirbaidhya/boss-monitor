@@ -1,4 +1,3 @@
-
 /**
  * Justify (center) the text in the provided `width` by adding
  * padding on the left and right of the text using the `fillchar`.
@@ -28,3 +27,4 @@ export function center(text, width, fillchar = ' ') {
 
   return result;
 }
+
