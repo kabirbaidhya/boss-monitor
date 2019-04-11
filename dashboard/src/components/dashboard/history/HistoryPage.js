@@ -1,6 +1,6 @@
 import React from 'react';
 
-import HistoryPanel from './HistoryPanel';
+import HistoryPanel from './Panel';
 
 const HistoryPage = () => (
   <div className="page-wrapper wrapper">

@@ -6,7 +6,7 @@ import Panel from '../../commons/Panel';
 import HistoryList from './HistoryList';
 import Spinner from '../../commons/Spinner';
 
-class HistoryPanel extends Component {
+class Panel extends Component {
   constructor(props) {
     super(props);
 
@@ -54,4 +54,4 @@ class HistoryPanel extends Component {
   }
 }
 
-export default HistoryPanel;
+export default Panel;
