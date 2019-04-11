@@ -6,7 +6,7 @@ import HistoryRow from './HistoryRow';
 const HistoryList = ({ events }) => (
   <ul className="list-group">
     {
-      events.map(history => <HistoryRow data={history} key={history.id} />)
+      events.length && events.map(history => <HistoryRow data={history} key={history.id} />)
     }
   </ul>
 );

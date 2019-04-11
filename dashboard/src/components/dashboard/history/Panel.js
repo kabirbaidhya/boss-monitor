@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Panel from '../../commons/Panel';
 import History from './HistoryList';
+import CommonPanel from '../../commons/Panel';
 import Spinner from '../../commons/Spinner';
 
 import * as statusService from '../../../services/status';
@@ -46,9 +46,9 @@ class Panel extends Component {
       }
 
       return (
-        <Panel title='History Logs' className='status-up'>
+        <CommonPanel title='History Logs' className='status-up'>
           <History events={history} />
-        </Panel>
+        </CommonPanel>
       );
   }
 }
