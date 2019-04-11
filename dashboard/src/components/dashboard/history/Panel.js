@@ -1,44 +1,43 @@
 import React, { Component } from 'react';
 
-import * as statusService from '../../../services/status';
-
 import Panel from '../../commons/Panel';
-import HistoryList from './HistoryList';
+import History from './HistoryList';
 import Spinner from '../../commons/Spinner';
+
+import * as statusService from '../../../services/status';
 
 class Panel extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-        histories: [],
+        history: [],
         isLoading: false,
     }
   }
 
   componentDidMount() {
-    this.fetchHistories();
+    this.fetchHistory();
   }
 
   /**
-   * Fetch list of histories.
+   * Fetch list of history.
    *
    * @returns {Promise}
    */
-  async fetchHistories() {
+  async fetchHistory() {
     try {
       this.setState({ isLoading: true });
-      const histories = await statusService.fetchServiceHistories();
+      const history = await statusService.fetchServiceHistory();
 
-      this.setState({ isLoading: false, histories });
+      this.setState({ isLoading: false, history });
     } catch (err) {
       this.setState({ isLoading: false });
-      // TODO: Show error messages
     }
   }
 
   render() {
-      const { isLoading, histories } = this.state;
+      const { isLoading, history } = this.state;
 
       if(isLoading) {
         return (
@@ -48,7 +47,7 @@ class Panel extends Component {
 
       return (
         <Panel title='History Logs' className='status-up'>
-          <HistoryList histories={histories} />
+          <History events={history} />
         </Panel>
       );
   }

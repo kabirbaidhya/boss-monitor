@@ -20,11 +20,11 @@ export async function fetchServiceStatuses() {
 }
 
 /**
- * Get the latest histories.
+ * Get the latest history.
  *
  * @returns {Object}
  */
-export async function fetchServiceHistories() {
+export async function fetchServiceHistory() {
   const { endpoints } = config.api;
   const { data } = await http.get(endpoints.history);
 

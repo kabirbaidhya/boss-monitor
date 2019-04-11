@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 
 import HistoryRow from './HistoryRow';
 
-const HistoryList = ({ histories }) => (
+const HistoryList = ({ events }) => (
   <ul className="list-group">
     {
-      histories.map(history => <HistoryRow data={history} key={history.id} />)
+      events.map(history => <HistoryRow data={history} key={history.id} />)
     }
   </ul>
 );
 
 HistoryList.propTypes = {
-  histories: PropTypes.array
+  events: PropTypes.array
 };
 
 export default HistoryList;
