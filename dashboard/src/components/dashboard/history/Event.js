@@ -21,7 +21,7 @@ const eventStatusParam = {
 const Event = ({ data }) => {
   const { id, createdAt, service, status } = data;
 
-  const serviceData = JSON.parse(service);;
+  const serviceData = JSON.parse(service);
   const statusData = JSON.parse(status);
 
   const time = new Date(createdAt);
