@@ -13,8 +13,10 @@ const Header = ({ appLogo, projectLogo }) => (
           </div>
         </div>
         <div className="header__row__right-part d-flex align-items-center">
-          <div>
-            <img style={{ height: projectLogo.height }} src={projectLogo.url} alt="Project Logo" />
+          <div className="header__row__logo">
+            <div>
+              <img style={{ height: projectLogo.height }} src={projectLogo.url} alt="Project Logo" />
+            </div>
           </div>
         </div>
       </div>
