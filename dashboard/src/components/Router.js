@@ -13,10 +13,7 @@ const { logo, projectLogo, baseUrl } = config.app;
 const Router = () => (
   <BrowserRouter basename={baseUrl}>
     <div>
-      <Header
-        appLogo={logo}
-        projectLogo={projectLogo}
-      />
+      <Header appLogo={logo} projectLogo={projectLogo} />
       <Switch>
         <Route exact path={routes.HOME} component={Home} />
       </Switch>

@@ -5,22 +5,21 @@
  * @returns {Object}
  */
 export function uniqueDate(history) {
-  const allDate = history
-    .reduce((acc, curr) => {
-      const date = new Date(curr.createdAt).toDateString();
+  const allDate = history.reduce((acc, curr) => {
+    const date = new Date(curr.createdAt).toDateString();
 
-      if (acc[date]) {
-        return {
-          ...acc,
-          [date]: acc[date].concat(curr)
-        }
-      }
-
+    if (acc[date]) {
       return {
         ...acc,
-        [date]: [curr]
-      }
-    }, {});
+        [date]: acc[date].concat(curr)
+      };
+    }
 
-    return allDate;
+    return {
+      ...acc,
+      [date]: [curr]
+    };
+  }, {});
+
+  return allDate;
 }

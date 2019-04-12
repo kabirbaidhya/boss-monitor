@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 import { isUp, getServiceParams } from '../../services/status';
 
+/**
+ * Renders by getting all the services data.
+ * @param {Object} data
+ */
 const ServiceRow = ({ data }) => {
   const { service, status } = data;
 

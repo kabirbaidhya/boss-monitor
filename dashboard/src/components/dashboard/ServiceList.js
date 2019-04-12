@@ -10,9 +10,9 @@ import ServiceRow from './ServiceRow';
  */
 const ServiceList = ({ services }) => (
   <div className="components-section">
-    {
-      services.map(service => <ServiceRow data={service} key={service.id} />)
-    }
+    {services.map(service => (
+      <ServiceRow data={service} key={service.id} />
+    ))}
   </div>
 );
 

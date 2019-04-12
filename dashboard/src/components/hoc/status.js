@@ -19,7 +19,7 @@ export const withStatusInfo = WrappedComponent => {
 
     setStatus = status => {
       this.setState({ status });
-    }
+    };
 
     /**
      * Update the current status of services.
@@ -28,7 +28,7 @@ export const withStatusInfo = WrappedComponent => {
       let updatedStatus = Object.assign({}, this.state.status, newStatus);
 
       this.setStatus(updatedStatus);
-    }
+    };
 
     handleWebSocketNotification = (e, data) => {
       let { status } = this.state;
@@ -38,7 +38,7 @@ export const withStatusInfo = WrappedComponent => {
       let services = update(index, Object.assign({}, status.services[index], data), status.services);
 
       this.setStatus(Object.assign({}, status, { services }));
-    }
+    };
 
     render() {
       let { status } = this.state;
