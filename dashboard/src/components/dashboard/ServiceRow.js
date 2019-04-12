@@ -6,8 +6,17 @@ import { isUp, getServiceParams } from '../../services/status';
 const ServiceRow = ({ data }) => {
   const { service, status } = data;
 
-  const serviceData = JSON.parse(service);
-  const statusData = JSON.parse(status);
+  try {
+    const serviceData = JSON.parse(service);
+  } catch (err) {
+    console.log(err.name);
+  }
+
+  try {
+    const statusData = JSON.parse(status);
+  } catch (error) {
+    console.log(error.name);
+  }
 
   const { message, serviceClassName } = getServiceParams(isUp(statusData));
   return (
