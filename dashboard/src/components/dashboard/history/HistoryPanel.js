@@ -5,6 +5,9 @@ import * as statusService from '../../../services/status';
 import History from './HistoryList';
 import Spinner from '../../commons/Spinner';
 
+/**
+ * Fetch list of history from the API and provides to HistoryList component.
+ */
 class HistoryPanel extends Component {
   constructor(props) {
     super(props);

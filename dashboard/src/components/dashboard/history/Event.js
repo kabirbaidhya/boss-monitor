@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import * as statuses from '../../../constants/statuses';
 import {getFormattedDate} from '../../../utils/getFormattedDate';
 
+/**
+ * Renders by getting all the information of events from HistoryList according to the date.
+ */
 const eventStatusParam = {
   up: statuses.HISTORY_STATUS_UP_CLASS,
   pending: statuses.HISTORY_STATUS_PENDING_CLASS,

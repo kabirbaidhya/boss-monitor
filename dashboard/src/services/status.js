@@ -19,7 +19,7 @@ export async function fetchServiceStatuses() {
 }
 
 /**
- * Get the latest histories.
+ * Get the latest history.
  *
  * @returns {Object}
  */
