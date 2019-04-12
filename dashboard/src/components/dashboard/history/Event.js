@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import * as statuses from '../../../constants/statuses';
-import {getFormattedDate} from '../../../utils/getFormattedDate';
+import { getFormattedDate } from '../../../utils/getFormattedDate';
 
 /**
- * Renders by getting all the information of events from HistoryList according to the date.
+ * Array for predefined state of services status.
  */
 const eventStatusParam = {
   up: statuses.HISTORY_STATUS_UP_CLASS,
@@ -13,6 +13,11 @@ const eventStatusParam = {
   down: statuses.HISTORY_STATUS_DOWN_CLASS
 };
 
+/**
+ * Renders by getting all the information of events
+ * from HistoryList according to the date.
+ * @param {Object} data
+ */
 const Event = ({ data }) => {
   const { id, createdAt, service, status } = data;
 

@@ -6,16 +6,17 @@ import History from './HistoryList';
 import Spinner from '../../commons/Spinner';
 
 /**
- * Fetch list of history from the API and provides to HistoryList component.
+ * Fetch list of history from the API and
+ * provides to HistoryList component.
  */
 class HistoryPanel extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-        history: [],
-        isLoading: false,
-    }
+      history: [],
+      isLoading: false
+    };
   }
 
   componentDidMount() {
@@ -39,17 +40,13 @@ class HistoryPanel extends Component {
   }
 
   render() {
-      const { isLoading, history } = this.state;
+    const { isLoading, history } = this.state;
 
-      if(isLoading) {
-        return (
-          <Spinner />
-        );
-      }
+    if (isLoading) {
+      return <Spinner />;
+    }
 
-      return (
-        <History events={history}/>
-      );
+    return <History events={history} />;
   }
 }
 

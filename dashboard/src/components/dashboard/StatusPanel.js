@@ -10,6 +10,10 @@ import Panel from '../commons/Panel';
 import ServiceList from './ServiceList';
 import Spinner from '../commons/Spinner';
 
+/**
+ * Fetch list of services from the API and provides
+ * to ServiceList component.
+ */
 class StatusPanel extends Component {
   componentDidMount() {
     const { handleWebSocketNotification } = this.props;
@@ -43,9 +47,7 @@ class StatusPanel extends Component {
     let { className, message } = statusService.getOutageParams(statuses);
 
     if (isLoading) {
-      return (
-        <Spinner />
-      );
+      return <Spinner />;
     }
 
     return (

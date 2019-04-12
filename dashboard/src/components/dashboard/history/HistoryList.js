@@ -7,7 +7,10 @@ import EventRow from './EventRow';
 import { uniqueDate } from '../../../services/historyDate';
 
 /**
- *  Get list of events and passes each event information to HistoryRow
+ * Get list of events,
+ * passes each event unique date to EventRow
+ * and event details to Event
+ * @param {Array} events
  */
 const HistoryList = ({ events }) => {
   const historyDate = uniqueDate(events);
