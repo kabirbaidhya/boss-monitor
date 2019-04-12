@@ -3,12 +3,12 @@ export default {
     baseUrl: __INJECTED_CONFIG.dashboard.baseUrl || '/',
     title: __INJECTED_CONFIG.dashboard.title || 'Chill Dashboard',
     logo: {
-      url: __INJECTED_CONFIG.dashboard.appLogo || require('../public/images/chill.png'),
-      height: __INJECTED_CONFIG.dashboard.logoHeight || '80px'
+      url: __INJECTED_CONFIG.dashboard.logo.url || require('../public/images/chill.png'),
+      height: __INJECTED_CONFIG.dashboard.logo.height || '80px'
     },
     projectLogo: {
-      url: __INJECTED_CONFIG.dashboard.projectLogo || require('../public/images/chill.png'),
-      height: __INJECTED_CONFIG.dashboard.logoHeight || '80px'
+      url: __INJECTED_CONFIG.dashboard.projectLogo.url || require('../public/images/chill.png'),
+      height: __INJECTED_CONFIG.dashboard.projectLogo.height || '80px'
     }
   },
   api: {
