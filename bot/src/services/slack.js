@@ -2,7 +2,7 @@ import rp from 'request-promise';
 
 import messages from '../common/messages';
 import * as config from '../config/config';
-import * as statusLogService from './statusLog';
+import axios from 'axios';
 
 /**
  * Send response back to slack slash-command.
@@ -10,7 +10,8 @@ import * as statusLogService from './statusLog';
  * @param {object} requestBody
  */
 export async function notify(requestBody) {
-  const fetchedStatus = await fetchStatus(requestBody);
+  const channelInfo = config.get().channels.filter(channel => channel.channel_id === requestBody.channel_id);
+  const fetchedStatus = await fetchStatus(channelInfo);
 
   fetchedStatus.forEach(async status => {
     const payload = await preparePayload(status);
@@ -25,10 +26,10 @@ export async function notify(requestBody) {
  * @param {object} requestBody
  * @returns {array}
  */
-async function fetchStatus(requestBody) {
-  const fetchedStatus = await statusLogService.fetchLatestStatuses();
+async function fetchStatus(channelInfo) {
+  const fetchedStatus = await axios.get(channelInfo[0].api_endpoint);
 
-  const filteredStatus = filterStatus(requestBody, fetchedStatus);
+  const filteredStatus = filterStatus(fetchedStatus, channelInfo);
 
   return filteredStatus;
 }
@@ -40,20 +41,10 @@ async function fetchStatus(requestBody) {
  * @param {array} fetchedStatus
  * @returns {array}
  */
-function filterStatus(requestBody, fetchedStatus) {
-  const requiredService = config
-    .get()
-    .notifications.slack.channels.filter(channel => channel.channel_id === requestBody.channel_id);
-
-  const filteredStatus = fetchedStatus.filter(status => {
-    const isRequired = requiredService.some(service => {
-      return service.service_name.toLowerCase() === JSON.parse(status.service).name.toLowerCase();
-    });
-
-    if (isRequired) {
-      return status;
-    }
-  });
+function filterStatus(fetchedStatus, channelInfo) {
+  const filteredStatus = fetchedStatus.data.filter(
+    status => channelInfo[0].service_name.toLowerCase() === JSON.parse(status.service).name.toLowerCase()
+  );
 
   return filteredStatus;
 }
@@ -69,6 +60,7 @@ async function preparePayload(statusToBePrepared) {
   const { text } = messages[JSON.parse(status).name];
 
   return {
+    response_type: 'in_channel',
     attachments: [
       {
         text: text(JSON.parse(service).name)

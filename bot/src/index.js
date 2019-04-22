@@ -9,7 +9,7 @@ import routes from './routes';
 
 const app = express();
 
-app.set('port', 8000);
+app.set('port', 8001);
 
 app.use(cors());
 app.use(helmet());

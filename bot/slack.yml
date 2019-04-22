@@ -1,9 +1,12 @@
-  endpoint: SLACK_ENDPOINT
-    signingSecret: SIGNING_SECRET
-    channels:
-      - service_name: 
-        channel_id: 
-      - service_name: 
-        channel_id:
-      - service_name: 
-        channel_id: 
+slack_endpoint: '/T11Q734UA/BH10SJSJY/qlIRIwrvarvumBLZsJ4ZKzDu'
+signingSecret: 'c435044bfa8684e6aca9bf609b268e9f'
+channels:
+  - service_name: 'Google'
+    channel_id: 'GGMG3H4E7'
+    api_endpoint: 'http://localhost:8000/api/status'
+  - service_name: 'Facebook'
+    channel_id: 'CGU87E69E'
+    api_endpoint: 'http://localhost:8000/api/status'
+  - service_name: 'Localhost'
+    channel_id: 'kjfkldajf'
+    api_endpoint: 'http://localhost:8000/api/status'

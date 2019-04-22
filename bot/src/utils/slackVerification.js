@@ -15,7 +15,7 @@ export function verify(req) {
   }
 
   return new Promise((resolve, reject) => {
-    const signingSecret = config.get().notifications.slack.signingSecret;
+    const signingSecret = config.get().signingSecret;
 
     if (!signingSecret) {
       reject(HttpStatus.INTERNAL_SERVER_ERROR);

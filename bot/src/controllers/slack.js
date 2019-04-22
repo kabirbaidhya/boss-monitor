@@ -1,5 +1,4 @@
 import * as slackService from '../services/slack';
-import * as config from '../config/config';
 
 /**
  * Confirm receipt by sending HTTP 200 response to the original request.
