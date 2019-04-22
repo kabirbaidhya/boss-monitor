@@ -9,7 +9,7 @@ import merge from 'webpack-merge';
 import defaultConfig from './default.config';
 
 export const CACHE_KEY = 'config';
-export const DEFAULT_FILENAME = 'chill.yml';
+export const DEFAULT_FILENAME = 'slack.yml';
 
 /**
  * Resolve configuration by reading the configuration file.
