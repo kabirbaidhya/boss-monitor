@@ -1,12 +1,14 @@
 import * as slackService from '../services/slack';
 import * as config from '../config/config';
 
-export function getSlackInfo(req, res, next) {
-  slackService
-    .getInfo()
-    .then(data => {
-      const data1 = config.get();
-      console.log(data);
-    })
-    .catch(err => next(err));
+/**
+ * Confirm receipt by sending HTTP 200 response to the original request.
+ * Initiate slack response to slash-command.
+ *
+ * @param {object} req
+ * @param {object} res
+ */
+export function getStatus(req, res) {
+  res.json({ response_type: 'in_channel' });
+  slackService.notify(req.body);
 }
