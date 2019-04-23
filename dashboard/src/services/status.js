@@ -28,7 +28,7 @@ export async function fetchServiceStatuses() {
  * @returns {Boolean}
  */
 export function isUp(service) {
-  return check(service, statuses.STATUS_UP.toLowerCase());
+  return check(service, statuses.STATUS_UP);
 }
 
 /**
