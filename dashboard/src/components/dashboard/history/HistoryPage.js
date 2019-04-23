@@ -7,8 +7,8 @@ import HistoryPanel from './HistoryPanel';
  * for the list of history.
  */
 const HistoryPage = () => (
-  <div className="sidebar">
-    <h2>History Logs</h2>
+  <div className="incidents-list format-expanded">
+    <h2>Past Incidents</h2>
     <HistoryPanel />
   </div>
 );

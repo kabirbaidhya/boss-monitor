@@ -1,27 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Event from './Event';
-import EventRow from './EventRow';
-
-import { uniqueDate } from '../../../services/historyDate';
+import Incident from './Incident';
+import IncidentRow from './IncidentRow';
 
 /**
- * Get list of events,
- * passes each event unique date to EventRow
- * and event details to Event
- * @param {Array} events
+ * Lists incidents
+ * and passes incident details to Event.
+ *
+ * @param {Array} incidents
  */
-const HistoryList = ({ events }) => {
-  const historyDate = uniqueDate(events);
-
+const HistoryList = ({ incidents }) => {
   return (
     <>
-      {Object.keys(historyDate).map(date => (
-        <div className="incidents-block" key={date}>
-          <EventRow data={date} />
-          {historyDate[date].map((event, index) => (
-            <Event data={event} key={index} />
+      {incidents.map(group => (
+        <div className="incidents-block" key={group.date}>
+          <IncidentRow data={group.date} />
+          {group.list.map(incident => (
+            <Incident data={incident} key={incident.id} />
           ))}
         </div>
       ))}
@@ -30,7 +26,7 @@ const HistoryList = ({ events }) => {
 };
 
 HistoryList.propTypes = {
-  events: PropTypes.array
+  incidents: PropTypes.array
 };
 
 export default HistoryList;

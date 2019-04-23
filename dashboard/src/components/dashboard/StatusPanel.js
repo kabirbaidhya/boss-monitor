@@ -42,18 +42,19 @@ class StatusPanel extends Component {
   }
 
   render() {
-    let { isLoading, services } = this.props.status;
+    const { isLoading, services } = this.props.status;
     const statuses = services && services.map(service => JSON.parse(service.status));
-    let { className, message } = statusService.getOutageParams(statuses);
+    const { className, message } = statusService.getOutageParams(statuses);
 
     if (isLoading) {
       return <Spinner />;
     }
 
     return (
-      <Panel title={message} panelClassName={className}>
+      <>
+        <Panel title={message} panelClassName={className} />
         <ServiceList services={services} />
-      </Panel>
+      </>
     );
   }
 }

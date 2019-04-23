@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import * as statusService from '../../../services/status';
+import * as historyService from '../../../services/history';
 
 import History from './HistoryList';
 import Spinner from '../../commons/Spinner';
@@ -31,11 +31,13 @@ class HistoryPanel extends Component {
   async fetchHistory() {
     try {
       this.setState({ isLoading: true });
-      const history = await statusService.fetchServiceHistory();
+      const history = await historyService.fetchIncidents();
 
       this.setState({ isLoading: false, history });
     } catch (err) {
       this.setState({ isLoading: false });
+      console.log('error ', err);
+      // TODO: Error
     }
   }
 
@@ -46,7 +48,7 @@ class HistoryPanel extends Component {
       return <Spinner />;
     }
 
-    return <History events={history} />;
+    return <History incidents={history} />;
   }
 }
 
