@@ -5,7 +5,7 @@ import StatusPanel from './StatusPanel';
 
 /**
  * Main container for rendering services list
- * and history list
+ * and history list.
  */
 const Home = () => (
   <div className="container">

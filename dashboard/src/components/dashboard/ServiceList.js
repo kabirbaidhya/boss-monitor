@@ -12,11 +12,8 @@ import ServiceRow from './ServiceRow';
 const ServiceList = ({ services }) => (
   <div className="components-section">
     <div className="components-header">
-      <div className="col-one">&nbsp;</div>
+      <div className="col-one"></div>
       <div className="col col-two">HTTP</div>
-
-      {/* TODO: This block is for the SSL information */}
-      {/* <div className="col col-three">SSL</div> */}
     </div>
     <div className="components-list">
       {services.map(service => (

@@ -31,7 +31,7 @@ const Incident = ({ data }) => {
 
   return (
     <ul className="status-update-list">
-      <li className={`${incidentStatusClass}`}>
+      <li className={incidentStatusClass}>
         {service.name} was <span className="state">{status.name.toLowerCase()}</span> on
         <ToolTip className="tooltip" place="top" id={tooltipId} type="dark">
           <span>{timestamp}</span>

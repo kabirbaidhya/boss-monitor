@@ -1,10 +1,13 @@
 import React from 'react';
 
+/**
+ * Renders footer component
+ */
 const Footer = () => {
   return (
     <div className="footer">
       <div className="container">
-        Powered By&nbsp;
+        Powered by
         <a target="_blank" href="https://github.com/leapfrogtechnology/chill">
           Chill
         </a>

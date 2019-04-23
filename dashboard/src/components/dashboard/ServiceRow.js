@@ -6,7 +6,7 @@ import ToolTip from 'react-tooltip';
 import { isUp, getServiceParams } from '../../services/status';
 
 /**
- * Renders by getting all the services data.
+ * Render each service row.
  *
  * @param {Object} data
  */
@@ -28,11 +28,6 @@ const ServiceRow = ({ data }) => {
       <div className="col col-two">
         <img src={icon} data-tip aria-hidden="true" data-for={tooltipId} />
       </div>
-
-      {/* TODO: This block is for the SSL information */}
-      {/* <div className="col col-three">
-        <img src={icon} title={message}/>
-      </div> */}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import { sprintf } from 'sprintf-js';
 import config from '../config';
 import http from '../utils/http';
 
-// import icons from '../constants/icons';
 import * as statuses from '../constants/statuses';
 import * as outage from '../constants/enums/outage';
 

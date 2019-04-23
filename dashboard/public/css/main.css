@@ -45,20 +45,20 @@ a:hover {
   padding: 1rem 1.8rem;
 }
 /* Header */
-.Header {
+.header {
   background-color: #fff;
   border-bottom: 1px solid #e5e2e2;
 }
-.Header__row {
+.header__row {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-.Header__row__left-part {
+.header__row__left-part {
   display: flex;
   align-items: center;
 }
-.Header__row__right-part {
+.header__row__right-part {
   display: flex;
   align-items: center;
 }
@@ -67,6 +67,9 @@ a:hover {
   background-color: #fff;
   border-top: 1px solid #e5e2e2;
   margin-top: 40px;
+}
+.footer a {
+  padding-left: 3px;
 }
 /* Page Status */
 .page-status {
@@ -139,7 +142,7 @@ a:hover {
 }
 .components-header {
   display: flex;
-  padding: 10px;
+  padding: 15px;
   font-weight: bold;
 }
 .components-item {

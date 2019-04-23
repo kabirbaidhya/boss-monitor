@@ -5,8 +5,7 @@ import Incident from './Incident';
 import IncidentRow from './IncidentRow';
 
 /**
- * Lists incidents
- * and passes incident details to Event.
+ * List of past incidents.
  *
  * @param {Array} incidents
  */
