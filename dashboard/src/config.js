@@ -5,10 +5,6 @@ export default {
     logo: {
       url: __INJECTED_CONFIG.dashboard.logo.url || require('../public/images/chill.png'),
       height: __INJECTED_CONFIG.dashboard.logo.height || '80px'
-    },
-    projectLogo: {
-      url: __INJECTED_CONFIG.dashboard.projectLogo.url || require('../public/images/chill.png'),
-      height: __INJECTED_CONFIG.dashboard.projectLogo.height || '80px'
     }
   },
   api: {

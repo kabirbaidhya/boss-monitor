@@ -1,9 +1,9 @@
 export const STATUS_UP = 'up';
 export const STATUS_PENDING = 'pending';
 export const STATUS_DOWN = 'down';
-export const STATUS_UP_CLASS = 'component-success';
-export const STATUS_PENDING_CLASS = 'component-pending';
-export const STATUS_DOWN_CLASS = 'component-down';
+export const STATUS_UP_CLASS = 'status-good';
+export const STATUS_PENDING_CLASS = 'status-partial';
+export const STATUS_DOWN_CLASS = 'status-major';
 export const HISTORY_STATUS_UP_CLASS = 'status-success';
 export const HISTORY_STATUS_PENDING_CLASS = 'status-pending';
 export const HISTORY_STATUS_DOWN_CLASS = 'status-down';

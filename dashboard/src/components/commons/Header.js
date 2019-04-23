@@ -1,33 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Header = ({ appLogo, projectLogo }) => (
-  <header className="header">
-    <div className="container-fluid">
-      <div className="d-flex align-items-center justify-content-between header__row">
-        <div className="header__row__left-part d-flex align-items-center">
-          <div className="header__row__logo">
-            <div>
-              <img style={{ height: appLogo.height }} src={appLogo.url} alt="Application Logo" />
+import chillLogo from '../../../public/images/logo.png';
+
+const Header = (props) => {
+  const { logo } = props;
+
+  return (
+    <header className="Header">
+      <div className="container">
+        <div className="d-flex align-items-center justify-content-between Header__row">
+          <div className="Header__row__left-part d-flex align-items-center">
+            <div className="Header__row__logo">
+              <img src={chillLogo} alt="Chill" />
             </div>
           </div>
-        </div>
-        <div className="header__row__right-part d-flex align-items-center">
-          <div className="header__row__logo">
-            <div>
-              <img style={{ height: projectLogo.height }} src={projectLogo.url} alt="Project Logo" />
-            </div>
+          <div className="Header__row__right-part d-flex align-items-center">
+            <img style={{ height: logo.height }} src={logo.url} alt="Project Logo" />
           </div>
         </div>
       </div>
-    </div>
-  </header>
-);
+    </header>
+  );
+};
 
 Header.propTypes = {
-  style: PropTypes.object,
-  appLogo: PropTypes.object,
-  projectLogo: PropTypes.object
+  logo: PropTypes.object
 };
 
 export default Header;
