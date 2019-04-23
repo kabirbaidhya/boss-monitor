@@ -6,7 +6,7 @@ import http from '../utils/http';
 /**
  * Get the latest history.
  *
- * @returns {Object}
+ * @returns {Promise}
  */
 export async function fetchIncidents() {
   const { endpoints } = config.api;
