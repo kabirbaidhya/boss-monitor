@@ -45,9 +45,6 @@ services:
 dashboard:
   baseUrl: '/'
   logo:
-    url: LOGO_URL
-    height: '80px'
-  projectLogo:
     url: PROJECT_LOGO_URL
     height: '80px'
   title: 'Chill Dashboard'
