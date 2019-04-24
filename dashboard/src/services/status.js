@@ -3,14 +3,16 @@ import { sprintf } from 'sprintf-js';
 import config from '../config';
 import http from '../utils/http';
 
-import * as icons from '../constants/icons';
 import * as statuses from '../constants/statuses';
 import * as outage from '../constants/enums/outage';
+
+import statusUpIcon from '../../public/images/icon-green-1.png';
+import statusDownIcon from '../../public/images/icon-red-1.png';
 
 /**
  * Get the latest status of the services.
  *
- * @returns {Promise}
+ * @returns {Object}
  */
 export async function fetchServiceStatuses() {
   const { endpoints } = config.api;
@@ -26,7 +28,7 @@ export async function fetchServiceStatuses() {
  * @returns {Boolean}
  */
 export function isUp(service) {
-  return service.name && service.name.toLowerCase() === statuses.STATUS_UP.toLowerCase();
+  return check(service, statuses.STATUS_UP);
 }
 
 /**
@@ -68,29 +70,38 @@ export function getOutageLevel(services) {
  * Get required parameters to render services.
  *
  * @param {Boolean} isOperational
- * @returns {Object} {icon, message, className}
+ * @returns {Object}
  */
 export function getServiceParams(isOperational) {
   if (!isOperational) {
     return {
-      icon: icons.EXCLAMATION,
-      className: statuses.STATUS_DOWN_CLASS,
+      icon: statusDownIcon,
       message: statuses.STATUS_DOWN_MESSAGE
     };
   }
 
   return {
-    icon: icons.INFO,
-    className: statuses.STATUS_UP_CLASS,
+    icon: statusUpIcon,
     message: statuses.STATUS_UP_MESSAGE
   };
+}
+
+/**
+ * Check if the status matches the provided status.
+ *
+ * @param {Object} status
+ * @param {String} statusType
+ * @returns {boolean}
+ */
+export function check(status, statusType) {
+  return status && status.name && status.name.toLowerCase() === statusType;
 }
 
 /**
  * Get required parameters to render the status panel.
  *
  * @param {Array} services
- * @returns {Object} {message, className}
+ * @returns {Object}
  */
 export function getOutageParams(services) {
   let outageLevel = getOutageLevel(services);

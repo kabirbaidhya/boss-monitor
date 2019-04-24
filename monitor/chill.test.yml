@@ -42,8 +42,21 @@ notifications:
 services:
   - name: 'Localhost'
     url: 'http://127.0.0.1'
+    
   - name: 'chill'
     url: 'http://test.com/'
     auth:  
       userName: chill
       password: justchill
+
+dashboard:
+  baseUrl: '/'
+  logo:
+    url: PROJECT_LOGO_URL
+    height: '80px'
+  title: 'Chill Dashboard'
+  websocketBaseUrl: WEBSOCKET_URL
+  apiBaseUrl: 'http://chill.lftechnology.com/api'
+
+api:
+  port: 8000

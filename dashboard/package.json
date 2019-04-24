@@ -26,10 +26,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.2.1",
+    "classnames": "^2.2.6",
     "moment": "^2.18.1",
     "prop-types": "^15.5.10",
     "ramda": "^0.26.1",
     "react": "^16.7.0",
+    "react-bootstrap": "^1.0.0-beta.8",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.0.0",
     "react-tooltip": "^3.3.0",

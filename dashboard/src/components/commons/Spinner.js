@@ -1,7 +1,8 @@
 import React from 'react';
 
-const Spinner = () => (
-  <div className="loader">Loading...</div>
-);
+/**
+ * Spinner shown while fetching data.
+ */
+const Spinner = () => <div className="loader">Loading...</div>;
 
 export default Spinner;

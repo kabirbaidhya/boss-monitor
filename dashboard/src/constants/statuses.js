@@ -1,7 +1,12 @@
 export const STATUS_UP = 'up';
+export const STATUS_PENDING = 'pending';
 export const STATUS_DOWN = 'down';
-export const STATUS_UP_CLASS = 'status-up';
-export const STATUS_DOWN_CLASS = 'status-down';
+export const STATUS_UP_CLASS = 'status-good';
+export const STATUS_PENDING_CLASS = 'status-partial';
+export const STATUS_DOWN_CLASS = 'status-major';
+export const HISTORY_STATUS_UP_CLASS = 'status-success';
+export const HISTORY_STATUS_PENDING_CLASS = 'status-pending';
+export const HISTORY_STATUS_DOWN_CLASS = 'status-down';
 export const STATUS_UP_MESSAGE = 'Operational';
 export const STATUS_DOWN_MESSAGE = 'Major Outage';
 export const ALL_STATUS_DOWN_MESSAGE = 'Major System Outage';
