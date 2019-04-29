@@ -48,7 +48,7 @@ function preparePayload(params) {
   return {
     attachments: [
       {
-        color: color[status],
+        color: color[JSON.parse(status).name],
         text: text(name, params.downtime)
       }
     ]

@@ -28,7 +28,7 @@ export default {
     slack: {
       enabled: false,
       color: {
-        up: 'good',
+        Up: 'good',
         down: 'danger'
       },
       endpoint: null,

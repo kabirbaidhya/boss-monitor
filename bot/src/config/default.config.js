@@ -36,6 +36,10 @@ export default {
   notifications: {
     slack: {
       enabled: false,
+      color: {
+        Up: 'good',
+        down: 'danger'
+      },
       endpoint: null,
       baseUrl: 'https://hooks.slack.com/services'
     },
