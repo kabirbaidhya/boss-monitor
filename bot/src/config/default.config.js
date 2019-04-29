@@ -38,7 +38,7 @@ export default {
       enabled: false,
       color: {
         Up: 'good',
-        down: 'danger'
+        Down: 'danger'
       },
       endpoint: null,
       baseUrl: 'https://hooks.slack.com/services'
