@@ -58,11 +58,13 @@ function filterStatus(fetchedStatus, channelInfo) {
 async function preparePayload(statusToBePrepared) {
   const { status, service } = statusToBePrepared;
   const { text } = messages[JSON.parse(status).name];
+  const { color } = config.get().notifications.slack;
 
   return {
     response_type: 'in_channel',
     attachments: [
       {
+        color: color[JSON.parse(status).name],
         text: text(JSON.parse(service).name)
       }
     ]
