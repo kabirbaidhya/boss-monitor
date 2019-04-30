@@ -27,7 +27,6 @@ export async function notify(requestBody) {
  * @returns {array}
  */
 async function fetchStatus(channelInfo) {
-  console.log(channelInfo);
   const fetchedStatus = await axios.get(channelInfo[0].api_endpoint);
 
   const filteredStatus = filterStatus(fetchedStatus, channelInfo);
