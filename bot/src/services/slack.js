@@ -1,8 +1,8 @@
+import axios from 'axios';
 import rp from 'request-promise';
 
 import messages from '../common/messages';
 import * as config from '../config/config';
-import axios from 'axios';
 
 /**
  * Send response back to slack slash-command.
@@ -27,6 +27,7 @@ export async function notify(requestBody) {
  * @returns {array}
  */
 async function fetchStatus(channelInfo) {
+  console.log(channelInfo);
   const fetchedStatus = await axios.get(channelInfo[0].api_endpoint);
 
   const filteredStatus = filterStatus(fetchedStatus, channelInfo);
