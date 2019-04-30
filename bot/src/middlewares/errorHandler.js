@@ -9,7 +9,6 @@ import buildError from '../utils/buildError';
  * @param  {function} next
  */
 export function notFoundError(req, res, next) {
-  // eslint-disable-line no-unused-vars
   res.status(HttpStatus.NOT_FOUND).json({
     error: {
       code: HttpStatus.NOT_FOUND,

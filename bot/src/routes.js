@@ -1,7 +1,8 @@
 import { Router } from 'express';
 
-import * as slackController from './controllers/slack';
 import { verifySlackRequest } from './validators/slack';
+
+import * as slackController from './controllers/slack';
 
 const router = Router();
 

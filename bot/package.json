@@ -1,7 +1,7 @@
 {
-  "name": "chill-rest-api",
+  "name": "slack-bot",
   "version": "1.0.0-alpha.1",
-  "description": "REST API for the chill monitoring service.",
+  "description": "Slack bot to notify status of service",
   "scripts": {
     "lint": "eslint src test; exit 0",
     "lint:fix": "eslint src test --fix; exit 0",
@@ -37,7 +37,7 @@
     "knex": "^0.12.6",
     "lodash": "^4.17.4",
     "memory-cache": "^0.1.6",
-    "morgan": "^1.7.0",
+    "ngrok": "^3.1.1",
     "npm-run-all": "^4.0.2",
     "pg": "^7.1.2",
     "request-promise": "^4.2.4",
@@ -58,6 +58,7 @@
     "babel-eslint": "^9.0.0",
     "babel-jest": "^19.0.0",
     "babel-loader": "^8.0.0",
+    "morgan": "^1.7.0",
     "babel-plugin-dynamic-import-node": "^1.0.2",
     "eslint": "^3.19.0",
     "nodemon": "^1.18.9",

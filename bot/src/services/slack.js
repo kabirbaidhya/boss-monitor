@@ -1,8 +1,8 @@
+import axios from 'axios';
 import rp from 'request-promise';
 
 import messages from '../common/messages';
 import * as config from '../config/config';
-import axios from 'axios';
 
 /**
  * Send response back to slack slash-command.
