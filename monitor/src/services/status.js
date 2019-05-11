@@ -33,7 +33,7 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
 
     return STATUS_UP;
   } catch (err) {
-    const { statusCode } = err.response;
+    const { statusCode } = err;
 
     // If the original HTTP method was not allowed (405 Method Not Allowed)
     // try sending another request with a fallback method.
@@ -44,7 +44,7 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
       );
 
       return checkHostStatus(service, FALLBACK_HTTP_METHOD);
-    } else if (checkUnderMaintenance(statusCode, parseInt(err.response.headers['retry-after']))) {
+    } else if (checkUnderMaintenance(statusCode, err.headers && parseInt(err.headers['retry-after']))) {
       logger().debug(
         `Received ${statusCode} on service ${name}. Service ${name} is under maintenance.`
       );
