@@ -16,7 +16,7 @@ export function preparePayload(statusToBePrepared) {
     response_type: 'in_channel',
     attachments: [
       {
-        color: color[JSON.parse(status).name],
+        color: color[JSON.parse(status).name.toLowerCase()],
         text: text(JSON.parse(service).name)
       }
     ]

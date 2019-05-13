@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 import * as config from '../config/config';
-import { preparePayload } from '../utils/preparePayload';
 import { sendResponse } from '../utils/postResponse';
+import { preparePayload } from '../utils/preparePayload';
 
 /**
  * Send response back to slack slash-command.

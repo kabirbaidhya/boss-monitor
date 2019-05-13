@@ -39,8 +39,8 @@ export default {
       endpoint: null,
       baseUrl: 'https://hooks.slack.com/services',
       color: {
-        Up: 'good',
-        Down: 'danger'
+        up: 'good',
+        down: 'danger'
       },
     },
     twilio: {
