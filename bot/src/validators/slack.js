@@ -1,11 +1,14 @@
 import { verify } from '../utils/slackVerification';
 
+
 /**
- * Validate slack request.
  *
+ *
+ * @export
  * @param {object} req
  * @param {object} res
  * @param {Function} next
+ * @returns {Promise}
  */
 export function verifySlackRequest(req, res, next) {
   return verify(req)
