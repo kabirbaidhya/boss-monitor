@@ -36,12 +36,12 @@ export default {
   notifications: {
     slack: {
       enabled: false,
-      color: {
-        Up: 'good',
-        Down: 'danger'
-      },
       endpoint: null,
-      baseUrl: 'https://hooks.slack.com/services'
+      baseUrl: 'https://hooks.slack.com/services',
+      color: {
+        up: 'good',
+        down: 'danger'
+      },
     },
     twilio: {
       enabled: false,

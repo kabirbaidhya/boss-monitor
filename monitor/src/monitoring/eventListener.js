@@ -1,5 +1,7 @@
 import moment from 'moment';
+import rp from 'request-promise';
 import logger from '../utils/logger';
+import * as config from '../config/config';
 import * as events from '../services/events';
 import { STATUS_UP } from '../services/status';
 import * as notifier from '../services/notifier';
@@ -38,9 +40,20 @@ async function handleStatusChange(params) {
   } else {
     logger().info(`${serviceName} is ${status}`);
   }
+  if (config.get().notifications.slack.enabled) {
+    rp.post({
+      url: config.get().bot.baseUrl,
+      body: notification,
+      json: true
+    }).then(response => {
+      logger().info('Notification sent to slack', response);
+    }).catch(err => {
+      logger().error('Error while sending auto-notification to slack', err)
+    });
+  }
 
   // Send notifications
-  notifier.notify(notification);
+  // notifier.notify(notification);
 
   // Persist to database
   await synchronize();

@@ -1,8 +1,8 @@
 import axios from 'axios';
-import rp from 'request-promise';
 
-import messages from '../common/messages';
 import * as config from '../config/config';
+import { sendResponse } from '../utils/postResponse';
+import { preparePayload } from '../utils/preparePayload';
 
 /**
  * Send response back to slack slash-command.
@@ -10,14 +10,16 @@ import * as config from '../config/config';
  * @param {object} requestBody
  */
 export async function notify(requestBody) {
-  const channelInfo = config.get().channels.filter(channel => channel.channel_id === requestBody.channel_id);
+  const channelInfo = config.get().notifications.slack.channels.filter(channel => channel.channel_id === requestBody.channel_id);
   const fetchedStatus = await fetchStatus(channelInfo);
-
+  const promises = [];
   fetchedStatus.forEach(async status => {
-    const payload = await preparePayload(status);
+    const payload = preparePayload(status);
 
-    sendResponse(requestBody.response_url, payload);
+    promises.push(sendResponse(requestBody.response_url, payload));
   });
+
+  return Promise.all(promises);
 }
 
 /**
@@ -47,40 +49,4 @@ function filterStatus(fetchedStatus, channelInfo) {
   );
 
   return filteredStatus;
-}
-
-/**
- * Prepare payload to be sent.
- *
- * @param {object} statusToBePrepared
- * @returns {object}
- */
-async function preparePayload(statusToBePrepared) {
-  const { status, service } = statusToBePrepared;
-  const { text } = messages[JSON.parse(status).name];
-  const { color } = config.get().notifications.slack;
-
-  return {
-    response_type: 'in_channel',
-    attachments: [
-      {
-        color: color[JSON.parse(status).name],
-        text: text(JSON.parse(service).name)
-      }
-    ]
-  };
-}
-
-/**
- * Post response back to slack channel.
- *
- * @param {string} responseUrl
- * @param {object} payload
- */
-function sendResponse(responseUrl, payload) {
-  rp.post({
-    url: `${responseUrl}`,
-    body: payload,
-    json: true
-  });
 }

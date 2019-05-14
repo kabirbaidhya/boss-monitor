@@ -15,7 +15,7 @@
     "synchronize": "babel-node ./src/scripts/synchronize"
   },
   "keywords": [
-    "chill",
+    "bot",
     "rest-api"
   ],
   "authors": [],
@@ -31,6 +31,7 @@
     "compression": "^1.6.2",
     "cors": "^2.8.1",
     "express": "^4.14.1",
+    "fs": "^0.0.1-security",
     "helmet": "^3.2.0",
     "http-status-codes": "^1.0.6",
     "joi": "^10.1.0",
@@ -58,9 +59,9 @@
     "babel-eslint": "^9.0.0",
     "babel-jest": "^19.0.0",
     "babel-loader": "^8.0.0",
-    "morgan": "^1.7.0",
     "babel-plugin-dynamic-import-node": "^1.0.2",
     "eslint": "^3.19.0",
+    "morgan": "^1.7.0",
     "nodemon": "^1.18.9",
     "rimraf": "^2.6.1",
     "semver": "^5.3.0"

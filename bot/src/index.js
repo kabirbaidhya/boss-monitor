@@ -1,5 +1,5 @@
-(() => {
-  const { init } = require('./app');
+import init from './init';
 
-  init();
-})();
+init(() => {
+  import('./app');
+});
