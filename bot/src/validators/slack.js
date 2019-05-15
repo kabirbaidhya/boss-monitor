@@ -3,9 +3,8 @@ import { verify } from '../utils/slackVerification';
 
 
 /**
- *
- *
- * @export
+ * Verify the slack request.
+ * 
  * @param {object} req
  * @param {object} res
  * @param {Function} next

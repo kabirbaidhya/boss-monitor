@@ -1,6 +1,12 @@
 import * as notifierService from '../services/notifier';
 import logger from '../utils/logger';
 
+/**
+ * Send notification to slack.
+ *
+ * @param {object} req
+ * @param {object} res
+ */
 export function sendNotification(req, res) {
   notifierService.sendNotification(req.body)
     .then(response => {
