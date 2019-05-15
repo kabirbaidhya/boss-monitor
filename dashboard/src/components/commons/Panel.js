@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { STATUS_UP } from '../../constants/statuses';
-
 const Panel = props => {
-  const { title, panelClassName = STATUS_UP } = props;
+  const { title, panelClassName } = props;
 
   return (
     <div className={`page-status ${panelClassName}`}>
@@ -18,7 +16,7 @@ const Panel = props => {
 
 Panel.propTypes = {
   title: PropTypes.string,
-  className: PropTypes.string
+  panelClassName: PropTypes.string
 };
 
 export default Panel;
