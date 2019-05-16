@@ -17,7 +17,7 @@ const Header = (props) => {
         <div className="d-flex align-items-center justify-content-between header__row">
           <div className="header__row__left-part d-flex align-items-center">
             <div className="header__row__logo">
-              <img src={chillLogo} alt="Chill" />
+              <img className="logo" src={chillLogo} alt="Chill" />
             </div>
           </div>
           <div className="header__row__right-part d-flex align-items-center">

@@ -6,8 +6,8 @@ import http from '../utils/http';
 import * as statuses from '../constants/statuses';
 import * as outage from '../constants/enums/outage';
 
-import statusUpIcon from '../../public/images/icon-green-1.png';
-import statusDownIcon from '../../public/images/icon-red-1.png';
+import * as statusUpIcon from '../../public/images/success.png';
+import * as statusDownIcon from '../../public/images/cancel.png';
 
 /**
  * Get the latest status of the services.
