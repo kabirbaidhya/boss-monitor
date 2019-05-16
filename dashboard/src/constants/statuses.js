@@ -13,3 +13,6 @@ export const ALL_STATUS_DOWN_MESSAGE = 'Major System Outage';
 export const ALL_STATUS_UP_MESSAGE = 'All Systems Operational';
 export const PARTIAL_STATUS_DOWN_CLASS = 'status-partial-down';
 export const PARTIAL_STATUS_DOWN_MESSAGE = '%(totalUp)i / %(total)i Systems Operational';
+export const STATUS_UNDER_MAINTENANCE = 'under maintenance';
+export const STATUS_UNDER_MAINTENANCE_MESSAGE = 'Under Maintenance';
+export const ALL_STATUS_UNDER_MAINTENANCE_MESSAGE = 'Major System Outage';
