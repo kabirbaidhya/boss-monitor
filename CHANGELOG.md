@@ -1,5 +1,17 @@
 # Change Log
 
+## [v1.1.0](https://github.com/leapfrogtechnology/chill/tree/v1.1.0) (2019-05-16)
+[Full Changelog](https://github.com/leapfrogtechnology/chill/compare/v1.1.0-alpha.1...v1.1.0)
+
+**Bug Fixes**
+
+- Minor design fixes for the status page [\#81](https://github.com/leapfrogtechnology/chill/pull/81) [[bug](https://github.com/leapfrogtechnology/chill/labels/bug)] [[design](https://github.com/leapfrogtechnology/chill/labels/design)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)] ([manisacharya](https://github.com/manisacharya))
+
+**Changes**
+
+- Hotfix - Fix icon on the top Header section [\#85](https://github.com/leapfrogtechnology/chill/pull/85) [[design](https://github.com/leapfrogtechnology/chill/labels/design)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)] ([manisacharya](https://github.com/manisacharya))
+- Design tweaks and icon changes [\#84](https://github.com/leapfrogtechnology/chill/pull/84) [[design](https://github.com/leapfrogtechnology/chill/labels/design)] ([manisacharya](https://github.com/manisacharya))
+
 ## [v1.1.0-alpha.1](https://github.com/leapfrogtechnology/chill/tree/v1.1.0-alpha.1) (2019-05-06)
 [Full Changelog](https://github.com/leapfrogtechnology/chill/compare/v1.0.0...v1.1.0-alpha.1)
 
