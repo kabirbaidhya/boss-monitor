@@ -8,7 +8,7 @@ const Footer = () => {
     <div className="footer">
       <div className="container">
         Powered by
-        <a target="_blank" href="https://github.com/leapfrogtechnology/chill">
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/leapfrogtechnology/chill">
           Chill
         </a>
       </div>

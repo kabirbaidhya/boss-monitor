@@ -33,7 +33,7 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
 
     return STATUS_UP;
   } catch (err) {
-    const { statusCode } = err.response;
+    const { statusCode } = err;
 
     // If the original HTTP method was not allowed (405 Method Not Allowed)
     // try sending another request with a fallback method.
@@ -44,7 +44,7 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
       );
 
       return checkHostStatus(service, FALLBACK_HTTP_METHOD);
-    } else if (checkUnderMaintenance(statusCode, parseInt(err.response.headers['retry-after']))) {
+    } else if (checkUnderMaintenance(statusCode, err && err.response && err.response.headers && parseInt(err.response.headers['retry-after']))) {
       logger().debug(
         `Received ${statusCode} on service ${name}. Service ${name} is under maintenance.`
       );
@@ -71,9 +71,9 @@ export function getCheckInterval(status, min, max) {
 
 /**
  * Returns header object with authorization token.
- * 
+ *
  * @param {String} token
- * @returns {String} 
+ * @returns {String}
  */
 function createAuthHeader(token) {
   return {
@@ -83,7 +83,7 @@ function createAuthHeader(token) {
   };
 }
 
-/**  
+/**
 * Check if the system is under maintenance.
  * Return true if value of statusCode is 503 and retryAfter is greater than 0 else return false.
  *

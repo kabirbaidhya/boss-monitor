@@ -105,7 +105,7 @@ export function getOutageParams(services) {
   switch (outageLevel) {
     case outage.NONE:
       return {
-        className: statuses.STATUS_UP_CLASS,
+        className: statuses.ALL_STATUS_UP_CLASS,
         message: statuses.ALL_STATUS_UP_MESSAGE
       };
 
@@ -117,7 +117,7 @@ export function getOutageParams(services) {
 
     case outage.ALL:
       return {
-        className: statuses.STATUS_DOWN_CLASS,
+        className: statuses.ALL_STATUS_DOWN_CLASS,
         message: statuses.ALL_STATUS_DOWN_MESSAGE
       };
   }
