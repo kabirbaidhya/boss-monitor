@@ -106,11 +106,11 @@ a:hover {
   background-size: 24px;
 }
 .page-status.status-good:before {
-  background-image: url('../images/success.png');
+  background-image: url('../images/icon-green.png');
   background-color: #6ac259;
 }
 .page-status.status-major:before {
-  background-image: url('../images/cancel.png');
+  background-image: url('../images/icon-red.png');
   background-color: #e24c4b;
 }
 .page-status.status-partial:before {
@@ -118,7 +118,7 @@ a:hover {
   background-color: #f7a300;
 }
 .page-status.status-minor:before {
-  background-image: url('../images/warning.png');
+  background-image: url('../images/icon-orange.png');
   background-color: #f7a300;
 }
 .status-icon {
