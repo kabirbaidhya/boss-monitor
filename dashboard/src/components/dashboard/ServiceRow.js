@@ -15,7 +15,6 @@ const ServiceRow = ({ data }) => {
   const status = JSON.parse(data.status);
 
   const tooltipId = `tooltip-service-${service.id}`;
-  // console.log('Service Row:', status);
   const { message, icon } = getServiceParams(checkStatus(status));
 
   return (

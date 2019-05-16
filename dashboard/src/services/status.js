@@ -20,12 +20,11 @@ export async function fetchServiceStatuses() {
 }
 
 /**
- * Check if a service is up by it's status.
+ * Check if a service is up/down/under maintenance by it's status.
  *
- * @param {Object} service
- * @returns {Boolean}
+ * @param {Object} status
+ * @returns {Object}
  */
-
 export function checkStatus(status) {
   let statusName = status && status.name && status.name.toLowerCase();
 
