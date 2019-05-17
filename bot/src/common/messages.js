@@ -1,5 +1,5 @@
-const STATUS_UP = 'Up';
-const STATUS_DOWN = 'Down';
+const STATUS_UP = 'up';
+const STATUS_DOWN = 'down';
 
 const messages = {
   [STATUS_UP]: {
