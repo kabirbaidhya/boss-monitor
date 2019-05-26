@@ -5,31 +5,30 @@ import ToolTip from 'react-tooltip';
 
 import { isUp, getServiceParams } from '../../services/status';
 
+/**
+ * Render each service row.
+ *
+ * @param {Object} data
+ */
 const ServiceRow = ({ data }) => {
-  const { id, createdAt, service, status } = data;
+  const service = JSON.parse(data.service);
+  const status = JSON.parse(data.status);
 
-  const serviceData = JSON.parse(service);
-  const statusData = JSON.parse(status);
+  const tooltipId = `tooltip-service-${service.id}`;
 
-  const { message, className } = getServiceParams(isUp(statusData));
-
-  const tooltipId = `tooltip-${id}`;
+  const { message, icon } = getServiceParams(isUp(status));
 
   return (
-    <li className="list-group-item">
-      <span>{serviceData.name}</span>
-      <span className={`list-item-right ${className}`}>{message}</span>
-      <i
-        data-tip
-        aria-hidden="true"
-        data-for={tooltipId}
-        className={`list-item-tooltip material-icons ${className}`}>
-        info
-      </i>
-      <ToolTip className="tooltip" place="left" id={tooltipId} type="dark">
-        <span>Since {moment(createdAt).fromNow()}</span>
+    <div className="components-item">
+      <div className="col-one component-name">{service.name}</div>
+
+      <div className="col col-two list-item-tooltip">
+        <img src={icon} className="status-icon" data-tip aria-hidden="true" data-for={tooltipId} />
+      </div>
+      <ToolTip place="top" id={tooltipId} type="dark">
+        <span>{message} since {moment(status.createdAt).fromNow()}</span>
       </ToolTip>
-    </li>
+    </div>
   );
 };
 

@@ -3,13 +3,14 @@ export default {
     baseUrl: __INJECTED_CONFIG.dashboard.baseUrl || '/',
     title: __INJECTED_CONFIG.dashboard.title || 'Chill Dashboard',
     logo: {
-      url: __INJECTED_CONFIG.dashboard.logo || require('../public/images/chill.png'),
-      height: __INJECTED_CONFIG.dashboard.logoHeight || '80px'
+      url: __INJECTED_CONFIG.dashboard.logo.url || require('../public/images/chill.png'),
+      height: __INJECTED_CONFIG.dashboard.logo.height || '80px'
     }
   },
   api: {
     endpoints: {
-      status: '/status'
+      status: '/status',
+      history: '/status/logs'
     },
     baseUrl: __INJECTED_CONFIG.dashboard.apiBaseUrl || 'http://localhost:8000/api'
   },

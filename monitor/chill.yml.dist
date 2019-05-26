@@ -45,7 +45,7 @@ services:
 dashboard:
   baseUrl: '/'
   logo:
-    url: LOGO_URL
+    url: PROJECT_LOGO_URL
     height: '80px'
   title: 'Chill Dashboard'
   websocketBaseUrl: WEBSOCKET_URL

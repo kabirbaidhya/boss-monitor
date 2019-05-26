@@ -71,9 +71,9 @@ export function getCheckInterval(status, min, max) {
 
 /**
  * Returns header object with authorization token.
- * 
+ *
  * @param {String} token
- * @returns {String} 
+ * @returns {String}
  */
 function createAuthHeader(token) {
   return {
@@ -83,7 +83,7 @@ function createAuthHeader(token) {
   };
 }
 
-/**  
+/**
 * Check if the system is under maintenance.
  * Return true if value of statusCode is 503 and retryAfter is greater than 0 else return false.
  *

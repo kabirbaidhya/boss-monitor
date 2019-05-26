@@ -52,4 +52,3 @@ function handleClose() {
     connect(handlers);
   }, config.websocket.reconnectTimeout);
 }
-

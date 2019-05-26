@@ -1,5 +1,40 @@
 # Change Log
 
+## [v1.1.0](https://github.com/leapfrogtechnology/chill/tree/v1.1.0) (2019-05-16)
+[Full Changelog](https://github.com/leapfrogtechnology/chill/compare/v1.1.0-alpha.1...v1.1.0)
+
+**Bug Fixes**
+
+- Minor design fixes for the status page [\#81](https://github.com/leapfrogtechnology/chill/pull/81) [[bug](https://github.com/leapfrogtechnology/chill/labels/bug)] [[design](https://github.com/leapfrogtechnology/chill/labels/design)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)] ([manisacharya](https://github.com/manisacharya))
+- Icons are not displayed on the global status bar [\#80](https://github.com/leapfrogtechnology/chill/issues/80) [[bug](https://github.com/leapfrogtechnology/chill/labels/bug)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)]
+- Tooltip messages are incorrect [\#78](https://github.com/leapfrogtechnology/chill/issues/78) [[bug](https://github.com/leapfrogtechnology/chill/labels/bug)]
+
+**Changes**
+
+- Hotfix - Fix icon on the top Header section [\#85](https://github.com/leapfrogtechnology/chill/pull/85) [[design](https://github.com/leapfrogtechnology/chill/labels/design)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)] ([manisacharya](https://github.com/manisacharya))
+- Design tweaks and icon changes [\#84](https://github.com/leapfrogtechnology/chill/pull/84) [[design](https://github.com/leapfrogtechnology/chill/labels/design)] ([manisacharya](https://github.com/manisacharya))
+
+**Closed Issues**
+- Design fixes [\#77](https://github.com/leapfrogtechnology/chill/issues/77) [[design](https://github.com/leapfrogtechnology/chill/labels/design)] [[improvement](https://github.com/leapfrogtechnology/chill/labels/improvement)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)]
+
+## [v1.1.0-alpha.1](https://github.com/leapfrogtechnology/chill/tree/v1.1.0-alpha.1) (2019-05-06)
+[Full Changelog](https://github.com/leapfrogtechnology/chill/compare/v1.0.0...v1.1.0-alpha.1)
+
+**Closed Issues**
+
+- Redesign Status Page Design [\#72](https://github.com/leapfrogtechnology/chill/issues/72) [[design](https://github.com/leapfrogtechnology/chill/labels/design)]
+- Ability to provide HTTP Basic Auth params for each service [\#41](https://github.com/leapfrogtechnology/chill/issues/41)
+
+**Changes**
+
+- Incident History and status page revamp [\#71](https://github.com/leapfrogtechnology/chill/pull/71) [[design](https://github.com/leapfrogtechnology/chill/labels/design)] [[feature](https://github.com/leapfrogtechnology/chill/labels/feature)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)] ([manisacharya](https://github.com/manisacharya))
+- Add prettier and eslint-config-leapfrog [\#70](https://github.com/leapfrogtechnology/chill/pull/70) [[improvement](https://github.com/leapfrogtechnology/chill/labels/improvement)] ([mesaugat](https://github.com/mesaugat))
+- Support under maintenance status monitoring [\#69](https://github.com/leapfrogtechnology/chill/pull/69) [[http](https://github.com/leapfrogtechnology/chill/labels/http)] [[monitor](https://github.com/leapfrogtechnology/chill/labels/monitor)] ([alesh-dulal](https://github.com/alesh-dulal))
+- Support HTTP basic authentication for uptime monitoring [\#65](https://github.com/leapfrogtechnology/chill/pull/65) [[http](https://github.com/leapfrogtechnology/chill/labels/http)] [[monitor](https://github.com/leapfrogtechnology/chill/labels/monitor)] ([SERPANT](https://github.com/SERPANT))
+- Create https util to get SSL info for given host [\#64](https://github.com/leapfrogtechnology/chill/pull/64) [[monitor](https://github.com/leapfrogtechnology/chill/labels/monitor)] [[util](https://github.com/leapfrogtechnology/chill/labels/util)] ([SafalPandey](https://github.com/SafalPandey))
+- Update chill logo [\#63](https://github.com/leapfrogtechnology/chill/pull/63) [[design](https://github.com/leapfrogtechnology/chill/labels/design)] [[documentation](https://github.com/leapfrogtechnology/chill/labels/documentation)] ([pratishshr](https://github.com/pratishshr))
+- Update README to add the new chill logo and the badges [\#62](https://github.com/leapfrogtechnology/chill/pull/62) [[documentation](https://github.com/leapfrogtechnology/chill/labels/documentation)] ([kabirbaidhya](https://github.com/kabirbaidhya))
+
 ## [v1.0.0](https://github.com/leapfrogtechnology/chill/tree/v1.0.0) (2019-03-12)
 [Full Changelog](https://github.com/leapfrogtechnology/chill/compare/v1.0.0-alpha.2...v1.0.0)
 
