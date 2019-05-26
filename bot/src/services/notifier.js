@@ -1,16 +1,19 @@
 import * as config from '../config/config';
-import { preparePayload } from '../utils/preparePayload';
 import { sendResponse } from '../utils/postResponse';
+import { preparePayload } from '../utils/preparePayload';
 
+/**
+ * Send auto-response to slack incase of service up/down.
+ *
+ * @param {object} params
+ */
 export function sendNotification(params) {
-  const baseUrl = config.get().notifications.slack.baseUrl;
-  const channelInfo = config.get().notifications.slack.channels.filter(channel => channel.service_name.toLowerCase() === params.name.toLowerCase());
-
-  const promises = [];
-
-  channelInfo.forEach(element => {
-    const payload = preparePayload(params);
-    promises.push(sendResponse(`${baseUrl}` + element.slack_endpoint, payload));
+  const { baseUrl } = config.get().notifications && config.get().notifications.slack;
+  const promises = config.get().notifications.slack & config.get().notifications.slack.channels.map(channel => {
+    if (channel.service_name.toLowerCase() === params.name.toLowerCase()) {
+      const payload = preparePayload(params);
+      return sendResponse(`${baseUrl}${channel.slack_endpoint}`, payload);
+    }
   });
 
   return Promise.all(promises);

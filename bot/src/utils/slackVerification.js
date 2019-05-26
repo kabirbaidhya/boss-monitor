@@ -16,7 +16,8 @@ export function verify(req) {
     const { signingSecret } = config.get().notifications.slack;
 
     if (!signingSecret) {
-      reject(HttpStatus.INTERNAL_SERVER_ERROR);
+      reject(HttpStatus.NOT_FOUND);
+      return;
     }
 
     const slackSignature = req.headers['x-slack-signature'];
@@ -25,6 +26,7 @@ export function verify(req) {
 
     if (checkTime.calculateTimeDifference(timeStamp) > 300) {
       reject(HttpStatus.BAD_REQUEST);
+      return;
     }
 
     const sigBaseString = `v0:${timeStamp}:${requestBody}`;
@@ -35,5 +37,6 @@ export function verify(req) {
       resolve();
     }
     reject(HttpStatus.UNAUTHORIZED);
+    return;
   });
 }

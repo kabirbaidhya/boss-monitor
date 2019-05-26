@@ -65,5 +65,8 @@ export default {
       templateDir: path.resolve(__dirname, '../common/templates/')
     }
   },
-  services: []
+  services: [],
+  bot: {
+    port: 8001
+  }
 };

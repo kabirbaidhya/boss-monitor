@@ -19,7 +19,6 @@
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
-    "axios": "^0.18.0",
     "body-parser": "^1.15.2",
     "camelize": "^1.0.0",
     "compression": "^1.6.2",

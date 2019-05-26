@@ -6,8 +6,8 @@ import * as http from '../utils/http';
 import Status from '../models/Status';
 import * as tokenService from '../services/token';
 
-export const STATUS_UP = 'up';
-export const STATUS_DOWN = 'down';
+export const STATUS_UP = 'Up';
+export const STATUS_DOWN = 'Down';
 export const AUTH_TYPE_BASIC = 'Basic';
 export const STATUS_UNDER_MAINTENANCE = 'Under Maintenance';
 export const FALLBACK_HTTP_METHOD = http.HEAD;
@@ -71,9 +71,9 @@ export function getCheckInterval(status, min, max) {
 
 /**
  * Returns header object with authorization token.
- * 
+ *
  * @param {String} token
- * @returns {String} 
+ * @returns {String}
  */
 function createAuthHeader(token) {
   return {
@@ -83,7 +83,7 @@ function createAuthHeader(token) {
   };
 }
 
-/**  
+/**
 * Check if the system is under maintenance.
  * Return true if value of statusCode is 503 and retryAfter is greater than 0 else return false.
  *
@@ -155,6 +155,7 @@ export async function fetchByName(name) {
   logger().debug('Fetching a status record by name', { name });
 
   const result = await new Status({ name }).fetch();
+
 
   if (!result) {
     throw new Boom.notFound('Status not found');
