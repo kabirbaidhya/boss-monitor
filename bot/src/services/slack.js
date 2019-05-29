@@ -1,4 +1,4 @@
-import axios from 'axios';
+import rp from 'request-promise';
 
 import * as config from '../config/config';
 import { sendResponse } from '../utils/postResponse';
@@ -12,11 +12,10 @@ import { preparePayload } from '../utils/preparePayload';
 export async function notify(requestBody) {
   const channelInfo = config.get().notifications.slack.channels.filter(channel => channel.channel_id === requestBody.channel_id);
   const fetchedStatus = await fetchStatus(channelInfo);
-  const promises = [];
-  fetchedStatus.forEach(async status => {
+  const promises = fetchedStatus.map(status => {
     const payload = preparePayload(status);
 
-    promises.push(sendResponse(requestBody.response_url, payload));
+    return sendResponse(requestBody.response_url, payload);
   });
 
   return Promise.all(promises);
@@ -25,13 +24,14 @@ export async function notify(requestBody) {
 /**
  * Fetch all latest statuses.
  *
- * @param {object} requestBody
+ * @param {object} channelInfo
  * @returns {array}
  */
 async function fetchStatus(channelInfo) {
-  const fetchedStatus = await axios.get(channelInfo[0].api_endpoint);
-
-  const filteredStatus = filterStatus(fetchedStatus, channelInfo);
+  const fetchedStatus = await rp.get({
+    url: `${channelInfo[0].api_endpoint}`
+  });
+  const filteredStatus = filterStatus(JSON.parse(fetchedStatus), channelInfo);
 
   return filteredStatus;
 }
@@ -39,12 +39,12 @@ async function fetchStatus(channelInfo) {
 /**
  * Filter required status based on the slack channel id.
  *
- * @param {object} requestBody
+ * @param {object} channelInfo
  * @param {array} fetchedStatus
  * @returns {array}
  */
 function filterStatus(fetchedStatus, channelInfo) {
-  const filteredStatus = fetchedStatus.data.filter(
+  const filteredStatus = fetchedStatus.filter(
     status => channelInfo[0].service_name.toLowerCase() === JSON.parse(status.service).name.toLowerCase()
   );
 

@@ -6,8 +6,8 @@ import * as http from '../utils/http';
 import Status from '../models/Status';
 import * as tokenService from '../services/token';
 
-export const STATUS_UP = 'up';
-export const STATUS_DOWN = 'down';
+export const STATUS_UP = 'Up';
+export const STATUS_DOWN = 'Down';
 export const AUTH_TYPE_BASIC = 'Basic';
 export const STATUS_UNDER_MAINTENANCE = 'Under Maintenance';
 export const FALLBACK_HTTP_METHOD = http.HEAD;
@@ -155,6 +155,7 @@ export async function fetchByName(name) {
   logger().debug('Fetching a status record by name', { name });
 
   const result = await new Status({ name }).fetch();
+
 
   if (!result) {
     throw new Boom.notFound('Status not found');

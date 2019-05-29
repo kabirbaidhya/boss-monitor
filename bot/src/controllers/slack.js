@@ -1,5 +1,5 @@
-import * as slackService from '../services/slack';
 import logger from '../utils/logger';
+import * as slackService from '../services/slack';
 
 /**
  * Confirm receipt by sending HTTP 200 response to the original request.
@@ -8,11 +8,12 @@ import logger from '../utils/logger';
  * @param {object} req
  * @param {object} res
  */
-export function getStatus(req, res) {
+export async function getStatus(req, res) {
   res.json({ response_type: 'in_channel' });
-  slackService.notify(req.body).then(response => {
+  try {
+    const response = await slackService.notify(req.body);
     logger().info('Status sent to slack', response);
-  }).catch(err => {
+  } catch (err) {
     logger().error('Error while sending status to slack', err);
-  });
+  }
 }

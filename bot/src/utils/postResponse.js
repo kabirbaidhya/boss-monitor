@@ -7,9 +7,9 @@ import rp from 'request-promise';
  * @param {object} payload
  */
 export function sendResponse(responseUrl, payload) {
-  return rp.post({
-    url: `${responseUrl}`,
-    body: payload,
-    json: true
-  });
+    return rp.post({
+      url: `${responseUrl}`,
+      body: payload,
+      json: true
+    });
 }

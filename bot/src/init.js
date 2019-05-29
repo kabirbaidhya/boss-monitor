@@ -15,7 +15,6 @@ export default async function init(callback) {
     callback(config);
 
     return;
-    // Start the app
   } catch (err) {
     process.stderr.write('An error occurred: \n' + err);
   }

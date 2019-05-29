@@ -23,7 +23,7 @@ export function center(text, width, fillchar = ' ') {
   const paddingRight = remainingSpace - paddingLeft;
 
   // Add padding left & right using the fillchar character.
-  const result = fillchar.repeat(paddingLeft) + orignalText + fillchar.repeat(paddingRight);
+  const result = `${fillchar.repeat(paddingLeft)} ${orignalText} ${fillchar.repeat(paddingRight)}`;
 
   return result;
 }

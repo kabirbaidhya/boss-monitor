@@ -1,4 +1,3 @@
-import * as slack from './slack';
 import * as email from './email';
 import * as twilio from './twilio';
 import logger from '../utils/logger';
@@ -8,7 +7,6 @@ import * as websocket from './websocket';
  * Available Notifier services.
  */
 const notifiers = {
-  slack,
   email,
   twilio,
   websocket

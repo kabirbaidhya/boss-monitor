@@ -2,7 +2,8 @@ import Promise from 'bluebird';
 
 global.Promise = Promise;
 
-import Yaml from 'yamljs';
+import yaml from 'yamljs';
+
 import cache from 'memory-cache';
 import merge from 'webpack-merge';
 
@@ -20,7 +21,7 @@ export const DEFAULT_FILENAME = 'chill.yml';
 export function resolve(filename = DEFAULT_FILENAME) {
   process.stdout.write(`Loading config file: ${filename}\n`);
 
-  const loadedConfig = Yaml.load(filename);
+  const loadedConfig = yaml.load(filename);
   const config = merge(defaultConfig, loadedConfig);
 
   // Add monitoring config as defaults for each service configuration.

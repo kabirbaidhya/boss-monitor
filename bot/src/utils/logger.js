@@ -1,6 +1,7 @@
 import fs from 'fs';
 import winston from 'winston';
 import 'winston-daily-rotate-file';
+
 import * as str from '../utils/string';
 import * as config from '../config/config';
 
