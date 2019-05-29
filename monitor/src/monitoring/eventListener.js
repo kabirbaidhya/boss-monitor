@@ -54,7 +54,7 @@ async function handleStatusChange(params) {
   }
 
   // Send notifications
-  // notifier.notify(notification);
+  notifier.notify(notification);
 
   // Persist to database
   await synchronize();

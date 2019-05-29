@@ -9,7 +9,7 @@ import { preparePayload } from '../utils/preparePayload';
  */
 export function sendNotification(params) {
   const { baseUrl } = config.get().notifications && config.get().notifications.slack;
-  const promises = config.get().notifications.slack & config.get().notifications.slack.channels.map(channel => {
+  const promises = config.get().notifications.slack && config.get().notifications.slack.channels && config.get().notifications.slack.channels.map(channel => {
     if (channel.service_name.toLowerCase() === params.name.toLowerCase()) {
       const payload = preparePayload(params);
       return sendResponse(`${baseUrl}${channel.slack_endpoint}`, payload);
