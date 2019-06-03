@@ -17,6 +17,7 @@ export function verify(req) {
 
     if (!signingSecret) {
       reject(HttpStatus.NOT_FOUND);
+
       return;
     }
 
@@ -26,6 +27,7 @@ export function verify(req) {
 
     if (checkTime.calculateTimeDifference(timeStamp) > 300) {
       reject(HttpStatus.BAD_REQUEST);
+
       return;
     }
 
@@ -37,6 +39,7 @@ export function verify(req) {
       resolve();
     }
     reject(HttpStatus.UNAUTHORIZED);
+
     return;
   });
 }

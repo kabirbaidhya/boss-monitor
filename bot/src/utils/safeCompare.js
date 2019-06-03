@@ -1,4 +1,5 @@
 import crypto from 'crypto';
+
 /**
  * Compares if calculatedSignature and slackSignature are equal without leaking timing information.
  *
