@@ -15,7 +15,7 @@ const messages = {
 
   [NOT_REGISTERED]: {
     title: 'Not Registered',
-    text: name => `Current channel has not been registered in chill.`
+    text: () => `Current channel has not been registered in chill.`
   }
 };
 

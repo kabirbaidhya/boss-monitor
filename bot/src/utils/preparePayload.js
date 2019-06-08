@@ -8,7 +8,6 @@ import * as config from '../config/config';
  * @returns {object}
  */
 export function preparePayload(statusToBePrepared) {
-  console.log(statusToBePrepared);
   const { status, service } = statusToBePrepared;
   const { text } = messages[JSON.parse(status).name.toLowerCase()];
   const { color } = config.get().notifications.slack;
