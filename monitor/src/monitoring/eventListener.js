@@ -41,17 +41,6 @@ async function handleStatusChange(params) {
   } else {
     logger().info(`${serviceName} is ${status}`);
   }
-  if (config.get().notifications.slack.enabled) {
-    rp.post({
-      url: config.get().bot.baseUrl,
-      body: notification,
-      json: true
-    }).then(response => {
-      logger().info('Notification sent to slack', response);
-    }).catch(err => {
-      logger().error('Error while sending auto-notification to slack', err)
-    });
-  }
 
   // Send notifications
   notifier.notify(notification);

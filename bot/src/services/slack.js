@@ -11,6 +11,16 @@ import { preparePayload } from '../utils/preparePayload';
  */
 export async function notify(requestBody) {
   const channelInfo = config.get().notifications.slack.channels.filter(channel => channel.channel_id === requestBody.channel_id);
+
+  if (!channelInfo.length) {
+    const payload = preparePayload({
+      "status": `{ "name": "not_registered" }`,
+      "service": `{ "name": "Current channel has not been registered in chill." }`
+    });
+
+    return sendResponse(requestBody.response_url, payload);
+  }
+
   const fetchedStatus = await fetchStatus(channelInfo);
   const promises = fetchedStatus.map(status => {
     const payload = preparePayload(status);
@@ -19,6 +29,7 @@ export async function notify(requestBody) {
   });
 
   return Promise.all(promises);
+  I
 }
 
 /**

@@ -40,7 +40,8 @@ export default {
       baseUrl: 'https://hooks.slack.com/services',
       color: {
         up: 'good',
-        down: 'danger'
+        down: 'danger',
+        not_registered: 'danger'
       },
     },
     twilio: {

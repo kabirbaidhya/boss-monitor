@@ -1,5 +1,6 @@
 const STATUS_UP = 'up';
 const STATUS_DOWN = 'down';
+const NOT_REGISTERED = 'not_registered';
 
 const messages = {
   [STATUS_UP]: {
@@ -10,6 +11,11 @@ const messages = {
   [STATUS_DOWN]: {
     title: 'Service is Down',
     text: name => `${name} is down.`
+  },
+
+  [NOT_REGISTERED]: {
+    title: 'Not Registered',
+    text: name => `Current channel has not been registered in chill.`
   }
 };
 
