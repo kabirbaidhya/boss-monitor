@@ -32,7 +32,7 @@ export default {
         down: 'danger'
       },
       endpoint: null,
-      baseUrl: 'https://hooks.slack.com/services'
+      baseUrl: 'https://slack.com/api/chat.postMessage'
     },
     twilio: {
       enabled: false,
