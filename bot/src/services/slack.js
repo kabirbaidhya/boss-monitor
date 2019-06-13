@@ -20,23 +20,22 @@ export async function notify(requestBody) {
     });
 
     promises.push(sendResponse(requestBody.response_url, payload));
-
-    return;
   }
-  
-  channelInfo.forEach(async channel => {
-    if (channel) {
-      const fetchedStatus = await fetchStatus(channel);
-      promises = fetchedStatus.map(status => {
-        const payload = preparePayload(status);
+  else {
+    channelInfo.forEach(async channel => {
 
-        return sendResponse(requestBody.response_url, payload);
-      });
-    }
-  });
+      if (channel) {
+        const fetchedStatus = await fetchStatus(channel);
+        promises = fetchedStatus.map(status => {
+          const payload = preparePayload(status);
 
-  return Promise.all(promises);
-  I
+          return sendResponse(requestBody.response_url, payload);
+        });
+      }
+    });
+  }
+
+  return Promise.all(promises); I
 }
 
 /**
