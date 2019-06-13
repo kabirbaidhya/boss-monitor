@@ -20,12 +20,13 @@ notifications:
     port: 8080
   slack:
     enabled: false
+    token: SLACK_TOKEN
     signingSecret: SLACK_SIGNING_SECRET
+    channel_id: SLACK_CHANNEL_ID
     channels:
       - service_name: SERVICE_NAME
         channel_id: SLACK_CHANNEL_ID
         api_endpoint: CHILL_API_ENDPOINT
-        endpoint: SLACK_WEBHOOK_ENDPOINT
   twilio:
     enabled: false
     sender: SENDING_NUMBER
@@ -47,10 +48,10 @@ notifications:
 services:
   - name: 'Localhost'
     url: 'http://127.0.0.1'
-    
+
   - name: 'chill'
     url: 'http://test.com/'
-    auth:  
+    auth:
       userName: chill
       password: justchill
 
@@ -65,7 +66,7 @@ dashboard:
 
 api:
   port: 8000
-  
+
 bot:
   port: 8001
   baseUrl: 'BOT_BASE_URL/notify'
