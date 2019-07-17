@@ -25,7 +25,7 @@ export async function fetchServiceStatuses() {
  * @param {Object} status
  * @returns {Object}
  */
-export function checkStatus(status) {
+export function getServiceStatus(status) {
   let statusName = status && status.name && status.name.toLowerCase();
 
   return {
@@ -41,7 +41,7 @@ export function checkStatus(status) {
  */
 export function getServiceCounts(services) {
   let total = services.length;
-  let totalUp = services.filter((service) => checkStatus(service).up).length;
+  let totalUp = services.filter((service) => getServiceStatus(service).up).length;
 
   return {
     total,
@@ -56,10 +56,10 @@ export function getServiceCounts(services) {
  * @returns {Number} outage
  */
 export function getOutageLevel(services) {
-  if (services.every(service => checkStatus(service).up)) {
+  if (services.every(service => getServiceStatus(service).up)) {
     return outage.NONE;
   }
-  if (services.every(service => checkStatus(service).down)) {
+  if (services.every(service => getServiceStatus(service).down)) {
     return outage.ALL;
   }
 

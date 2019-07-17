@@ -20,7 +20,7 @@ const Incident = ({ data }) => {
   const timestamp = time.toString();
   const formattedTime = getFormattedDate(time, 'time');
   const tooltipId = `tooltip-incident-${timestamp}`;
-  const serviceStatus = statusService.checkStatus(status);
+  const serviceStatus = statusService.getServiceStatus(status);
 
   const incidentStatusClass = classNames({
     'status-update': true,

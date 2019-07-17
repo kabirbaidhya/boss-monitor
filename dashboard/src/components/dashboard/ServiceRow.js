@@ -3,7 +3,7 @@ import moment from 'moment';
 import PropTypes from 'prop-types';
 import ToolTip from 'react-tooltip';
 
-import { checkStatus, getServiceParams } from '../../services/status';
+import { getServiceStatus, getServiceParams } from '../../services/status';
 
 /**
  * Render each service row.
@@ -15,7 +15,7 @@ const ServiceRow = ({ data }) => {
   const status = JSON.parse(data.status);
 
   const tooltipId = `tooltip-service-${service.id}`;
-  const { message, icon } = getServiceParams(checkStatus(status));
+  const { message, icon } = getServiceParams(getServiceStatus(status));
 
   return (
     <div className="components-item">
