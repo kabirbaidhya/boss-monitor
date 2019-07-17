@@ -22,7 +22,7 @@ const ServiceRow = ({ data }) => {
       <div className="col-one component-name">{service.name}</div>
 
       <div className="col col-two list-item-tooltip">
-        <img src={icon} data-tip aria-hidden="true" data-for={tooltipId} />
+        <img src={icon} className="status-icon" data-tip aria-hidden="true" data-for={tooltipId} />
       </div>
       <ToolTip place="top" id={tooltipId} type="dark">
         <span>{message} since {moment(status.createdAt).fromNow()}</span>
