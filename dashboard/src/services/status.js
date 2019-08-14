@@ -5,9 +5,7 @@ import http from '../utils/http';
 
 import * as statuses from '../constants/statuses';
 import * as outage from '../constants/enums/outage';
-
-import * as statusUpIcon from '../../public/images/success.png';
-import * as statusDownIcon from '../../public/images/cancel.png';
+import * as icons from '../constants/icons';
 
 /**
  * Get the latest status of the services.
@@ -22,13 +20,17 @@ export async function fetchServiceStatuses() {
 }
 
 /**
- * Check if a service is up by it's status.
+ * Check if a service is up/down/under maintenance by it's status.
  *
- * @param {Object} service
- * @returns {Boolean}
+ * @param {Object} status
+ * @returns {Object}
  */
-export function isUp(service) {
-  return check(service, statuses.STATUS_UP);
+export function getServiceStatus(status) {
+  let statusName = status && status.name && status.name.toLowerCase();
+
+  return {
+    [statusName]: true
+  };
 }
 
 /**
@@ -39,13 +41,11 @@ export function isUp(service) {
  */
 export function getServiceCounts(services) {
   let total = services.length;
-  let totalUp = services.filter(isUp).length;
-  let totalDown = total - totalUp;
+  let totalUp = services.filter((service) => getServiceStatus(service).up).length;
 
   return {
     total,
-    totalUp,
-    totalDown
+    totalUp
   };
 }
 
@@ -56,10 +56,10 @@ export function getServiceCounts(services) {
  * @returns {Number} outage
  */
 export function getOutageLevel(services) {
-  if (services.every(service => isUp(service))) {
+  if (services.every(service => getServiceStatus(service).up)) {
     return outage.NONE;
   }
-  if (services.every(service => !isUp(service))) {
+  if (services.every(service => getServiceStatus(service).down)) {
     return outage.ALL;
   }
 
@@ -72,29 +72,23 @@ export function getOutageLevel(services) {
  * @param {Boolean} isOperational
  * @returns {Object}
  */
-export function getServiceParams(isOperational) {
-  if (!isOperational) {
+export function getServiceParams(status) {
+  if (status.down) {
     return {
-      icon: statusDownIcon,
+      icon: icons.DOWN,
       message: statuses.STATUS_DOWN_MESSAGE
+    };
+  } else if (status.up) {
+    return {
+      icon: icons.UP,
+      message: statuses.STATUS_UP_MESSAGE
     };
   }
 
   return {
-    icon: statusUpIcon,
-    message: statuses.STATUS_UP_MESSAGE
+    icon: icons.UNDER_MAINTENANCE,
+    message: statuses.STATUS_UNDER_MAINTENANCE_MESSAGE
   };
-}
-
-/**
- * Check if the status matches the provided status.
- *
- * @param {Object} status
- * @param {String} statusType
- * @returns {boolean}
- */
-export function check(status, statusType) {
-  return status && status.name && status.name.toLowerCase() === statusType;
 }
 
 /**
