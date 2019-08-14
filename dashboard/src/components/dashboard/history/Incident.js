@@ -24,10 +24,10 @@ const Incident = ({ data }) => {
 
   const incidentStatusClass = classNames({
     'status-update': true,
+    'status-down': serviceStatus.down,
     'status-success': serviceStatus.up,
     'status-pending': serviceStatus.pending,
-    'status-down': serviceStatus.down,
-    'status-under-maintenance':serviceStatus['under maintenance']
+    'status-under-maintenance': serviceStatus['under maintenance']
   });
 
   return (
