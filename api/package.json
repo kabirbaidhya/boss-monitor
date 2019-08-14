@@ -47,7 +47,7 @@
     "http-status-codes": "^1.0.6",
     "joi": "^10.1.0",
     "knex": "^0.12.6",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "memory-cache": "^0.1.6",
     "morgan": "^1.9.1",
     "npm-run-all": "^4.0.2",
