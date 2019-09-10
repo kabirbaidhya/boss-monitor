@@ -37,7 +37,7 @@ export function resolve(filename = DEFAULT_FILENAME) {
  */
 export function get() {
   if (!cache.get(CACHE_KEY)) {
-    return resolve();
+    return resolve(process.env.CHILL_CONFIG);
   }
 
   return cache.get(CACHE_KEY);
