@@ -18,11 +18,16 @@
 **Bug Fixes**
 
 - Minor design fixes for the status page [\#81](https://github.com/leapfrogtechnology/chill/pull/81) [[bug](https://github.com/leapfrogtechnology/chill/labels/bug)] [[design](https://github.com/leapfrogtechnology/chill/labels/design)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)] ([manisacharya](https://github.com/manisacharya))
+- Icons are not displayed on the global status bar [\#80](https://github.com/leapfrogtechnology/chill/issues/80) [[bug](https://github.com/leapfrogtechnology/chill/labels/bug)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)]
+- Tooltip messages are incorrect [\#78](https://github.com/leapfrogtechnology/chill/issues/78) [[bug](https://github.com/leapfrogtechnology/chill/labels/bug)]
 
 **Changes**
 
 - Hotfix - Fix icon on the top Header section [\#85](https://github.com/leapfrogtechnology/chill/pull/85) [[design](https://github.com/leapfrogtechnology/chill/labels/design)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)] ([manisacharya](https://github.com/manisacharya))
 - Design tweaks and icon changes [\#84](https://github.com/leapfrogtechnology/chill/pull/84) [[design](https://github.com/leapfrogtechnology/chill/labels/design)] ([manisacharya](https://github.com/manisacharya))
+
+**Closed Issues**
+- Design fixes [\#77](https://github.com/leapfrogtechnology/chill/issues/77) [[design](https://github.com/leapfrogtechnology/chill/labels/design)] [[improvement](https://github.com/leapfrogtechnology/chill/labels/improvement)] [[status-page](https://github.com/leapfrogtechnology/chill/labels/status-page)]
 
 ## [v1.1.0-alpha.1](https://github.com/leapfrogtechnology/chill/tree/v1.1.0-alpha.1) (2019-05-06)
 [Full Changelog](https://github.com/leapfrogtechnology/chill/compare/v1.0.0...v1.1.0-alpha.1)

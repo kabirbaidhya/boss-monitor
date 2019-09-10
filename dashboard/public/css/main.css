@@ -230,6 +230,9 @@ a:hover {
 .status-pending .state {
   color: #fec808;
 }
+.status-under-maintenance .state {
+  color: #D3D3D3;
+}
 /* Responsive media */
 @media (min-width: 576px) {
   .container {

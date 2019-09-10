@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import ToolTip from 'react-tooltip';
 
 import { getFormattedDate } from '../../../utils/date';
-import * as statuses from '../../../constants/statuses';
 import * as statusService from '../../../services/status';
 
 /**
@@ -21,12 +20,14 @@ const Incident = ({ data }) => {
   const timestamp = time.toString();
   const formattedTime = getFormattedDate(time, 'time');
   const tooltipId = `tooltip-incident-${timestamp}`;
+  const serviceStatus = statusService.getServiceStatus(status);
 
   const incidentStatusClass = classNames({
     'status-update': true,
-    'status-success': statusService.check(status, statuses.STATUS_UP),
-    'status-pending': statusService.check(status, statuses.STATUS_PENDING),
-    'status-down': statusService.check(status, statuses.STATUS_DOWN)
+    'status-down': serviceStatus.down,
+    'status-success': serviceStatus.up,
+    'status-pending': serviceStatus.pending,
+    'status-under-maintenance': serviceStatus['under maintenance']
   });
 
   return (

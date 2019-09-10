@@ -44,7 +44,7 @@ export async function checkHostStatus(service, method = http.OPTIONS) {
       );
 
       return checkHostStatus(service, FALLBACK_HTTP_METHOD);
-    } else if (checkUnderMaintenance(statusCode, err.headers && parseInt(err.headers['retry-after']))) {
+    } else if (checkUnderMaintenance(statusCode, err && err.response && err.response.headers && parseInt(err.response.headers['retry-after']))) {
       logger().debug(
         `Received ${statusCode} on service ${name}. Service ${name} is under maintenance.`
       );
