@@ -1,17 +1,18 @@
 <div align="center">
-  <a href="https://github.com/leapfrogtechnology/chill">
-    <img width="128px" src="chill.png"/> 
+  <a href="https://github.com/alesh-dulal/rupaiya">
+    <img width="128px" src="rupaiya.png"/> 
   </a>
   <br/>
   
-# chill
+# Rupaiya
+Rupaiya is a web application which keeps track of daily expenses and helps user in managing their daily expenses effectively and encourages in saving rather than expenses.
 
-[![Build Status](https://img.shields.io/travis/leapfrogtechnology/chill.svg?style=flat-square)](https://travis-ci.org/leapfrogtechnology/chill)
-[![Codecov](https://img.shields.io/codecov/c/github/leapfrogtechnology/chill.svg?style=flat-square)](https://codecov.io/github/leapfrogtechnology/chill?branch=master)
-[![License](https://img.shields.io/github/license/leapfrogtechnology/chill.svg?style=flat-square)](LICENSE)
+[![Build Status](https://img.shields.io/travis/alesh-dulal/rupaiya.svg?style=flat-square)](https://travis-ci.org/alesh-dulal/rupaiya)
+[![Codecov](https://img.shields.io/codecov/c/github/alesh-dulal/rupaiya.svg?style=flat-square)](https://codecov.io/github/alesh-dulal/rupaiya?branch=master)
+[![License](https://img.shields.io/github/license/alesh-dulal/rupaiya.svg?style=flat-square)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](CONTRIBUTING.md)
 
-Don't Panic. Just Chill!
+Don't Panic. Just rupaiya!
 
 </div>
 
