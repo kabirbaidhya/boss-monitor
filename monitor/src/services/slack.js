@@ -42,13 +42,14 @@ export async function notify(params) {
  */
 function preparePayload(params) {
   const { status, name } = params;
-  const { text } = messages[status];
+  const { text } = messages[JSON.parse(status).name];
   const { color } = config.get().notifications.slack;
 
   return {
+    channel: config.get().notifications.slack.channel_id,
     attachments: [
       {
-        color: color[status],
+        color: color[JSON.parse(status).name.toLowerCase()],
         text: text(name, params.downtime)
       }
     ]
@@ -62,13 +63,17 @@ function preparePayload(params) {
  * @returns {Promise}
  */
 function sendNotification(payload) {
-  const { baseUrl, endpoint } = config.get().notifications.slack;
+  const { baseUrl } = config.get().notifications.slack;
 
   logger().info('Sending notification to slack.');
   logger().debug('Slack Payload:', payload);
 
-  return rp.post({
-    url: `${baseUrl}${endpoint}`,
+  rp.post({
+    url: `${baseUrl}`,
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${config.get().notifications.slack.token}`
+    },
     body: payload,
     json: true
   });

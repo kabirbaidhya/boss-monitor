@@ -1,5 +1,8 @@
 import moment from 'moment';
+import rp from 'request-promise';
+
 import logger from '../utils/logger';
+import * as config from '../config/config';
 import * as events from '../services/events';
 import { STATUS_UP } from '../services/status';
 import * as notifier from '../services/notifier';

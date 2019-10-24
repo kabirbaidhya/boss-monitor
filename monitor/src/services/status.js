@@ -156,6 +156,7 @@ export async function fetchByName(name) {
 
   const result = await new Status({ name }).fetch();
 
+
   if (!result) {
     throw new Boom.notFound('Status not found');
   }

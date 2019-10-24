@@ -13,12 +13,21 @@ export default {
   db: {
     client: 'sqlite3',
     connection: {
-      filename: './chill.db'
+      filename: null
     },
     useNullAsDefault: true
   },
+  api: {
+    port: 8000
+  },
+  dashboard: {
+    logo: null,
+    logoHeight: '80px',
+    title: 'Chill Dashboard',
+    apiBaseUrl: null,
+    websocketBaseUrl: null
+  },
   monitoring: {
-    maxRetry: 3,
     method: 'OPTIONS',
     minInterval: 1000,
     maxInterval: 10000,
@@ -27,12 +36,13 @@ export default {
   notifications: {
     slack: {
       enabled: false,
+      endpoint: null,
+      baseUrl: 'https://hooks.slack.com/services',
       color: {
         up: 'good',
-        down: 'danger'
+        down: 'danger',
+        not_registered: 'danger'
       },
-      endpoint: null,
-      baseUrl: 'https://slack.com/api/chat.postMessage'
     },
     twilio: {
       enabled: false,
@@ -56,5 +66,8 @@ export default {
       templateDir: path.resolve(__dirname, '../common/templates/')
     }
   },
-  services: []
+  services: [],
+  bot: {
+    port: 8001
+  }
 };
