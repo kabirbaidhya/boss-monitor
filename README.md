@@ -52,13 +52,14 @@ Don't Panic. Just Chill!
       filename: '/path/to/monitor/chill.db'
   ```
 
-* Run migrations from within `monitor` folder.
+* Run migrations from the `monitor` folder.
 
   ```
+  $ cd monitor
   $ yarn migrate
   ```
 
-* To run locally, run this command in `monitor`, `api` and `dashboard` folder.
+* To run locally, run this command from `monitor`, `api` and `dashboard` directories.
 
   ```bash
   $ yarn start
