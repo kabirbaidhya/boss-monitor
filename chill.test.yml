@@ -5,7 +5,7 @@ db:
   client: 'sqlite3'
   useNullAsDefault: true
   connection:
-    filename: './chill.db'
+    filename: './monitor/chill.db'
 
 monitoring:
   maxRetry: 3
@@ -42,10 +42,10 @@ notifications:
 services:
   - name: 'Localhost'
     url: 'http://127.0.0.1'
-    
+
   - name: 'chill'
     url: 'http://test.com/'
-    auth:  
+    auth:
       userName: chill
       password: justchill
 
