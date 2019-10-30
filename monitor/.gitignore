@@ -1,0 +1,11 @@
+# Folders
+dist
+coverage
+node_modules
+public/build
+
+# Files
+.env
+*.db
+*.log
+chill.yml

@@ -30,6 +30,24 @@ Please report unacceptable behavior to [opensource@lftechnology.com](mailto:open
 
 To setup chill on your machine go through the [installation guide](INSTALL.md).
 
+### Generate Changelog
+
+Generate changelog using the following command:
+
+```bash
+$ NEXT=VERSION scripts/release.sh changelog
+```
+
+**Note**: This requires [`github_changelog_generator`](https://github.com/skywinder/github-changelog-generator) to be installed.
+
+### Release
+
+Generate changelog and publish a new tag using the following command:
+
+```bash
+$ NEXT=VERSION scripts/release.sh bump
+```
+
 ## How Can I Contribute?
 
 ### Reporting Bugs

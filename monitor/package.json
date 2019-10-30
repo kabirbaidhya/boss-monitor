@@ -1,0 +1,97 @@
+{
+  "name": "chill-cli",
+  "version": "1.1.0",
+  "description": "Chill - The monitoring tool.",
+  "authors": [
+    "Saugat Acharya <mesaugat@gmail.com>",
+    "Kabir Baidhya <kabirbaidhya@gmail.com>"
+  ],
+  "license": "MIT",
+  "bin": {
+    "chill": "bin/chill"
+  },
+  "files": [
+    "bin/",
+    "dist/",
+    "chill.yml.dist",
+    "knexfile.js"
+  ],
+  "scripts": {
+    "start": "run-s start:dev",
+    "start:dev": "nodemon --exec babel-node src/index.js",
+    "clean": "rimraf dist/",
+    "lint": "eslint src test",
+    "babel": "babel src/ -d dist/",
+    "build": "run-s lint clean babel",
+    "lint:fix": "eslint src test --fix",
+    "codecov": "cat coverage/*/lcov.info | codecov",
+    "test": "NODE_ENV=test mocha",
+    "test:watch": "NODE_ENV=test mocha --watch",
+    "test:coverage": "NODE_ENV=test istanbul cover node_modules/mocha/bin/_mocha -- --recursive --require @babel/register --colors --reporter spec test",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "prepack": "npm run build",
+    "prepare": "npm run build",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "@babel/runtime": "^7.3.1",
+    "bookshelf": "^0.10.3",
+    "bookshelf-camelcase": "^1.1.4",
+    "handlebars": "^4.0.6",
+    "http-status-codes": "^1.1.6",
+    "knex": "^0.19.5",
+    "memory-cache": "^0.1.6",
+    "moment": "^2.17.1",
+    "moment-precise-range-plugin": "^1.2.0",
+    "morgan": "^1.7.0",
+    "nodemailer": "^4.0.1",
+    "request": "^2.72.0",
+    "request-promise": "^4.1.0",
+    "sqlite3": "^4.0.6",
+    "twilio": "^2.11.1",
+    "webpack-merge": "^4.1.0",
+    "winston": "^2.3.0",
+    "winston-daily-rotate-file": "^1.4.6",
+    "ws": "^3.0.0",
+    "yamljs": "^0.2.8",
+    "yargs": "^7.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.0.0",
+    "@babel/core": "^7.0.0",
+    "@babel/node": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.2.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-dynamic-import-node": "^1.0.2",
+    "chai": "^3.5.0",
+    "chai-subset": "^1.5.0",
+    "codecov": "^2.1.0",
+    "eslint": "^5.10.0",
+    "eslint-config-leapfrog": "^2.0.0-beta.0",
+    "faker": "^4.1.0",
+    "husky": "^0.14.3",
+    "istanbul": "1.1.0-alpha.1",
+    "lint-staged": "^4.0.4",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.18.9",
+    "npm-run-all": "^3.1.1",
+    "proxyquire": "^1.7.11",
+    "rimraf": "^2.5.4",
+    "shelljs": "^0.7.7",
+    "sinon": "^2.1.0"
+  },
+  "engines": {
+    "node": ">= 6.9.0",
+    "npm": ">= 3.10.8"
+  }
+}
