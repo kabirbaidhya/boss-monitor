@@ -6,15 +6,17 @@ DEFAULT_NAME="chill"
 DEFAULT_VERSION="v1.0.0-beta.1"
 CHILL_CONFIG="$(pwd)/chill/chill.yml"
 
-FOLDER_CHILL_MONITOR="chill"
-FOLDER_CHILL_REST_API="chill-rest-api"
-FOLDER_CHILL_DASHBOARD="chill-dashboard"
+FOLDER_CHILL_MONITOR="monitor"
+FOLDER_CHILL_REST_API="api"
+FOLDER_CHILL_DASHBOARD="dashboard"
+FOLDER_CHILL_CORE="core"
 
 REQUIRED_PROGRAMS=("node" "yarn" "git" "pm2")
 
-LINK_CHILL_MONITOR="https://github.com/leapfrogtechnology/chill.git"
-LINK_CHILL_REST_API="https://github.com/leapfrogtechnology/chill-rest-api.git"
-LINK_CHILL_DASHBOARD="https://github.com/leapfrogtechnology/chill-dashboard.git"
+LINK_CHILL="https://github.com/leapfrogtechnology/chill.git"
+# LINK_CHILL_MONITOR="https://github.com/leapfrogtechnology/chill.git"
+# LINK_CHILL_REST_API="https://github.com/leapfrogtechnology/chill-rest-api.git"
+# LINK_CHILL_DASHBOARD="https://github.com/leapfrogtechnology/chill-dashboard.git"
 
 
 ##### Variables #####
@@ -39,7 +41,7 @@ replace_string() {
 
 # Check the existence of the program.
 has_program() {
-  if type $1 > '/dev/null'; then 
+  if type $1 > '/dev/null'; then
     return 0;
   fi
 
@@ -56,7 +58,8 @@ install_packages() {
 # Start the build script for given repository.
 build() {
   cd $1;
-  CHILL_CONFIG=$CHILL_CONFIG yarn build;
+  # CHILL_CONFIG=$CHILL_CONFIG yarn build;
+  CHILL_CONFIG=yarn build;
   cd -;
 }
 
@@ -80,9 +83,9 @@ read_inputs() {
   read -p "Domain name: (eg. chill.lftechnology.com) " domainName
   read -p "Would you like to enable Slack notifications?: (y/n) " enableNotification
 
-  if [ "$enableNotification" = "y" ]; then 
+  if [ "$enableNotification" = "y" ]; then
     slackEnabled=true;
-  else 
+  else
     slackEnabled=false;
   fi
 
@@ -99,7 +102,7 @@ read_inputs() {
     serviceNames+=($serviceName)
 
     read -p "Would you like to add another service?: (y/n) " addNewService
-    if ! [ "$addNewService" = "y" ]; then 
+    if ! [ "$addNewService" = "y" ]; then
       break
     fi
   done
@@ -118,16 +121,14 @@ check_programs() {
 
 # Clone all the repositories required for Chill.
 clone_repositories() {
-  git clone $LINK_CHILL_MONITOR;
-  git clone $LINK_CHILL_REST_API;
-  git clone $LINK_CHILL_DASHBOARD;
+  git clone $LINK_CHILL;
+  # git clone $LINK_CHILL_REST_API;
+  # git clone $LINK_CHILL_DASHBOARD;
 }
 
 # Switch chill version to the one supplied by the user.
 switch_chill_version() {
-  checkout $FOLDER_CHILL_MONITOR $version;
-  checkout $FOLDER_CHILL_REST_API $version;
-  checkout $FOLDER_CHILL_DASHBOARD $version;
+  checkout $FOLDER_CHILL $version;
 }
 
 # Install all the dependencies for all the repositories.
@@ -135,20 +136,21 @@ install_dependencies() {
   install_packages $FOLDER_CHILL_MONITOR;
   install_packages $FOLDER_CHILL_REST_API;
   install_packages $FOLDER_CHILL_DASHBOARD;
+  install_packages $FOLDER_CHILL_CORE;
 }
 
 # Create a chill config file and add database configuration.
 create_chill_config_file() {
-  cd $FOLDER_CHILL_MONITOR;
+  # cd $FOLDER_CHILL_MONITOR;
 
   # Remove default services in chill.yml.dist and create chill.yml.
   numberOfLines=$(wc -l < chill.yml.dist | xargs)
   head -n $(( numberOfLines - 2 )) chill.yml.dist >> chill.yml
-  
+
   replace_string '8080' $wsPort $CHILL_CONFIG;
-  replace_string './chill.db' "$(pwd)/chill.db" $CHILL_CONFIG;
+  replace_string './monitor/chill.db' "$(pwd)/monitor/chill.db" $CHILL_CONFIG;
   replace_string SLACK_WEBHOOK_ENDPOINT $slackEndpoint $CHILL_CONFIG;
-  
+
   # Replace first occurence of false to provided slack config (good enough for now).
   sed -i '' -e "/false/{s//$slackEnabled/;:a" -e '$!N;$!ba' -e '}' chill.yml
 
@@ -194,6 +196,7 @@ build_services() {
   build $FOLDER_CHILL_MONITOR;
   build $FOLDER_CHILL_REST_API;
   build $FOLDER_CHILL_DASHBOARD;
+  build $FOLDER_CHILL_CORE;
 }
 
 # Start all the services.
@@ -224,7 +227,7 @@ clone_repositories
 switch_chill_version
 install_dependencies
 create_chill_config_file
-create_dot_env_file
+# create_dot_env_file
 migrate_database
 build_services
 start_services
