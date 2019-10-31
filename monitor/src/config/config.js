@@ -5,18 +5,17 @@ import merge from 'webpack-merge';
 import defaultConfig from './default.config';
 
 export const CACHE_KEY = 'config';
-export const DEFAULT_FILENAME = 'chill.yml';
 
 /**
  * Resolve configuration by reading the configuration file.
  *
- * @param {String} [filename=DEFAULT_FILENAME]
  * @returns {Object}
  */
-export function resolve(filename = DEFAULT_FILENAME) {
-  process.stdout.write(`Loading config file: ${filename}\n`);
+export function resolve() {
+  process.stdout.write(`Loading config file: ${process.env.CHILL_CONFIG}\n`);
 
-  const loadedConfig = Yaml.load(filename);
+  const loadedConfig = Yaml.load(process.env.CHILL_CONFIG);
+
   const config = merge(defaultConfig, loadedConfig);
 
   // Add monitoring config as defaults for each service configuration.
