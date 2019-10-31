@@ -1,10 +1,10 @@
 logging:
-  level: error
+  level: info
 
 db:
   client: 'sqlite3'
   connection:
-    filename: './chill.db'
+    filename: './monitor/chill.db'
 
 monitoring:
   maxRetry: 3
