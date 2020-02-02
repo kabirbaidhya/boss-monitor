@@ -22,7 +22,7 @@ Don't Panic. Just Chill!
 * Clone the repository.
 
   ```bash
-  $ git clone git@github.com:laudio/web-app.git
+  $ git clone git@github.com:leapfrogtechnology/chill.git
   ```
 
 * Navigate to every folder `api`, `monitor`, `dashboard`, `core` and install the dependencies.
