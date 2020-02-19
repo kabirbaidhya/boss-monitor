@@ -54,7 +54,7 @@
     "babel-loader": "^8.0.5",
     "babel-plugin-dynamic-import-node": "^2.2.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
-    "codecov": "^3.1.0",
+    "codecov": "^3.6.5",
     "compression": "^1.6.2",
     "cors": "^2.8.1",
     "css-loader": "^2.1.0",
