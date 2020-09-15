@@ -68,7 +68,9 @@ class StatusLog extends db.Model {
   static async fetchLatestStatuses() {
     logger().info('Fetching the latest status');
 
-    const results = await db.knex.raw(statusLogQuery.LATEST_STATUS);
+    const results = await db.knex.raw(
+      statusLogQuery.LATEST_STATUS
+    );
 
     return camelize(results);
   }
